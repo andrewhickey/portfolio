@@ -1,34 +1,26 @@
 import * as React from 'react'
 import Link from 'gatsby-link'
 import styled from 'styled-components'
+import { rhythm } from '../utils/typography'
+
+const HeaderLink = styled(Link)`
+  text-decoration: 'none';
+  margin: '0 ${rhythm(1)}px';
+`
 
 interface HeaderProps {
   siteTitle: string
 }
 const Header = ({ siteTitle }: HeaderProps) => (
-  <div
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
+  <div>
     <div
       style={{
         margin: '0 auto',
         maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          {siteTitle}
-        </Link>
+      <h1>
+        <HeaderLink to="/">{siteTitle}</HeaderLink>
       </h1>
     </div>
   </div>
