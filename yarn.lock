@@ -895,6 +895,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-motion@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@types/react-motion/-/react-motion-0.0.26.tgz#16ba807ae3c4bf3cb67791c91bdfa9074ceb5ec9"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-router-dom@^4.2.5":
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.2.7.tgz#9d36bfe175f916dd8d7b6b0237feed6cce376b4c"
