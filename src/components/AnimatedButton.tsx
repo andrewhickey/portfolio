@@ -11,12 +11,21 @@ class AnimatedButton extends Component {
     this.resizeToText()
   }
 
+  componentDidUpdate() {
+    this.updatePathLength()
+  }
+
+  updatePathLength = () => {
+    const border = this.borderRef.current
+
+    const borderLength = border.getTotalLength()
+    this.setState({ borderLength })
+  }
+
   resizeToText = () => {
     const text = this.textRef.current
-    if (text) {
-      const boundingBox = text.getBBox()
-      this.setState({ width: boundingBox.width, height: boundingBox.height })
-    }
+    const { width, height } = text.getBBox()
+    this.setState({ width, height })
   }
 
   render() {
