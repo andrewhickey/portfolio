@@ -1,0 +1,6 @@
+- Architect complete enterprise grade applications for scale and maintainability.
+- A wide range of Functional and Object Oriented languages including but not limited to, Javascript, PHP, Java.
+- Well versed in working with existing libraries and environments such as Node.js, Laravel, React/Redux, Sass, Less, PostCSS, Webpack and Gulp
+- Familiar with processing terabytes of data using tools such as Hadoop and Spark.
+- Can work with SQL and NoSQL databases to optimise performance.
+- An ability to lead a team, instilling enthusiasm while keeping people focused on a task.

@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Andrew Hickey - Full stack developer',
+    title: 'Andrew Hickey',
   },
   plugins: [
     {
@@ -20,6 +20,14 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: 'src/markdown',
+        name: 'markdown-pages',
+      },
+    },
+    `gatsby-transformer-remark`,
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
   ],
