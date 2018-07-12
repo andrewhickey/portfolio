@@ -2,6 +2,8 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import { Motion, spring } from 'react-motion'
 import ResizeObserver from 'resize-observer-polyfill'
+import { AquariumContext } from '../context/AquariumContext'
+import { Point } from '../utils/lines'
 
 interface AnimatedButtonProps {
   padding?: number
@@ -47,6 +49,12 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     this.setState({ borderLength })
   }
 
+  _handleMouseMove = (updatePoint: (point: Point) => void) => (
+    event: React.MouseEvent<SVGSVGElement>
+  ) => {
+    updatePoint({ x: event.clientX, y: event.clientY })
+  }
+
   _setFocus = () => {
     this.setState({ hasFocus: true })
   }
@@ -64,50 +72,53 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     const targetOffset = hasFocus ? 0 : borderLength
 
     return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={width}
-        height={height}
-        onMouseEnter={this._setFocus}
-        onMouseLeave={this._setBlur}
-      >
-        <Motion
-          defaultStyle={{ dashOffset: borderLength }}
-          style={{ dashOffset: spring(targetOffset) }}
-        >
-          {({ dashOffset }) => (
-            <>
-              <path
-                ref={this.borderRef}
-                d={`M0 0 H${width} V${height} H0 L0 0`}
-                style={{
-                  stroke: 'black',
-                  fill: 'none',
-                  strokeWidth: '4px',
-                  strokeDashoffset: dashOffset,
-                  strokeDasharray: borderLength,
-                }}
-              />
-              <text
-                ref={this.textRef}
-                dx="50%"
-                dy="50%"
-                textAnchor="middle"
-                dominantBaseline="central"
-                style={{
-                  stroke: 'black',
-                  fontSize: '30px',
-                  fill: 'black',
-                  strokeDashoffset: dashOffset,
-                  strokeDasharray: borderLength,
-                }}
-              >
-                TEXT!
-              </text>
-            </>
-          )}
-        </Motion>
-      </svg>
+      <AquariumContext.Consumer>
+        {({ updatePoint }) => (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={width}
+            height={height}
+            onMouseMove={this._handleMouseMove(updatePoint)}
+            onMouseEnter={this._setFocus}
+            onMouseLeave={this._setBlur}
+          >
+            <Motion
+              defaultStyle={{ dashOffset: borderLength }}
+              style={{ dashOffset: spring(targetOffset) }}
+            >
+              {({ dashOffset }) => (
+                <>
+                  <path
+                    ref={this.borderRef}
+                    d={`M0 0 H${width} V${height} H0 L0 0`}
+                    style={{
+                      stroke: 'black',
+                      fill: 'none',
+                      strokeWidth: '4px',
+                      strokeDashoffset: dashOffset,
+                      strokeDasharray: borderLength,
+                    }}
+                  />
+                  <text
+                    ref={this.textRef}
+                    dx="50%"
+                    dy="50%"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{
+                      stroke: 'black',
+                      fontSize: '30px',
+                      fill: 'black',
+                    }}
+                  >
+                    TEXT!
+                  </text>
+                </>
+              )}
+            </Motion>
+          </svg>
+        )}
+      </AquariumContext.Consumer>
     )
   }
 }

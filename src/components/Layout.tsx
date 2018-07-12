@@ -5,6 +5,7 @@ import Header from './header'
 import { rhythm } from '../utils/typography'
 import { StaticQuery, graphql } from 'gatsby'
 import Aquarium from '../components/Aquarium'
+import { AquariumController } from '../context/AquariumContext'
 
 const Container = styled.div`
   padding: ${rhythm(2)};
@@ -32,7 +33,7 @@ const Layout = ({ children }: LayoutProps) => (
       }
     `}
     render={(data: LayoutQueryResult) => (
-      <>
+      <AquariumController>
         <Aquarium />
         <Helmet
           title={data.site.siteMetadata.title}
@@ -43,7 +44,7 @@ const Layout = ({ children }: LayoutProps) => (
         />
         <Header siteTitle={data.site.siteMetadata.title} />
         <Container>{children}</Container>
-      </>
+      </AquariumController>
     )}
   />
 )
