@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Header from './header'
 import { rhythm } from '../utils/typography'
 import { StaticQuery, graphql } from 'gatsby'
+import Aquarium from '../components/Aquarium'
 
 const Container = styled.div`
   padding: ${rhythm(2)};
@@ -32,6 +33,7 @@ const Layout = ({ children }: LayoutProps) => (
     `}
     render={(data: LayoutQueryResult) => (
       <>
+        <Aquarium />
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[

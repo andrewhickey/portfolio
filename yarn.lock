@@ -845,6 +845,10 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
+"@types/bluebird@^3.5.21":
+  version "3.5.21"
+  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.21.tgz#567615589cc913e84a28ecf9edb031732bdf2634"
+
 "@types/configstore@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@types/configstore/-/configstore-2.1.1.tgz#cd1e8553633ad3185c3f2f239ecff5d2643e92b6"
@@ -873,6 +877,10 @@
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.6.2.tgz#12cfaba693ba20f114ed5765467ff25fdf67ddb0"
 
+"@types/lodash@^4.14.111":
+  version "4.14.111"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.111.tgz#d926250baa9526c0ffe85914dd10363068e7893a"
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -888,6 +896,10 @@
 "@types/node@^7.0.11":
   version "7.0.67"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.67.tgz#3aeacf429e24e08e14d7621039d37b7f53542ecf"
+
+"@types/opentype.js@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@types/opentype.js/-/opentype.js-0.7.0.tgz#19da6337f20e6c26f7256c1c83a8fd90da100d27"
 
 "@types/react-helmet@^5.0.6":
   version "5.0.6"
@@ -3844,7 +3856,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.14:
+fbjs@^0.8.14, fbjs@^0.8.17:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
@@ -5616,6 +5628,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
+konva@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-2.1.7.tgz#f32c46373b125f6356c26d1cc6e7c22e2c4c82b3"
+
 latest-version@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-3.1.0.tgz#a205383fea322b33b5ae3b18abee0dc2f356ee15"
@@ -6522,6 +6538,13 @@ onetime@^2.0.0:
 openssl-self-signed-certificate@1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/openssl-self-signed-certificate/-/openssl-self-signed-certificate-1.1.6.tgz#9d3a4776b1a57e9847350392114ad2f915a83dd4"
+
+opentype.js@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/opentype.js/-/opentype.js-0.9.0.tgz#c1d98da2a1b364e3efdae80623640e9e3ef5b797"
+  dependencies:
+    string.prototype.codepointat "^0.2.1"
+    tiny-inflate "^1.0.2"
 
 opn@5.1.0:
   version "5.1.0"
@@ -7446,6 +7469,13 @@ react-is@^16.3.1:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
 
+react-konva@^1.7.9:
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-1.7.9.tgz#aeefaed66a10babcd5a73fdd0e7aab73ba6dd7da"
+  dependencies:
+    fbjs "^0.8.17"
+    react-reconciler "^0.12.0"
+
 react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -7457,6 +7487,15 @@ react-motion@^0.5.2:
     performance-now "^0.2.0"
     prop-types "^15.5.8"
     raf "^3.1.0"
+
+react-reconciler@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.12.0.tgz#dd3ecd98f64a2d8449298dadab041910cafd2849"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react-router-dom@^4.1.1:
   version "4.3.1"
@@ -7890,6 +7929,10 @@ require-uncached@^1.0.3:
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+
+resize-observer-polyfill@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
@@ -8593,6 +8636,10 @@ string-width@^1.0.1:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
 
+string.prototype.codepointat@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/string.prototype.codepointat/-/string.prototype.codepointat-0.2.1.tgz#004ad44c8afc727527b108cd462b4d971cd469bc"
+
 string_decoder@^1.0.0, string_decoder@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.1.1.tgz#9cf1611ba62685d7030ae9e4ba34149c3af03fc8"
@@ -8780,6 +8827,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
+tiny-inflate@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/tiny-inflate/-/tiny-inflate-1.0.2.tgz#93d9decffc8805bd57eae4310f0b745e9b6fb3a7"
+
 tmp@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.31.tgz#8f38ab9438e17315e5dbd8b3657e8bfb277ae4a7"
@@ -8935,6 +8986,10 @@ typography@^0.16.17:
     modularscale "^1.0.2"
     object-assign "^4.1.0"
     typography-normalize "^0.14.0"
+
+typr@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/typr/-/typr-0.2.1.tgz#585ef4ceea53e51feb6fbb6617bcc7cbe3ab4e1b"
 
 ua-parser-js@^0.7.18, ua-parser-js@^0.7.9:
   version "0.7.18"

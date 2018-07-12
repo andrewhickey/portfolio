@@ -1,22 +1,40 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import { keyframes } from 'styled-components'
 import { Motion, spring } from 'react-motion'
+import ResizeObserver from 'resize-observer-polyfill'
 
-const drawPath = keyframes`
-  to {
-    stroke-dashoffset: 1000;
-  }
-`
-
-class AnimatedButton extends PureComponent {
+interface AnimatedButtonProps {
+  padding?: number
+}
+class AnimatedButton extends PureComponent<AnimatedButtonProps> {
   textRef = React.createRef<SVGTextElement>()
   borderRef = React.createRef<SVGPathElement>()
 
-  state = { width: 10, height: 10, borderLength: 0, hasFocus: false }
+  static defaultProps = {
+    padding: 10,
+  }
+
+  state = {
+    textWidth: 0,
+    textHeight: 0,
+    borderLength: 0,
+    hasFocus: false,
+  }
+
+  resizeObserver = new ResizeObserver(changedNodes => {
+    changedNodes.forEach(node => {
+      const { width, height } = node.contentRect
+      this.setState({ textWidth: width, textHeight: height })
+    })
+  })
 
   componentDidMount() {
-    this._resizeToText()
+    const text = this.textRef.current
+    this.resizeObserver.observe(text)
+  }
+
+  componentWillUnmount() {
+    this.resizeObserver.disconnect()
   }
 
   componentDidUpdate() {
@@ -29,12 +47,6 @@ class AnimatedButton extends PureComponent {
     this.setState({ borderLength })
   }
 
-  _resizeToText = () => {
-    const text = this.textRef.current
-    const { width, height } = text.getBBox()
-    this.setState({ width, height })
-  }
-
   _setFocus = () => {
     this.setState({ hasFocus: true })
   }
@@ -44,7 +56,11 @@ class AnimatedButton extends PureComponent {
   }
 
   render() {
-    const { width, height, borderLength, hasFocus } = this.state
+    const { padding } = this.props
+    const { textWidth, textHeight, borderLength, hasFocus } = this.state
+    const width = textWidth + padding * 2
+    const height = textHeight + padding * 2
+
     const targetOffset = hasFocus ? 0 : borderLength
 
     return (
@@ -56,7 +72,7 @@ class AnimatedButton extends PureComponent {
         onMouseLeave={this._setBlur}
       >
         <Motion
-          defaultStyle={{ dashOffset: 0 }}
+          defaultStyle={{ dashOffset: borderLength }}
           style={{ dashOffset: spring(targetOffset) }}
         >
           {({ dashOffset }) => (
@@ -74,11 +90,16 @@ class AnimatedButton extends PureComponent {
               />
               <text
                 ref={this.textRef}
+                dx="50%"
                 dy="50%"
+                textAnchor="middle"
                 dominantBaseline="central"
                 style={{
                   stroke: 'black',
                   fontSize: '30px',
+                  fill: 'black',
+                  strokeDashoffset: dashOffset,
+                  strokeDasharray: borderLength,
                 }}
               >
                 TEXT!
