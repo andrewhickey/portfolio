@@ -5,8 +5,8 @@ import Snake from './Snake'
 
 class Aquarium extends Component {
   state = {
-    mouseX: 0,
-    mouseY: 0,
+    mouseX: window.innerWidth / 2,
+    mouseY: window.innerHeight / 2,
     width: 0,
     height: 0,
   }
@@ -31,8 +31,6 @@ class Aquarium extends Component {
   }
 
   handleMouseMove = ({ pageX, pageY }: MouseEvent) => {
-    console.log('MOUSE MOVING', pageX, pageY)
-
     this.setMousePosition(pageX, pageY)
   }
 
