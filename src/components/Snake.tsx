@@ -2,28 +2,37 @@ import * as React from 'react'
 import { Component } from 'react'
 import { Group, Path } from 'react-konva'
 import { range } from 'lodash'
-import { StaggeredMotion, spring, presets, PlainStyle } from 'react-motion'
+import {
+  Motion,
+  StaggeredMotion,
+  spring,
+  presets,
+  PlainStyle,
+} from 'react-motion'
 import { path } from 'd3-path'
-import { Point, getControlPoint } from '../utils/lines'
+import { Point, getControlPoint, line } from '../utils/lines'
 
 interface SnakeProps {
   x: number
   y: number
 }
 class Snake extends Component<SnakeProps> {
-  getStyles = (prevStyles: Array<Point & PlainStyle>) => {
-    const { x, y } = this.props
+  getStyles = (currentPosition: Point & PlainStyle) => (
+    prevStyles: Array<Point & PlainStyle>
+  ) =>
+    prevStyles.map((point, i) => {
+      if (i === 0) return currentPosition
 
-    const nextStyles = prevStyles.map((_, i) => {
-      if (i === 0) return { x, y }
+      const lastPoint = prevStyles[i - 1]
+      const { angle } = line(lastPoint, point)
+      const x = lastPoint.x + Math.cos(angle) * 15
+      const y = lastPoint.y + Math.sin(angle) * 15
+
       return {
-        x: spring(prevStyles[i - 1].x, presets.wobbly),
-        y: spring(prevStyles[i - 1].y + 15, presets.wobbly),
+        x: spring(x, presets.wobbly),
+        y: spring(y, presets.wobbly),
       }
     })
-
-    return nextStyles
-  }
 
   renderPath = (points: Point[]) => {
     const snakePath = path()
@@ -54,7 +63,7 @@ class Snake extends Component<SnakeProps> {
 
     return (
       <Group>
-        <Path data={snakePath.toString()} stroke="green" strokeWidth={5} />
+        <Path data={snakePath.toString()} stroke="#bfeeff" strokeWidth={4} />
       </Group>
     )
   }
@@ -64,9 +73,22 @@ class Snake extends Component<SnakeProps> {
     const defaultStyles = range(10).map(() => ({ x, y }))
 
     return (
-      <StaggeredMotion defaultStyles={defaultStyles} styles={this.getStyles}>
-        {this.renderPath}
-      </StaggeredMotion>
+      <Motion
+        defaultStyle={{ x, y }}
+        style={{
+          x: spring(x),
+          y: spring(y),
+        }}
+      >
+        {(currentPosition: Point & PlainStyle) => (
+          <StaggeredMotion
+            defaultStyles={defaultStyles}
+            styles={this.getStyles(currentPosition)}
+          >
+            {this.renderPath}
+          </StaggeredMotion>
+        )}
+      </Motion>
     )
   }
 }

@@ -35,7 +35,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     this.setState({ borderLength })
   }
 
-  _handleMouseMove = (updatePoint: (point: Point) => void) => (
+  _handleMouseMove = (updatePoint: (point?: Point) => void) => (
     event: React.MouseEvent<SVGSVGElement>
   ) => {
     updatePoint({ x: event.clientX, y: event.clientY })
@@ -53,9 +53,12 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     this.setState({ hasFocus: true, entryPoint })
   }
 
-  _handleMouseLeave = (event: React.MouseEvent<SVGSVGElement>) => {
+  _handleMouseLeave = (updatePoint: (point?: Point) => void) => (
+    event: React.MouseEvent<SVGSVGElement>
+  ) => {
     const entryPoint = this._getEntryPointFromMouseEvent(event)
     this.setState({ hasFocus: false, entryPoint })
+    updatePoint(null)
   }
 
   _getDimensions = (textWidth: number, textHeight: number) => {
@@ -118,7 +121,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
                   height={height}
                   onMouseMove={this._handleMouseMove(updatePoint)}
                   onMouseEnter={this._handleMouseEnter}
-                  onMouseLeave={this._handleMouseLeave}
+                  onMouseLeave={this._handleMouseLeave(updatePoint)}
                 >
                   <Motion
                     defaultStyle={{
