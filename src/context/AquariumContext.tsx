@@ -49,7 +49,7 @@ class AquariumController extends Component<AquariumControllerProps> {
     clearInterval(this.updateHandle)
   }
 
-  _storeWindowSize() {
+  _storeWindowSize = () => {
     const windowWidth = window.innerWidth
     const windowHeight = window.innerHeight
 

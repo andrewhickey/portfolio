@@ -6,6 +6,7 @@ import { rhythm } from '../utils/typography'
 const HeaderLink = styled(Link)`
   text-decoration: none;
   margin: 0 ${rhythm(1)};
+  color: black;
 `
 
 interface HeaderProps {

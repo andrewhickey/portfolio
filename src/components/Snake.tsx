@@ -63,7 +63,15 @@ class Snake extends Component<SnakeProps> {
 
     return (
       <Group>
-        <Path data={snakePath.toString()} stroke="#bfeeff" strokeWidth={4} />
+        <Path
+          stroke="#ddf8ff"
+          shadowColor="black"
+          shadowBlur={10}
+          shadowOpacity={0.5}
+          data={snakePath.toString()}
+          strokeWidth={4}
+          lineCap="round"
+        />
       </Group>
     )
   }
