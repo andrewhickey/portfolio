@@ -17,7 +17,6 @@ interface AquariumStateProps {
 
 class AquariumController extends Component<AquariumStateProps> {
   updatePoint = (point: Point) => {
-    console.log('UPDATING')
     this.setState({ point })
   }
 

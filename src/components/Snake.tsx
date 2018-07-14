@@ -18,7 +18,7 @@ class Snake extends Component<SnakeProps> {
       if (i === 0) return { x, y }
       return {
         x: spring(prevStyles[i - 1].x, presets.wobbly),
-        y: spring(prevStyles[i - 1].y, presets.wobbly),
+        y: spring(prevStyles[i - 1].y + 15, presets.wobbly),
       }
     })
 

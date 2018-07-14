@@ -1,42 +1,28 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import { Motion, spring } from 'react-motion'
-import ResizeObserver from 'resize-observer-polyfill'
+import { Motion, spring, presets } from 'react-motion'
+import { path } from 'd3-path'
 import { AquariumContext } from '../context/AquariumContext'
-import { Point } from '../utils/lines'
+import { Point, getPointsOnRect, edgesToPoints } from '../utils/lines'
+import Measure from './Measure'
 
 interface AnimatedButtonProps {
   padding?: number
+  children?: string
 }
 class AnimatedButton extends PureComponent<AnimatedButtonProps> {
-  textRef = React.createRef<SVGTextElement>()
   borderRef = React.createRef<SVGPathElement>()
+  svgRef = React.createRef<SVGSVGElement>()
 
   static defaultProps = {
     padding: 10,
+    children: '',
   }
 
   state = {
-    textWidth: 0,
-    textHeight: 0,
     borderLength: 0,
     hasFocus: false,
-  }
-
-  resizeObserver = new ResizeObserver(changedNodes => {
-    changedNodes.forEach(node => {
-      const { width, height } = node.contentRect
-      this.setState({ textWidth: width, textHeight: height })
-    })
-  })
-
-  componentDidMount() {
-    const text = this.textRef.current
-    this.resizeObserver.observe(text)
-  }
-
-  componentWillUnmount() {
-    this.resizeObserver.disconnect()
+    entryPoint: { x: 0, y: 0 },
   }
 
   componentDidUpdate() {
@@ -55,68 +41,147 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     updatePoint({ x: event.clientX, y: event.clientY })
   }
 
-  _setFocus = () => {
-    this.setState({ hasFocus: true })
+  _getEntryPointFromMouseEvent = (event: React.MouseEvent<SVGSVGElement>) => {
+    const borderRect = this.svgRef.current.getBoundingClientRect()
+    const localX = event.clientX - borderRect.left
+    const localY = event.clientY - borderRect.top
+    return { x: localX, y: localY }
   }
 
-  _setBlur = () => {
-    this.setState({ hasFocus: false })
+  _handleMouseEnter = (event: React.MouseEvent<SVGSVGElement>) => {
+    const entryPoint = this._getEntryPointFromMouseEvent(event)
+    this.setState({ hasFocus: true, entryPoint })
+  }
+
+  _handleMouseLeave = (event: React.MouseEvent<SVGSVGElement>) => {
+    const entryPoint = this._getEntryPointFromMouseEvent(event)
+    this.setState({ hasFocus: false, entryPoint })
+  }
+
+  _getDimensions = (textWidth: number, textHeight: number) => {
+    const { padding } = this.props
+    const width = textWidth + padding * 2
+    const height = textHeight + padding * 2
+    return { width, height }
+  }
+
+  _getPath = (points: Point[]) => {
+    const borderPath = path()
+
+    borderPath.moveTo(points[0].x, points[0].y)
+
+    points.slice(1).forEach(point => {
+      borderPath.lineTo(point.x, point.y)
+    })
+
+    borderPath.closePath()
+
+    return borderPath.toString()
   }
 
   render() {
-    const { padding } = this.props
-    const { textWidth, textHeight, borderLength, hasFocus } = this.state
-    const width = textWidth + padding * 2
-    const height = textHeight + padding * 2
-
-    const targetOffset = hasFocus ? 0 : borderLength
+    const { children } = this.props
+    const { borderLength, hasFocus, entryPoint } = this.state
+    const targetLength = hasFocus ? borderLength / 2 : 0
+    const textColor = hasFocus ? 'red' : 'black'
 
     return (
       <AquariumContext.Consumer>
         {({ updatePoint }) => (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={width}
-            height={height}
-            onMouseMove={this._handleMouseMove(updatePoint)}
-            onMouseEnter={this._setFocus}
-            onMouseLeave={this._setBlur}
-          >
-            <Motion
-              defaultStyle={{ dashOffset: borderLength }}
-              style={{ dashOffset: spring(targetOffset) }}
-            >
-              {({ dashOffset }) => (
-                <>
-                  <path
-                    ref={this.borderRef}
-                    d={`M0 0 H${width} V${height} H0 L0 0`}
-                    style={{
-                      stroke: 'black',
-                      fill: 'none',
-                      strokeWidth: '4px',
-                      strokeDashoffset: dashOffset,
-                      strokeDasharray: borderLength,
+          <Measure>
+            {({ width: textWidth, height: textHeight, ref }) => {
+              const { width, height } = this._getDimensions(
+                textWidth,
+                textHeight
+              )
+              const border = edgesToPoints(0, 0, width, height)
+              const clockwiseHalf = getPointsOnRect(
+                entryPoint,
+                0,
+                0,
+                width,
+                height
+              )
+              const antiClockwiseHalf = getPointsOnRect(
+                entryPoint,
+                0,
+                0,
+                width,
+                height,
+                false
+              )
+              return (
+                <svg
+                  ref={this.svgRef}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={width}
+                  height={height}
+                  onMouseMove={this._handleMouseMove(updatePoint)}
+                  onMouseEnter={this._handleMouseEnter}
+                  onMouseLeave={this._handleMouseLeave}
+                >
+                  <Motion
+                    defaultStyle={{
+                      dashLength: targetLength,
                     }}
-                  />
-                  <text
-                    ref={this.textRef}
-                    dx="50%"
-                    dy="50%"
-                    textAnchor="middle"
-                    dominantBaseline="central"
                     style={{
-                      stroke: 'black',
-                      fontSize: '30px',
-                      fill: 'black',
+                      dashLength: spring(targetLength),
                     }}
                   >
-                    TEXT!
-                  </text>
-                </>
-              )}
-            </Motion>
-          </svg>
+                    {({ dashLength }) => (
+                      <>
+                        <path
+                          ref={this.borderRef}
+                          d={this._getPath(border)}
+                          style={{
+                            stroke: 'black',
+                            fill: 'none',
+                            strokeWidth: '4px',
+                          }}
+                        />
+                        <path
+                          ref={this.borderRef}
+                          d={this._getPath(clockwiseHalf)}
+                          style={{
+                            stroke: 'red',
+                            fill: 'none',
+                            strokeWidth: '4px',
+                            strokeDasharray: `${dashLength} ${borderLength -
+                              dashLength}`,
+                          }}
+                        />
+                        <path
+                          ref={this.borderRef}
+                          d={this._getPath(antiClockwiseHalf)}
+                          style={{
+                            stroke: 'red',
+                            fill: 'none',
+                            strokeWidth: '4px',
+                            strokeDasharray: `${dashLength} ${borderLength -
+                              dashLength}`,
+                          }}
+                        />
+                        <text
+                          ref={ref}
+                          dx="50%"
+                          dy="50%"
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          style={{
+                            stroke: textColor,
+                            fontSize: '30px',
+                            fill: textColor,
+                          }}
+                        >
+                          {children}
+                        </text>
+                      </>
+                    )}
+                  </Motion>
+                </svg>
+              )
+            }}
+          </Measure>
         )}
       </AquariumContext.Consumer>
     )

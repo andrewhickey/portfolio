@@ -6,7 +6,7 @@ import AnimatedButton from '../components/AnimatedButton'
 const IndexPage = () => (
   <Layout>
     <div>
-      <AnimatedButton />
+      <AnimatedButton>Alison</AnimatedButton>
     </div>
     <Link to="/page-2/">Go to page 2</Link>
   </Layout>
