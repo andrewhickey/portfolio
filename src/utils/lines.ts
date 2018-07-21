@@ -78,12 +78,22 @@ const getPointsOnRect = (
   return [pointOnEdge, ...orderedPoints.reverse()]
 }
 
+const normaliseVector = (vector: Point) => {
+  const vectorLength = length(vector.x, vector.y)
+  const x = vector.x / vectorLength
+  const y = vector.y / vectorLength
+  return { x, y }
+}
+
+const length = (lengthX: number, lengthY: number) =>
+  Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2))
+
 // https://medium.com/@francoisromain/smooth-a-svg-path-with-cubic-bezier-curves-e37b49d46c74
 const line = (pointA: Point, pointB: Point) => {
   const lengthX = pointB.x - pointA.x
   const lengthY = pointB.y - pointA.y
   return {
-    length: Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2)),
+    length: length(lengthX, lengthY),
     angle: Math.atan2(lengthY, lengthX),
   }
 }
@@ -114,4 +124,12 @@ const getControlPoint = (
   return { x, y }
 }
 
-export { Point, edgesToPoints, getPointsOnRect, line, getControlPoint }
+export {
+  Point,
+  edgesToPoints,
+  getPointsOnRect,
+  length,
+  normaliseVector,
+  line,
+  getControlPoint,
+}

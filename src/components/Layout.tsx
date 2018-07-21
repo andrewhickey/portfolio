@@ -1,11 +1,10 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
-import Header from './header'
-import { rhythm } from '../utils/typography'
 import { StaticQuery, graphql } from 'gatsby'
-import Aquarium from '../components/Aquarium'
-import { AquariumController } from '../context/AquariumContext'
+import { rhythm } from '../utils/typography'
+import Header from './header'
+import Background from './Background'
 
 const Container = styled.div`
   padding: ${rhythm(2)};
@@ -33,8 +32,7 @@ const Layout = ({ children }: LayoutProps) => (
       }
     `}
     render={(data: LayoutQueryResult) => (
-      <AquariumController>
-        <Aquarium />
+      <>
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
@@ -42,9 +40,10 @@ const Layout = ({ children }: LayoutProps) => (
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
+        <Background />
         <Header siteTitle={data.site.siteMetadata.title} />
         <Container>{children}</Container>
-      </AquariumController>
+      </>
     )}
   />
 )
