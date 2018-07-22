@@ -4,6 +4,7 @@ import { Motion, spring, presets } from 'react-motion'
 import { path } from 'd3-path'
 import { Point, getPointsOnRect, edgesToPoints } from '../utils/lines'
 import Measure from './Measure'
+import { color2, color3 } from '../utils/colors'
 
 interface AnimatedButtonProps {
   padding?: number
@@ -19,7 +20,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
   }
 
   state = {
-    borderLength: 0,
+    borderLength: 1,
     hasFocus: false,
     entryPoint: { x: 0, y: 0 },
   }
@@ -80,7 +81,6 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
     const { children } = this.props
     const { borderLength, hasFocus, entryPoint } = this.state
     const targetLength = hasFocus ? borderLength / 2 : 0
-    const textColor = hasFocus ? 'red' : 'black'
 
     return (
       <Measure>
@@ -114,55 +114,57 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
                   dashLength: spring(targetLength),
                 }}
               >
-                {({ dashLength }) => (
-                  <>
-                    <path
-                      ref={this.borderRef}
-                      d={this._getPath(border)}
-                      style={{
-                        stroke: 'black',
-                        fill: 'none',
-                        strokeWidth: '4px',
-                      }}
-                    />
-                    <path
-                      ref={this.borderRef}
-                      d={this._getPath(clockwiseHalf)}
-                      style={{
-                        stroke: 'red',
-                        fill: 'none',
-                        strokeWidth: '4px',
-                        strokeDasharray: `${dashLength} ${borderLength -
-                          dashLength}`,
-                      }}
-                    />
-                    <path
-                      ref={this.borderRef}
-                      d={this._getPath(antiClockwiseHalf)}
-                      style={{
-                        stroke: 'red',
-                        fill: 'none',
-                        strokeWidth: '4px',
-                        strokeDasharray: `${dashLength} ${borderLength -
-                          dashLength}`,
-                      }}
-                    />
-                    <text
-                      ref={ref}
-                      dx="50%"
-                      dy="50%"
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      style={{
-                        stroke: textColor,
-                        fontSize: '30px',
-                        fill: textColor,
-                      }}
-                    >
-                      {children}
-                    </text>
-                  </>
-                )}
+                {({ dashLength }) => {
+                  return (
+                    <>
+                      <path
+                        ref={this.borderRef}
+                        d={this._getPath(border)}
+                        style={{
+                          stroke: color2,
+                          fill: 'none',
+                          strokeWidth: '8px',
+                        }}
+                      />
+                      <path
+                        ref={this.borderRef}
+                        d={this._getPath(clockwiseHalf)}
+                        style={{
+                          stroke: color3,
+                          fill: 'none',
+                          strokeWidth: '8px',
+                          strokeDasharray: `${dashLength} ${borderLength -
+                            dashLength}`,
+                        }}
+                      />
+                      <path
+                        ref={this.borderRef}
+                        d={this._getPath(antiClockwiseHalf)}
+                        style={{
+                          stroke: color3,
+                          fill: 'none',
+                          strokeWidth: '8px',
+                          strokeDasharray: `${dashLength} ${borderLength -
+                            dashLength}`,
+                        }}
+                      />
+                      <text
+                        ref={ref}
+                        dx="50%"
+                        dy="50%"
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        style={{
+                          fontSize: '50px',
+                          fontWeight: 'bold',
+                          fill: 'currentColor',
+                        }}
+                      >
+                        {children}
+                      </text>
+                    </>
+                  )
+                }}
               </Motion>
             </svg>
           )

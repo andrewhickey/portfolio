@@ -2,12 +2,17 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
+import { text } from '../utils/colors'
 import { rhythm } from '../utils/typography'
-import Header from './header'
-import Background from './Background'
 
-const Container = styled.div`
+const SiteContainer = styled.div`
   padding: ${rhythm(2)};
+  min-height: 100vh;
+  display: flex;
+  color: ${text};
+  & a {
+    color: ${text};
+  }
 `
 
 interface LayoutProps {
@@ -40,9 +45,7 @@ const Layout = ({ children }: LayoutProps) => (
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
-        <Background />
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <Container>{children}</Container>
+        <SiteContainer>{children}</SiteContainer>
       </>
     )}
   />

@@ -13,7 +13,9 @@ interface ScrollProps {
   children: RenderFunc
 }
 class Scroll extends PureComponent<ScrollProps> {
-  eventReference: string
+  ticking: boolean // used to throttle updates to requestAnimationFrame speed
+  lastKnownScrollX: number
+  lastKnownScrollY: number
 
   state = {
     scrollX: 0,
@@ -23,9 +25,25 @@ class Scroll extends PureComponent<ScrollProps> {
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
   }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._handleScroll)
+  }
 
   _handleScroll = () => {
-    this.setState({ scrollX: window.scrollX, scrollY: window.scrollY })
+    this.lastKnownScrollX = window.scrollX
+    this.lastKnownScrollY = window.scrollY
+
+    if (!this.ticking) {
+      window.requestAnimationFrame(() => {
+        this.setState({
+          scrollX: this.lastKnownScrollX,
+          scrollY: this.lastKnownScrollY,
+        })
+        this.ticking = false
+      })
+
+      this.ticking = true
+    }
   }
 
   render() {
