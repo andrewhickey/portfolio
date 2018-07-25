@@ -7,6 +7,7 @@ import { text } from '../utils/colors'
 const SiteContainer = styled.div`
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   color: ${text};
   & a {
     color: ${text};
