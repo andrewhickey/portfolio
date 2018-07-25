@@ -3,10 +3,8 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
-import { rhythm } from '../utils/typography'
 
 const SiteContainer = styled.div`
-  padding: ${rhythm(2)};
   min-height: 100vh;
   display: flex;
   color: ${text};

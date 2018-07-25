@@ -4,43 +4,34 @@ import Layout from '../components/Layout'
 import AnimatedButton from '../components/AnimatedButton'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
-import ProfilePic from '../components/ProfilePic'
+import ProfilePic from '../components/about/ProfilePic'
+import Technologies from '../components/about/Technologies'
 
-const AboutContainer = styled.div`
+const Row = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto;
-  text-align: center;
-  flex: 1;
 `
 
-const SiteAbout = styled.h1`
-  margin: ${rhythm(1)};
-  font-size: 4rem;
-  line-height: 4rem;
-  & a:hover {
-    text-decoration: none;
-  }
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: ${rhythm(1)};
 `
 
 const LinkContainer = styled.div`
   align-items: flex-end;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex: 1;
   width: 100%;
+  & > * {
+    margin: 0 ${rhythm(1)};
+  }
 `
 
 const IndexPage = () => (
   <Layout>
-    <AboutContainer>
-      <ProfilePic />
-      <SiteAbout>
-        <Link to="/">Andrew Hickey</Link>
-      </SiteAbout>
-      <h2>Full stack pancake developer</h2>
-      <LinkContainer>
+    <Row>
+      <Column>
         <Link to="/portfolio/">
           <AnimatedButton>PORTFOLIO</AnimatedButton>
         </Link>
@@ -50,8 +41,13 @@ const IndexPage = () => (
         <Link to="/contact/">
           <AnimatedButton>CONTACT</AnimatedButton>
         </Link>
-      </LinkContainer>
-    </AboutContainer>
+      </Column>
+      <Column>
+        <ProfilePic />
+        <h1>Andrew Hickey, full stack contract web developer</h1>
+        <Technologies />
+      </Column>
+    </Row>
   </Layout>
 )
 
