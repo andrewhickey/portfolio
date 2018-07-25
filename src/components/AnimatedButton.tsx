@@ -111,7 +111,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
                   dashLength: targetLength,
                 }}
                 style={{
-                  dashLength: spring(targetLength),
+                  dashLength: spring(targetLength, presets.noWobble),
                 }}
               >
                 {({ dashLength }) => {
@@ -155,7 +155,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
                         textAnchor="middle"
                         dominantBaseline="central"
                         style={{
-                          fontSize: '50px',
+                          fontSize: 'inherit',
                           fontWeight: 'bold',
                           fill: 'currentColor',
                         }}

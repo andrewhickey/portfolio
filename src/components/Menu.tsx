@@ -20,13 +20,21 @@ const MenuContainer = Row.extend`
 const Menu = () => (
   <FullWidthRow>
     <MenuContainer>
-      <Link to="/portfolio/">PORTFOLIO</Link>
-      <Link to="/resume/">RESUME</Link>
+      <Link to="/portfolio/">
+        <AnimatedButton>PORTFOLIO</AnimatedButton>
+      </Link>
+      <Link to="/resume/">
+        <AnimatedButton>RESUME</AnimatedButton>
+      </Link>
       <Link to="/">
         <ProfilePic />
       </Link>
-      <Link to="/availability/">AVAILABILITY</Link>
-      <Link to="/contact/">CONTACT</Link>
+      <Link to="/availability/">
+        <AnimatedButton>AVAILABILITY</AnimatedButton>
+      </Link>
+      <Link to="/contact/">
+        <AnimatedButton>CONTACT</AnimatedButton>
+      </Link>
     </MenuContainer>
   </FullWidthRow>
 )
