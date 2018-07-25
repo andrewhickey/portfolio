@@ -10,18 +10,13 @@ import styled, { css } from 'styled-components'
 import { color3 } from '../../../utils/colors'
 import { rhythm } from '../../../utils/typography'
 
-const SkillList = styled.ul`
-  list-style: none;
-  text-align: left;
-`
-
-const SkillItem = styled.li`
+const SkillItem = styled.div`
   padding: 0 ${rhythm(0.5)};
-  background-color: ${color3};
 `
 
 const Technologies = () => (
-  <SkillList>
+  <div>
+    <h3>Technologies</h3>
     <SkillItem>React</SkillItem>
     <SkillItem>Webpack</SkillItem>
     <SkillItem>Redux</SkillItem>
@@ -29,7 +24,7 @@ const Technologies = () => (
     <SkillItem>MongoDB</SkillItem>
     <SkillItem>MySQL</SkillItem>
     <SkillItem>Apache Beam</SkillItem>
-  </SkillList>
+  </div>
 )
 
 export default Technologies

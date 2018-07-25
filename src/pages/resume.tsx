@@ -6,7 +6,7 @@ import Menu from '../components/Menu'
 const About = () => (
   <Layout>
     <Menu />
-    <h1>About</h1>
+    <h1>Resume</h1>
     <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
