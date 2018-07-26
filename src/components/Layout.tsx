@@ -3,11 +3,13 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
+import Background from './Background'
 
 const SiteContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: ${text};
   & a {
     color: ${text};
@@ -44,6 +46,7 @@ const Layout = ({ children }: LayoutProps) => (
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
+        <Background />
         <SiteContainer>{children}</SiteContainer>
       </>
     )}

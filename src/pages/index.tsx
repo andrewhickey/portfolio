@@ -11,6 +11,7 @@ import Technologies from '../components/about/Technologies'
 import Column from '../components/layout/Column'
 import Row from '../components/layout/Row'
 import Languages from '../components/about/Languages'
+import Bio from '../components/about/Bio'
 
 const Title = styled.h1`
   color: black;
@@ -29,6 +30,7 @@ const PaddedColumn = Column.extend`
   align-items: center;
   justify-content: space-around;
   padding: ${rhythm(2)};
+  width: 992px;
   flex: 1;
 `
 
@@ -44,10 +46,7 @@ const IndexPage = () => (
         <Title>Andrew Hickey</Title>
         <SubTitle>full stack, contract, web developer</SubTitle>
       </div>
-      <SkillsRow>
-        <Technologies />
-        <Languages />
-      </SkillsRow>
+      <Bio />
     </PaddedColumn>
   </Layout>
 )
