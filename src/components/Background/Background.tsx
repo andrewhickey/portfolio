@@ -9,9 +9,9 @@ const BackgroundDiv = styled.div`
   z-index: -1;
   width: 100%;
   height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png'),
-    linear-gradient(to bottom, #d4e1f1, #dadada);
 `
+// background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png'),
+//   linear-gradient(to bottom, #d4e1f1, #dadada);
 
 const Background = () => <BackgroundDiv />
 

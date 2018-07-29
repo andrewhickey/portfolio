@@ -11,8 +11,6 @@ const FullWidthRow = Row.extend`
   justify-content: center;
   padding-top: ${rhythm(0.5)};
   padding-bottom: ${rhythm(0.5)};
-  background-color: white;
-  box-shadow: 0px 0px 10px 4px #888888;
 `
 
 const MenuContainer = Row.extend`
@@ -24,21 +22,13 @@ const MenuContainer = Row.extend`
 const Menu = () => (
   <FullWidthRow>
     <MenuContainer>
-      <Link to="/portfolio/">
-        <AnimatedButton>PORTFOLIO</AnimatedButton>
-      </Link>
-      <Link to="/resume/">
-        <AnimatedButton>RESUME</AnimatedButton>
-      </Link>
+      <Link to="/portfolio/">PORTFOLIO</Link>
+      <Link to="/resume/">RESUME</Link>
       <Link to="/">
         <ProfilePic />
       </Link>
-      <Link to="/availability/">
-        <AnimatedButton>AVAILABILITY</AnimatedButton>
-      </Link>
-      <Link to="/contact/">
-        <AnimatedButton>CONTACT</AnimatedButton>
-      </Link>
+      <Link to="/availability/">AVAILABILITY</Link>
+      <Link to="/contact/">CONTACT</Link>
     </MenuContainer>
   </FullWidthRow>
 )

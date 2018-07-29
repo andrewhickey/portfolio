@@ -15,10 +15,10 @@ const ApacheBeamLogo = (props: React.HTMLProps<SVGSVGElement>) => (
         y2="71.963"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#ffc400" />
-        <stop offset=".137" stop-color="#fecd00" />
-        <stop offset=".365" stop-color="#fed400" />
-        <stop offset="1" stop-color="#fed600" />
+        <stop offset="0" stopColor="#ffc400" />
+        <stop offset=".137" stopColor="#fecd00" />
+        <stop offset=".365" stopColor="#fed400" />
+        <stop offset="1" stopColor="#fed600" />
       </linearGradient>
       <linearGradient
         id="b"
@@ -28,11 +28,11 @@ const ApacheBeamLogo = (props: React.HTMLProps<SVGSVGElement>) => (
         y2="59.873"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#ff0" stop-opacity=".7" />
-        <stop offset=".132" stop-color="#fff600" stop-opacity=".66" />
-        <stop offset=".314" stop-color="#feef00" stop-opacity=".626" />
-        <stop offset=".547" stop-color="#feea00" stop-opacity=".606" />
-        <stop offset="1" stop-color="#fee900" stop-opacity=".6" />
+        <stop offset="0" stopColor="#ff0" stopOpacity=".7" />
+        <stop offset=".132" stopColor="#fff600" stopOpacity=".66" />
+        <stop offset=".314" stopColor="#feef00" stopOpacity=".626" />
+        <stop offset=".547" stopColor="#feea00" stopOpacity=".606" />
+        <stop offset="1" stopColor="#fee900" stopOpacity=".6" />
       </linearGradient>
     </defs>
     <path
@@ -63,8 +63,8 @@ const ApacheBeamLogo = (props: React.HTMLProps<SVGSVGElement>) => (
       d="M101.775 91.041a31.952 31.952 0 0 0-4.488-9.567 30.165 30.165 0 0 0-7.595-7.546 34.292 34.292 0 0 0-10.8-4.882q10.257-4.34 15.584-12.23a31.009 31.009 0 0 0 5.326-17.755 41.114 41.114 0 0 0-3.403-17.408A30.926 30.926 0 0 0 86.585 9.57a44.13 44.13 0 0 0-15.683-7.052A86.45 86.45 0 0 0 49.992.2H.775v5.542l72.894 22.71a2 2 0 0 1 1.381 1.903V46.63a2 2 0 0 1-1.022 1.744L36.68 72.004l37.347 23.631a2 2 0 0 1 1.022 1.745v16.275a2 2 0 0 1-1.381 1.902L.775 138.267v5.543h52.67a75.219 75.219 0 0 0 20.86-2.663 43.554 43.554 0 0 0 15.683-7.94 34.293 34.293 0 0 0 9.863-13.119 45.376 45.376 0 0 0 3.403-18.197 39.65 39.65 0 0 0-1.48-10.85z"
       fill="#ff6d00"
       stroke="#ff6d00"
-      stroke-miterlimit="10"
-      stroke-width=".4"
+      strokeMiterlimit="10"
+      strokeWidth=".4"
     />
   </svg>
 )

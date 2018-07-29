@@ -2,12 +2,12 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
+import CV from '../components/about/CV'
 
 const About = () => (
   <Layout>
     <Menu />
-    <h1>Resume</h1>
-    <Link to="/">Go back to the homepage</Link>
+    <CV />
   </Layout>
 )
 

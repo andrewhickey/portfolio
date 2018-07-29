@@ -1,18 +1,31 @@
 import * as React from 'react'
-import styled, { css } from 'styled-components'
-import { rhythm } from '../../utils/typography'
-
-const SkillItem = styled.div`
-  padding: 0 ${rhythm(0.5)};
-`
+import SkillItem from './SkillItem'
+import JavaScriptLogo from './logos/JavaScriptLogo'
+import TypeScriptLogo from './logos/TypeScriptLogo'
+import JavaLogo from './logos/JavaLogo'
+import PhpLogo from './logos/PhpLogo'
+import RustLogo from './logos/RustLogo'
+import WebPackLogo from './logos/WebPackLogo'
+import ReduxLogo from './logos/ReduxLogo'
+import MongoDBLogo from './logos/MongoDBLogo'
 
 const Languages = () => (
   <div>
-    <h3>Languages</h3>
-    <SkillItem>Javascript</SkillItem>
-    <SkillItem>Java</SkillItem>
-    <SkillItem>PHP</SkillItem>
-    <SkillItem>Rust</SkillItem>
+    <SkillItem logo={<JavaScriptLogo />} level={98}>
+      JavaScript
+    </SkillItem>
+    <SkillItem logo={<TypeScriptLogo />} level={85}>
+      TypeScript
+    </SkillItem>
+    <SkillItem logo={<PhpLogo />} level={75}>
+      PHP
+    </SkillItem>
+    <SkillItem logo={<JavaLogo />} level={60}>
+      Java
+    </SkillItem>
+    <SkillItem logo={<RustLogo />} level={40}>
+      Rust
+    </SkillItem>
   </div>
 )
 

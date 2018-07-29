@@ -5,7 +5,7 @@ import AnimatedButton from '../components/AnimatedButton'
 import styled from 'styled-components'
 import Menu from '../components/Menu'
 import { rhythm } from '../utils/typography'
-import { text, color5 } from '../utils/colors'
+import { text, color2 } from '../utils/colors'
 import ProfilePic from '../components/about/ProfilePic'
 import Technologies from '../components/about/Technologies'
 import Column from '../components/layout/Column'
@@ -18,6 +18,12 @@ const Title = styled.h1`
   font-size: 3rem;
   margin: 0;
   margin-bottom: 0.8rem;
+`
+
+const Name = styled.span`
+  color: ${color2};
+  font-size: 4rem;
+  font-weight: bold;
 `
 
 const SubTitle = styled.h1`
@@ -34,8 +40,9 @@ const PaddedColumn = Column.extend`
   flex: 1;
 `
 
-const SkillsRow = Row.extend`
-  justify-content: space-around;
+const TitleRow = Row.extend`
+  justify-content: center;
+  padding: ${rhythm(2)};
 `
 
 const IndexPage = () => (
@@ -43,10 +50,11 @@ const IndexPage = () => (
     <Menu />
     <PaddedColumn>
       <div>
-        <Title>Andrew Hickey</Title>
+        <Title>
+          Hi, I'm <Name>Andrew</Name>
+        </Title>
         <SubTitle>full stack, contract, web developer</SubTitle>
       </div>
-      <Bio />
     </PaddedColumn>
   </Layout>
 )
