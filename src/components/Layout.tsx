@@ -46,7 +46,7 @@ const Layout = ({ children }: LayoutProps) => (
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
-        <Background />
+        {/* <Background /> */}
         <SiteContainer>{children}</SiteContainer>
       </>
     )}

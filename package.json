@@ -33,6 +33,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
+    "react-images": "^0.5.19",
     "react-konva": "^1.7.9",
     "react-motion": "^0.5.2",
     "react-typography": "^0.16.13",

@@ -1,4 +1,4 @@
-import SectionTitle from './SectionTitle'
+import SectionTitle from '../layout/SectionTitle'
 import * as React from 'react'
 import styled from 'styled-components'
 import Technologies from './Technologies'
@@ -51,16 +51,12 @@ const SkillsRow = Row.extend`
   }
 `
 
-const CVContainer = styled.div`
-  max-width: 992px;
-`
-
 const SubTitle = styled.h4`
   margin-top: 0;
 `
 
 const CV = () => (
-  <CVContainer>
+  <>
     <SectionTitle>Bio</SectionTitle>
     <Bio />
     <SectionTitle>Skills</SectionTitle>
@@ -146,7 +142,7 @@ const CV = () => (
       />
       <SubTitle>Computing, Maths, Physics, French A-Level</SubTitle>
     </Row>
-  </CVContainer>
+  </>
 )
 
 export default CV

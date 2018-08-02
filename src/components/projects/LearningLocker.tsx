@@ -1,9 +1,9 @@
 import * as React from 'react'
-import autoposImgSrc from './autopos.png'
+import learningLockerImgSrc from './learninglocker.png'
 import ProjectCard from './ProjectCard'
 
-const AlfaPos = () => (
-  <ProjectCard src={autoposImgSrc} title="Alfa Point of Sale">
+const LearningLocker = () => (
+  <ProjectCard src={learningLockerImgSrc} title="Learning Locker">
     <p>
       A single page application used in car dealerships to create finance deals.
     </p>
@@ -14,4 +14,4 @@ const AlfaPos = () => (
   </ProjectCard>
 )
 
-export default AlfaPos
+export default LearningLocker

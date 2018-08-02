@@ -1,13 +1,16 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/Layout'
+import PageColumn from '../components/layout/PageColumn'
 import Menu from '../components/Menu'
 import CV from '../components/about/CV'
 
 const About = () => (
   <Layout>
     <Menu />
-    <CV />
+    <PageColumn>
+      <CV />
+    </PageColumn>
   </Layout>
 )
 

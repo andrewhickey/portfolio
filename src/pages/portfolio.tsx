@@ -1,19 +1,20 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
-import Column from '../components/layout/Column'
 import Row from '../components/layout/Row'
 import AlfaPos from '../components/projects/AlfaPos'
+import PageColumn from '../components/layout/PageColumn'
+import LearningLocker from '../components/projects/LearningLocker'
+import OrganisationDesign from '../components/projects/OrganisationDesign'
 
 const SecondPage = () => (
   <Layout>
     <Menu />
-    <Column>
-      <Row>
-        <AlfaPos />
-      </Row>
-    </Column>
+    <PageColumn>
+      <AlfaPos />
+      <LearningLocker />
+      <OrganisationDesign />
+    </PageColumn>
   </Layout>
 )
 
