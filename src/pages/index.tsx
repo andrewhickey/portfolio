@@ -1,17 +1,10 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
 import Layout from '../components/Layout'
-import AnimatedButton from '../components/AnimatedButton'
 import styled from 'styled-components'
 import Menu from '../components/Menu'
 import { rhythm } from '../utils/typography'
-import { text, color2 } from '../utils/colors'
-import ProfilePic from '../components/about/ProfilePic'
-import Technologies from '../components/about/Technologies'
+import { color2 } from '../utils/colors'
 import Column from '../components/layout/Column'
-import Row from '../components/layout/Row'
-import Languages from '../components/about/Languages'
-import Bio from '../components/about/Bio'
 
 const Title = styled.h1`
   color: black;
@@ -38,11 +31,6 @@ const PaddedColumn = Column.extend`
   padding: ${rhythm(2)};
   width: 992px;
   flex: 1;
-`
-
-const TitleRow = Row.extend`
-  justify-content: center;
-  padding: ${rhythm(2)};
 `
 
 const IndexPage = () => (

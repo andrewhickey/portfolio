@@ -27,6 +27,7 @@ class Background extends React.Component {
   // Simulation
   velocityIterations = 6
   positionIterations = 2
+  particleIterations = 8
   world: any
   ground: any
   particleSystem: any
@@ -53,12 +54,12 @@ class Background extends React.Component {
     this.particleSystem = this.world.CreateParticleSystem(particleSystemDef)
 
     // ground
-    let groundBodyDef = new b2.BodyDef()
-    groundBodyDef.position.Set(0.0, -10.0)
-    this.ground = this.world.CreateBody(groundBodyDef)
-    let groundBox = new b2.PolygonShape()
-    groundBox.SetAsBox(50.0, 10.0)
-    this.ground.CreateFixture(groundBox, 0.0)
+    // let groundBodyDef = new b2.BodyDef()
+    // groundBodyDef.position.Set(0.0, -10.0)
+    // this.ground = this.world.CreateBody(groundBodyDef)
+    // let groundBox = new b2.PolygonShape()
+    // groundBox.SetAsBox(50.0, 10.0)
+    // this.ground.CreateFixture(groundBox, 0.0)
 
     // water particles
     let particleDef = new b2.ParticleDef()
@@ -66,7 +67,7 @@ class Background extends React.Component {
     particleDef.color.Set(0, 0, 255, 255)
 
     for (let index = 0; index < 50; index++) {
-      particleDef.position.Set(index * 2, 0)
+      particleDef.position.Set(index * 2, 50)
       this.particleSystem.CreateParticle(particleDef)
     }
 
@@ -86,6 +87,7 @@ class Background extends React.Component {
 
     for (let i = 0, c = 0; i < maxParticles; i++, c += 4) {
       if (particles[i]) {
+        console.log('Y', particles[i].y, this._getY(particles[i].y))
         const pixiParticle = this._drawParticle(
           this._getX(this.particleSystem.GetRadius()),
           this._getX(particles[i].x),
@@ -134,17 +136,21 @@ class Background extends React.Component {
   }
 
   _runSimulation = (deltaTime: number) => {
-    this.world.Step(
-      deltaTime / 100,
-      this.velocityIterations,
-      this.positionIterations
-    )
+    if (deltaTime < 2) {
+      this.world.Step(
+        deltaTime / 100,
+        this.velocityIterations,
+        this.positionIterations,
+        this.particleIterations
+      )
 
-    this._drawWorld()
+      this._drawWorld()
+    }
   }
 
   _getX = (x: number) => (x / 100) * this.state.windowWidth
-  _getY = (y: number) => (y / 100) * this.state.windowHeight
+  _getY = (y: number) =>
+    this.state.windowHeight - (y / 100) * this.state.windowHeight
 
   render() {
     const { windowHeight, windowWidth } = this.state
