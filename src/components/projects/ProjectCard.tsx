@@ -24,7 +24,7 @@ const ProjectCardColumn = Column.extend`
 interface ProjectCardProps {
   children: React.ReactNode
   src: string
-  title: string
+  title: React.ReactNode
 }
 class AlfaPos extends React.Component<ProjectCardProps> {
   state = {

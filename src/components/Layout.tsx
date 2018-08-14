@@ -12,7 +12,7 @@ const SiteContainer = styled.div`
   align-items: center;
   color: ${text};
   & a {
-    color: ${text};
+    color: inherit;
   }
 `
 
