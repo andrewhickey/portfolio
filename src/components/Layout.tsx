@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
+import MeasureWindow from './MeasureWindow'
 import Background from './Background'
 
 const SiteContainer = styled.div`
@@ -46,7 +47,11 @@ const Layout = ({ children }: LayoutProps) => (
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
-        <Background />
+        <MeasureWindow>
+          {({ windowWidth, windowHeight }) => (
+            <Background width={windowWidth} height={windowHeight} />
+          )}
+        </MeasureWindow>
         <SiteContainer>{children}</SiteContainer>
       </>
     )}

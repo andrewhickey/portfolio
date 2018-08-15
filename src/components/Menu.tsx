@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import ProfilePic from './about/ProfilePic'
+import ProfilePic from './ProfilePic'
 import Row from './layout/Row'
 import { Link } from 'gatsby'
 import { rhythm } from '../utils/typography'

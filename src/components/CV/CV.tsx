@@ -74,11 +74,31 @@ const CV = () => (
       <Column>
         <SubTitle>Senior Developer</SubTitle>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At ratione,
-          unde odit laudantium accusantium enim aut doloremque sit voluptas
-          voluptatibus pariatur amet illo perspiciatis laboriosam facilis culpa
-          atque officia doloribus?
+          Primarily responsible for front end development on the Alfa Systems
+          Point of sale product.
         </p>
+        <ul>
+          <li>
+            Set up build process and configured other tooling to be used
+            throughout the company.
+          </li>
+          <li>
+            Modularised existing proof of concept into a re-usable component
+            library.
+          </li>
+          <li>
+            Worked closely with clients to gather requirements and estimate
+            effort.
+          </li>
+          <li>
+            Shared knowlege with other team members through code reviews, pair
+            programming and breakout sessions.
+          </li>
+          <li>
+            Worked with the rest of the team to deliver agreed on features in
+            less than the budgeted time.
+          </li>
+        </ul>
       </Column>
     </Row>
     <Row>
@@ -90,11 +110,24 @@ const CV = () => (
       <Column>
         <SubTitle>Product Lead - Learning Locker</SubTitle>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At ratione,
-          unde odit laudantium accusantium enim aut doloremque sit voluptas
-          voluptatibus pariatur amet illo perspiciatis laboriosam facilis culpa
-          atque officia doloribus?
+          Built the Learning Locker proof of concept and then led development
+          and product direction.
         </p>
+        <ul>
+          <li>Took Learning Locker through R&D to full product status.</li>
+          <li>
+            Gathered community feedback and prioritised feature development to
+            make Learning Locker the most popular solution in its field.
+          </li>
+          <li>
+            Won the MongoDB award for open source innovation (won by Facebook
+            the year before).
+          </li>
+          <li>
+            Led a small development team to support several large scale
+            implementations (JISC, Macy's, Xerox, Nike and others).
+          </li>
+        </ul>
       </Column>
     </Row>
     <Row>
@@ -102,11 +135,18 @@ const CV = () => (
       <Column>
         <SubTitle>Software Developer</SubTitle>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At ratione,
-          unde odit laudantium accusantium enim aut doloremque sit voluptas
-          voluptatibus pariatur amet illo perspiciatis laboriosam facilis culpa
-          atque officia doloribus?
+          Built e-learning solutions as a full stack developer for HT2's clients
+          including BP, Duke University, City and Guilds and Great Ormond Street
+          Children's hospital.
         </p>
+        <ul>
+          <li>
+            Kept in close contact with clients to ensure that the delivered
+            products met a changing set of requirements.
+          </li>
+          <li>Won gold and silver at the Learning Awards (TODO LINK).</li>
+          <li>TODO more needed here</li>
+        </ul>
       </Column>
     </Row>
     <Row>
@@ -118,11 +158,23 @@ const CV = () => (
       <Column>
         <SubTitle>Systems Engineer</SubTitle>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At ratione,
-          unde odit laudantium accusantium enim aut doloremque sit voluptas
-          voluptatibus pariatur amet illo perspiciatis laboriosam facilis culpa
-          atque officia doloribus?
+          Responsible for general platform stability as well as troubleshooting
+          for a handful of aligned clients.
         </p>
+        <ul>
+          <li>
+            Installed and maintained dedicated hardware in Content Guru's data
+            center enclosures.
+          </li>
+          <li>
+            Learned the details of telephony systems to troubleshoot bugs in
+            bespoke systems.
+          </li>
+          <li>
+            Managed replicated MSSQL instances to ensure stability and uptime.
+          </li>
+          <li>Received consistently good feedback from clients.</li>
+        </ul>
       </Column>
     </Row>
     <SectionTitle>Education</SectionTitle>

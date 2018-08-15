@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import profilePicSrc from './profile.jpg'
-import { rhythm } from '../../../utils/typography'
-import { color2 } from '../../../utils/colors'
+import { rhythm } from '../../utils/typography'
+import { color2 } from '../../utils/colors'
 
 const borderWidth = 9
 

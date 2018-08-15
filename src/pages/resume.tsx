@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Layout from '../components/Layout'
 import PageColumn from '../components/layout/PageColumn'
 import Menu from '../components/Menu'
-import CV from '../components/about/CV'
+import CV from '../components/CV'
 
 const About = () => (
   <Layout>
