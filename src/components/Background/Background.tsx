@@ -5,8 +5,7 @@ import ScrollPosition from '../ScrollPosition'
 import { color2, color3 } from '../../utils/colors'
 import backgroundSrc from './lines.png'
 import b2 from 'lucy-b2'
-
-const inv255 = 0.003921569
+import { random } from 'lodash'
 
 interface BackgroundProps {
   width: number
@@ -20,12 +19,13 @@ class Background extends React.Component<BackgroundProps> {
   canvasRef = React.createRef<HTMLCanvasElement>()
 
   // Simulation
-  fps = 60
-  then: number
-  interval = 1000 / this.fps
-  velocityIterations = 6
-  positionIterations = 2
-  particleIterations = 8
+  then60: number
+  interval60 = 1000 / 30
+  then1: number
+  interval1 = 1000 / 3
+  velocityIterations = 1 // 6
+  positionIterations = 1 // 2
+  particleIterations = 2 // 8
   world: any
   ground: any
   particleSystem: any
@@ -38,6 +38,7 @@ class Background extends React.Component<BackgroundProps> {
 
     let particleSystemDef = new b2.ParticleSystemDef()
     this.particleSystem = this.world.CreateParticleSystem(particleSystemDef)
+    this.particleSystem.SetMaxParticleCount(100)
 
     // ground
     let groundBodyDef = new b2.BodyDef()
@@ -47,31 +48,43 @@ class Background extends React.Component<BackgroundProps> {
     groundBox.SetAsBox(50.0, 10.0)
     this.ground.CreateFixture(groundBox, 0.0)
 
-    // water particles
-    let particleDef = new b2.ParticleDef()
-    // particleDef.flags = b2.elasticParticle
-    particleDef.color.Set(0, 0, 255, 255)
-
-    for (let index = 0; index < 50; index++) {
-      particleDef.position.Set(index * 2, 50)
-      this.particleSystem.CreateParticle(particleDef)
-    }
-
+    this._triggerParticles()
     this._runSimulation()
+  }
+
+  _createParticles = (particleSystem: any) => {
+    const particleGroupShape = new b2.CircleShape()
+    particleGroupShape.m_radius = 5
+    particleGroupShape.m_p = new b2.Vec2(-5, 80)
+
+    var xf = new b2.Transform()
+    xf.SetIdentity()
+    particleSystem.DestroyParticlesInShape(particleGroupShape, xf)
+
+    const particleGroupDef = new b2.ParticleGroupDef()
+    particleGroupDef.shape = particleGroupShape
+    // particleGroupDef.angle = 1.0
+    particleGroupDef.linearVelocity.Set(random(3, 7), 0)
+    particleGroupDef.angularVelocity = -0.1
+    // particleGroupDef.position.Set(0, 80)
+    particleGroupDef.color.Set((0.5 * 255) / 5, 255 - (0.5 * 255) / 5, 128, 255)
+    particleSystem.CreateParticleGroup(particleGroupDef)
   }
 
   _drawParticles = (context: CanvasRenderingContext2D, world: any) => {
     let particleSystem = world.GetParticleSystemList()
 
     while (particleSystem) {
-      let particles = particleSystem.GetPositionBuffer()
+      const particles = particleSystem.GetPositionBuffer()
+      const colors = particleSystem.GetColorBuffer()
       let maxParticles = particles.length
 
       for (let i = 0, c = 0; i < maxParticles; i++, c += 2) {
         if (particles[i]) {
           const x = this._getX(particles[i].x)
           const y = this._getY(particles[i].y)
-
+          const color = colors[i]
+          context.fillStyle = 'blue'
           context.moveTo(x, y)
           context.arc(x, y, 5, 0, Math.PI * 2, true)
         }
@@ -83,7 +96,7 @@ class Background extends React.Component<BackgroundProps> {
 
   _drawWorld = () => {
     const canvas = this.canvasRef.current
-    const context = canvas.getContext('2d')
+    const context = canvas.getContext('2d', { alpha: false })
 
     // clear canvas
     context.clearRect(0, 0, canvas.width, canvas.height)
@@ -94,22 +107,37 @@ class Background extends React.Component<BackgroundProps> {
     context.fill()
   }
 
+  _triggerParticles = () => {
+    requestAnimationFrame(this._triggerParticles)
+
+    // lock fps
+    if (!this.then1) this.then1 = Date.now()
+    const now = Date.now()
+    const delta = now - this.then1
+
+    if (delta > this.interval1) {
+      this.then1 = now - (delta % this.interval1)
+
+      this._createParticles(this.particleSystem)
+    }
+  }
+
   _runSimulation = () => {
     requestAnimationFrame(this._runSimulation)
 
     // lock fps
-    if (!this.then) this.then = Date.now()
+    if (!this.then60) this.then60 = Date.now()
     const now = Date.now()
-    const delta = now - this.then
+    const delta = now - this.then60
 
-    if (delta > this.interval) {
-      this.then = now - (delta % this.interval)
+    if (delta > this.interval60) {
+      this.then60 = now - (delta % this.interval60)
 
       // liquidFun needs a consistent timestep
       // so we use interval instead of deltatime
       // it's a good enough approximation
       this.world.Step(
-        this.interval / 1000,
+        0.032,
         this.velocityIterations,
         this.positionIterations,
         this.particleIterations
