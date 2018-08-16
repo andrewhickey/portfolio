@@ -1,31 +1,31 @@
 import * as React from 'react'
 import * as Pixi from 'pixi.js'
-import styled from 'styled-components'
-import ScrollPosition from '../ScrollPosition'
-import { color2, color3 } from '../../utils/colors'
-import backgroundSrc from './lines.png'
 import b2 from 'lucy-b2'
 import { random } from 'lodash'
+import { withPrefix } from 'gatsby-link'
 
 interface BackgroundProps {
   width: number
   height: number
 }
 
+// TODO https://github.com/pixijs/pixi-filters displacement filter
 // background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png'),
 //   linear-gradient(to bottom, #d4e1f1, #dadada);
 class Background extends React.Component<BackgroundProps> {
   pixiApp: Pixi.Application
+  pixiParticles: Array<Pixi.Sprite> = []
   canvasRef = React.createRef<HTMLCanvasElement>()
 
   // Simulation
   then60: number
-  interval60 = 1000 / 30
+  interval60 = 1000 / 60
   then1: number
-  interval1 = 1000 / 3
+  interval1 = 1000 / 4
   velocityIterations = 1 // 6
   positionIterations = 1 // 2
   particleIterations = 2 // 8
+  particleCount = 1000
   world: any
   ground: any
   particleSystem: any
@@ -38,7 +38,7 @@ class Background extends React.Component<BackgroundProps> {
 
     let particleSystemDef = new b2.ParticleSystemDef()
     this.particleSystem = this.world.CreateParticleSystem(particleSystemDef)
-    this.particleSystem.SetMaxParticleCount(100)
+    this.particleSystem.SetMaxParticleCount(this.particleCount)
 
     // ground
     let groundBodyDef = new b2.BodyDef()
@@ -48,14 +48,38 @@ class Background extends React.Component<BackgroundProps> {
     groundBox.SetAsBox(50.0, 10.0)
     this.ground.CreateFixture(groundBox, 0.0)
 
+    // set up Pixi
+    this.pixiApp = new Pixi.Application(this.props.width, this.props.height, {
+      view: this.canvasRef.current,
+      backgroundColor: 0xffffff,
+    })
+
+    const pixiParticleContainer = new Pixi.particles.ParticleContainer(
+      this.particleCount
+    )
+    this.pixiApp.stage.addChild(pixiParticleContainer)
+
+    const graphic = new PIXI.Graphics()
+    graphic.beginFill(0xff00ff, 1)
+    graphic.drawRect(0, 0, 20, 20)
+    const texture = this.pixiApp.renderer.generateTexture(graphic)
+    for (let i = 0; i < this.particleCount; i++) {
+      // let sprite = Pixi.Sprite.fromImage(withPrefix('bubble.png'))
+      const pixiParticle = new PIXI.Sprite(texture)
+      pixiParticle.x = -100
+      pixiParticle.y = -100
+      pixiParticleContainer.addChild(pixiParticle)
+      this.pixiParticles.push(pixiParticle)
+    }
+
     this._triggerParticles()
-    this._runSimulation()
+    this.pixiApp.ticker.add(this._runSimulation)
   }
 
   _createParticles = (particleSystem: any) => {
     const particleGroupShape = new b2.CircleShape()
     particleGroupShape.m_radius = 5
-    particleGroupShape.m_p = new b2.Vec2(-5, 80)
+    particleGroupShape.m_p = new b2.Vec2(50, 110) // position
 
     var xf = new b2.Transform()
     xf.SetIdentity()
@@ -64,14 +88,15 @@ class Background extends React.Component<BackgroundProps> {
     const particleGroupDef = new b2.ParticleGroupDef()
     particleGroupDef.shape = particleGroupShape
     // particleGroupDef.angle = 1.0
-    particleGroupDef.linearVelocity.Set(random(3, 7), 0)
-    particleGroupDef.angularVelocity = -0.1
+    // random(-5, -15)
+    particleGroupDef.linearVelocity.Set(0, -8)
+    // particleGroupDef.angularVelocity = -0.1
     // particleGroupDef.position.Set(0, 80)
     particleGroupDef.color.Set((0.5 * 255) / 5, 255 - (0.5 * 255) / 5, 128, 255)
     particleSystem.CreateParticleGroup(particleGroupDef)
   }
 
-  _drawParticles = (context: CanvasRenderingContext2D, world: any) => {
+  _drawParticles = (world: any) => {
     let particleSystem = world.GetParticleSystemList()
 
     while (particleSystem) {
@@ -79,14 +104,14 @@ class Background extends React.Component<BackgroundProps> {
       const colors = particleSystem.GetColorBuffer()
       let maxParticles = particles.length
 
-      for (let i = 0, c = 0; i < maxParticles; i++, c += 2) {
+      for (let i = 0; i < maxParticles; i++) {
         if (particles[i]) {
           const x = this._getX(particles[i].x)
           const y = this._getY(particles[i].y)
           const color = colors[i]
-          context.fillStyle = 'blue'
-          context.moveTo(x, y)
-          context.arc(x, y, 5, 0, Math.PI * 2, true)
+          if (!this.pixiParticles[i]) console.log({ i, maxParticles })
+          this.pixiParticles[i].x = x
+          this.pixiParticles[i].y = y
         }
       }
 
@@ -95,16 +120,8 @@ class Background extends React.Component<BackgroundProps> {
   }
 
   _drawWorld = () => {
-    const canvas = this.canvasRef.current
-    const context = canvas.getContext('2d', { alpha: false })
-
     // clear canvas
-    context.clearRect(0, 0, canvas.width, canvas.height)
-    context.beginPath()
-
-    this._drawParticles(context, this.world)
-
-    context.fill()
+    this._drawParticles(this.world)
   }
 
   _triggerParticles = () => {
@@ -123,8 +140,6 @@ class Background extends React.Component<BackgroundProps> {
   }
 
   _runSimulation = () => {
-    requestAnimationFrame(this._runSimulation)
-
     // lock fps
     if (!this.then60) this.then60 = Date.now()
     const now = Date.now()
@@ -137,7 +152,7 @@ class Background extends React.Component<BackgroundProps> {
       // so we use interval instead of deltatime
       // it's a good enough approximation
       this.world.Step(
-        0.032,
+        0.016,
         this.velocityIterations,
         this.positionIterations,
         this.particleIterations
