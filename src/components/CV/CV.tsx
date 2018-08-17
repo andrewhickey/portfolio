@@ -120,8 +120,8 @@ const CV = () => (
             make Learning Locker the most popular solution in its field.
           </li>
           <li>
-            Won the MongoDB award for open source innovation (won by Facebook
-            the year before).
+            Won the MongoDB award for open source innovation 2016 (won by
+            Facebook the year before).
           </li>
           <li>
             Led a small development team to support several large scale
@@ -137,15 +137,24 @@ const CV = () => (
         <p>
           Built e-learning solutions as a full stack developer for HT2's clients
           including BP, Duke University, City and Guilds and Great Ormond Street
-          Children's hospital.
+          Children's hospital using tools such as AngularJS and Marionette.js.
         </p>
         <ul>
           <li>
             Kept in close contact with clients to ensure that the delivered
             products met a changing set of requirements.
           </li>
-          <li>Won gold and silver at the Learning Awards (TODO LINK).</li>
-          <li>TODO more needed here</li>
+          <li>
+            Won gold and bronze at the Learning & Performance Institute -
+            Learning Awards.{' '}
+            <a href="https://youtu.be/SrPiUPeqGdg">
+              The project manager can be seen speaking about it here.
+            </a>
+          </li>
+          <li>
+            Added enhancements such as video capture, to the company’s existing
+            social learning platform, Curatr.
+          </li>
         </ul>
       </Column>
     </Row>

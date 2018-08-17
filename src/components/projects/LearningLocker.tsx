@@ -1,5 +1,5 @@
 import * as React from 'react'
-import learningLockerImgSrc from './learninglocker.png'
+import learningLockerImgSrc from './learninglocker.jpg'
 import ProjectCard from './ProjectCard'
 
 const LearningLocker = () => (
