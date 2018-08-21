@@ -84,7 +84,7 @@ class AnimatedButton extends PureComponent<AnimatedButtonProps> {
 
     return (
       <Measure>
-        {({ width: textWidth, height: textHeight, ref }) => {
+        {({ rect: { width: textWidth, height: textHeight }, ref }) => {
           const { width, height } = this._getDimensions(textWidth, textHeight)
           const border = edgesToPoints(0, 0, width, height)
           const clockwiseHalf = getPointsOnRect(entryPoint, 0, 0, width, height)

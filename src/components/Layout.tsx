@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
+import { AquariumController, AquariumContext } from '../context/AquariumContext'
 import MeasureWindow from './MeasureWindow'
 import Background from './Background'
 
@@ -43,16 +44,34 @@ const Layout = ({ children }: LayoutProps) => (
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
+            {
+              name: 'description',
+              content: 'Homepage for Andrew Hickey, contract web developer.',
+            },
+            {
+              name: 'keywords',
+              content:
+                'andrew, hickey, contract, web, developer, react, javascript',
+            },
           ]}
         />
-        <MeasureWindow>
-          {({ windowWidth, windowHeight }) => (
-            <Background width={windowWidth} height={windowHeight} />
-          )}
-        </MeasureWindow>
-        <SiteContainer>{children}</SiteContainer>
+        <AquariumController>
+          <MeasureWindow>
+            {({ windowWidth, windowHeight }) => (
+              <AquariumContext.Consumer>
+                {({ obstacles, triggerPoint }) => (
+                  <Background
+                    triggerPoint={triggerPoint}
+                    width={windowWidth}
+                    height={windowHeight}
+                    obstacles={obstacles}
+                  />
+                )}
+              </AquariumContext.Consumer>
+            )}
+          </MeasureWindow>
+          <SiteContainer>{children}</SiteContainer>
+        </AquariumController>
       </>
     )}
   />

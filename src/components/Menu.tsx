@@ -2,10 +2,8 @@ import * as React from 'react'
 import styled from 'styled-components'
 import ProfilePic from './ProfilePic'
 import Row from './layout/Row'
-import { Link } from 'gatsby'
-import { rhythm } from '../utils/typography'
-import { color3 } from '../utils/colors'
-import AnimatedButton from '../components/AnimatedButton'
+import { Link, GatsbyLinkProps } from 'gatsby'
+import ParticleMoveTrigger from './ParticleMoveTrigger'
 
 const FullWidthRow = Row.extend`
   justify-content: center;
@@ -48,16 +46,30 @@ const MenuContainer = Row.extend`
   align-items: center;
 `
 
+const TriggerMenuLink = ({ children, ...props }: GatsbyLinkProps) => (
+  <ParticleMoveTrigger>
+    {({ onMouseMove, onMouseLeave }) => (
+      <MenuLink
+        {...props}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+      >
+        {children}
+      </MenuLink>
+    )}
+  </ParticleMoveTrigger>
+)
+
 const Menu = () => (
   <FullWidthRow>
     <MenuContainer>
-      <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
-      <MenuLink to="/resume/">RESUME</MenuLink>
-      <MenuLink to="/">
+      <TriggerMenuLink to="/portfolio/">PORTFOLIO</TriggerMenuLink>
+      <TriggerMenuLink to="/resume/">RESUME</TriggerMenuLink>
+      <TriggerMenuLink to="/">
         <ProfilePic />
-      </MenuLink>
-      <MenuLink to="/availability/">AVAILABILITY</MenuLink>
-      <MenuLink to="/contact/">CONTACT</MenuLink>
+      </TriggerMenuLink>
+      <TriggerMenuLink to="/availability/">AVAILABILITY</TriggerMenuLink>
+      <TriggerMenuLink to="/contact/">CONTACT</TriggerMenuLink>
     </MenuContainer>
     <MenuBackground>
       <defs>

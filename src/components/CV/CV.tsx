@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Technologies from './Technologies'
 import Languages from './Languages'
 import Bio from './Bio'
+import Obstacle from '../Obstacle'
 import Row from '../layout/Row'
 import Column from '../layout/Column'
 import AlfaLogo from './logos/AlfaLogo'
@@ -73,10 +74,14 @@ const CV = () => (
       />
       <Column>
         <SubTitle>Senior Developer</SubTitle>
-        <p>
-          Primarily responsible for front end development on the Alfa Systems
-          Point of sale product.
-        </p>
+        <Obstacle obstacleId="testparagraph">
+          {({ ref }) => (
+            <p ref={ref}>
+              Primarily responsible for front end development on the Alfa
+              Systems Point of sale product.
+            </p>
+          )}
+        </Obstacle>
         <ul>
           <li>
             Set up build process and configured other tooling to be used

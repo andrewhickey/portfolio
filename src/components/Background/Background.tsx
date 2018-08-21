@@ -2,11 +2,13 @@ import * as React from 'react'
 import * as Pixi from 'pixi.js'
 import b2 from 'lucy-b2'
 import { random } from 'lodash'
-import { withPrefix } from 'gatsby-link'
+import { Obstacles, Point } from '../../context/AquariumContext'
 
 interface BackgroundProps {
   width: number
   height: number
+  obstacles: Obstacles
+  triggerPoint: Point
 }
 
 // TODO https://github.com/pixijs/pixi-filters displacement filter
@@ -22,49 +24,78 @@ class Background extends React.Component<BackgroundProps> {
   interval60 = 1000 / 60
   then1: number
   interval1 = 1000 / 4
-  velocityIterations = 1 // 6
-  positionIterations = 1 // 2
-  particleIterations = 2 // 8
-  particleCount = 1000
+  velocityIterations = 1 // docs default 6
+  positionIterations = 1 // docs default 2
+  particleIterations = 1 // docs default 8
+  particleCount = 100
   world: any
-  ground: any
   particleSystem: any
-  particles: Array<any> = []
+  obstacleBodies: Map<string, any> = new Map()
+
+  _getWorldX = (x: number) => (x / this.props.width) * 100
+  _getWorldY = (y: number) => (y / this.props.height) * 100
+
+  _updateObstacles = (obstacles: Obstacles, world: any) => {
+    obstacles.forEach((obstacle, key) => {
+      let obstacleBody = this.obstacleBodies.get(key)
+      const centerX = obstacle.x + obstacle.width / 2
+      const centerY = obstacle.y + obstacle.height / 2
+      const worldX = this._getWorldX(centerX)
+      const worldY = 100 - this._getWorldY(centerY)
+      const worldWidth = this._getWorldX(obstacle.width)
+      const worldHeight = this._getWorldY(obstacle.height)
+
+      if (!obstacleBody) {
+        const obstacleBodyDef = new b2.BodyDef()
+        obstacleBodyDef.position.Set(0, 0)
+        obstacleBody = world.CreateBody(obstacleBodyDef)
+      }
+
+      // to change the size of an existing body we have to destroy and re-create its fixture
+      let existingFixture = obstacleBody.GetFixtureList()
+      while (existingFixture) {
+        obstacleBody.DestroyFixture(existingFixture)
+        existingFixture = existingFixture.GetNext()
+      }
+      const obstacleFixture = new b2.PolygonShape()
+      obstacleFixture.SetAsBox(worldWidth / 2, worldHeight / 2)
+      obstacleBody.CreateFixture(obstacleFixture, 0.0)
+      obstacleBody.SetTransform(worldX, worldY, 0)
+      this.obstacleBodies.set(key, obstacleBody)
+    })
+  }
+
+  componentDidUpdate() {
+    this._updateObstacles(this.props.obstacles, this.world)
+  }
 
   componentDidMount() {
     // Create world
-    let gravity = new b2.Vec2(0, -9.8)
+    let gravity = new b2.Vec2(0, -29.8)
     this.world = new b2.World(gravity)
 
     let particleSystemDef = new b2.ParticleSystemDef()
     this.particleSystem = this.world.CreateParticleSystem(particleSystemDef)
     this.particleSystem.SetMaxParticleCount(this.particleCount)
 
-    // ground
-    let groundBodyDef = new b2.BodyDef()
-    groundBodyDef.position.Set(0.0, -10.0)
-    this.ground = this.world.CreateBody(groundBodyDef)
-    let groundBox = new b2.PolygonShape()
-    groundBox.SetAsBox(50.0, 10.0)
-    this.ground.CreateFixture(groundBox, 0.0)
-
     // set up Pixi
     this.pixiApp = new Pixi.Application(this.props.width, this.props.height, {
       view: this.canvasRef.current,
-      backgroundColor: 0xffffff,
+      transparent: true,
     })
 
+    // create array of re-usable particles
     const pixiParticleContainer = new Pixi.particles.ParticleContainer(
       this.particleCount
     )
     this.pixiApp.stage.addChild(pixiParticleContainer)
 
     const graphic = new PIXI.Graphics()
-    graphic.beginFill(0xff00ff, 1)
-    graphic.drawRect(0, 0, 20, 20)
+    graphic.beginFill(0x44ccff, 0.5)
+    graphic.drawCircle(5, 5, 7)
     const texture = this.pixiApp.renderer.generateTexture(graphic)
-    for (let i = 0; i < this.particleCount; i++) {
-      // let sprite = Pixi.Sprite.fromImage(withPrefix('bubble.png'))
+
+    for (let i = 0; i < this.particleSystem.GetPositionBuffer().length; i++) {
       const pixiParticle = new PIXI.Sprite(texture)
       pixiParticle.x = -100
       pixiParticle.y = -100
@@ -72,28 +103,23 @@ class Background extends React.Component<BackgroundProps> {
       this.pixiParticles.push(pixiParticle)
     }
 
-    this._triggerParticles()
+    // this._triggerParticles() // adds new particles to the world 3 times a second
     this.pixiApp.ticker.add(this._runSimulation)
+    this._triggerParticles()
   }
 
   _createParticles = (particleSystem: any) => {
-    const particleGroupShape = new b2.CircleShape()
-    particleGroupShape.m_radius = 5
-    particleGroupShape.m_p = new b2.Vec2(50, 110) // position
+    const { triggerPoint } = this.props
 
-    var xf = new b2.Transform()
-    xf.SetIdentity()
-    particleSystem.DestroyParticlesInShape(particleGroupShape, xf)
-
-    const particleGroupDef = new b2.ParticleGroupDef()
-    particleGroupDef.shape = particleGroupShape
-    // particleGroupDef.angle = 1.0
-    // random(-5, -15)
-    particleGroupDef.linearVelocity.Set(0, -8)
-    // particleGroupDef.angularVelocity = -0.1
-    // particleGroupDef.position.Set(0, 80)
-    particleGroupDef.color.Set((0.5 * 255) / 5, 255 - (0.5 * 255) / 5, 128, 255)
-    particleSystem.CreateParticleGroup(particleGroupDef)
+    if (triggerPoint) {
+      const worldX = this._getWorldX(triggerPoint.x)
+      const worldY = 100 - this._getWorldY(triggerPoint.y)
+      const particleDef = new b2.ParticleDef()
+      particleDef.position.Set(worldX, worldY)
+      particleDef.velocity.Set(random(-5, 5), random(5, 15))
+      // particleDef.lifetime = 2 // measured in seconds
+      particleSystem.CreateParticle(particleDef)
+    }
   }
 
   _drawParticles = (world: any) => {
@@ -101,17 +127,23 @@ class Background extends React.Component<BackgroundProps> {
 
     while (particleSystem) {
       const particles = particleSystem.GetPositionBuffer()
-      const colors = particleSystem.GetColorBuffer()
       let maxParticles = particles.length
 
       for (let i = 0; i < maxParticles; i++) {
+        const flag = particleSystem.GetParticleFlags(i)
         if (particles[i]) {
-          const x = this._getX(particles[i].x)
-          const y = this._getY(particles[i].y)
-          const color = colors[i]
-          if (!this.pixiParticles[i]) console.log({ i, maxParticles })
-          this.pixiParticles[i].x = x
-          this.pixiParticles[i].y = y
+          if (flag === b2.ParticleFlag.zombieParticle) {
+            this.pixiParticles[i].x = -100
+            this.pixiParticles[i].y = -100
+          } else {
+            const x = this._getX(particles[i].x)
+            const y = this._getY(particles[i].y)
+            this.pixiParticles[i].x = x
+            this.pixiParticles[i].y = y
+          }
+        } else {
+          this.pixiParticles[i].x = -100
+          this.pixiParticles[i].y = -100
         }
       }
 
@@ -120,7 +152,6 @@ class Background extends React.Component<BackgroundProps> {
   }
 
   _drawWorld = () => {
-    // clear canvas
     this._drawParticles(this.world)
   }
 
@@ -147,12 +178,11 @@ class Background extends React.Component<BackgroundProps> {
 
     if (delta > this.interval60) {
       this.then60 = now - (delta % this.interval60)
-
       // liquidFun needs a consistent timestep
       // so we use interval instead of deltatime
       // it's a good enough approximation
       this.world.Step(
-        0.016,
+        1 / 60,
         this.velocityIterations,
         this.positionIterations,
         this.particleIterations
@@ -172,8 +202,9 @@ class Background extends React.Component<BackgroundProps> {
         width={width}
         height={height}
         style={{
-          zIndex: -1,
+          zIndex: 2,
           position: 'fixed',
+          pointerEvents: 'none',
         }}
         ref={this.canvasRef}
       />
