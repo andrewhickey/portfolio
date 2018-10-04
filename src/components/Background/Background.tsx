@@ -23,7 +23,7 @@ class Background extends React.Component<BackgroundProps> {
   then60: number
   interval60 = 1000 / 60
   then1: number
-  interval1 = 1000 / 4
+  interval1 = 1000 / 9
   velocityIterations = 1 // docs default 6
   positionIterations = 1 // docs default 2
   particleIterations = 1 // docs default 8

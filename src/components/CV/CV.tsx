@@ -88,7 +88,7 @@ const CV = () => (
             throughout the company.
           </li>
           <li>
-            Modularised existing proof of concept into a re-usable component
+            Modularised existing proof of concept into a reusable component
             library.
           </li>
           <li>
@@ -96,7 +96,7 @@ const CV = () => (
             effort.
           </li>
           <li>
-            Shared knowlege with other team members through code reviews, pair
+            Shared knowledge with other team members through code reviews, pair
             programming and breakout sessions.
           </li>
           <li>
@@ -113,13 +113,18 @@ const CV = () => (
         time="2015-2017"
       />
       <Column>
-        <SubTitle>Product Lead - Learning Locker</SubTitle>
+        <SubTitle>Lead Developer</SubTitle>
         <p>
-          Built the Learning Locker proof of concept and then led development
-          and product direction.
+          Led design and development on Learning Locker, the world’s most
+          installed Learning Record Store. Worked remotely with a team in Canada
+          and the UK.
         </p>
         <ul>
-          <li>Took Learning Locker through R&D to full product status.</li>
+          <li>
+            Took Learning Locker through R&D to full product status including
+            features such as authorization/authentication, reporting and
+            insertion APIs and customisable dashboards (using D3).
+          </li>
           <li>
             Gathered community feedback and prioritised feature development to
             make Learning Locker the most popular solution in its field.
@@ -132,6 +137,7 @@ const CV = () => (
             Led a small development team to support several large scale
             implementations (JISC, Macy's, Xerox, Nike and others).
           </li>
+          <li>Responsible for the adoption of React.js at HT2.</li>
         </ul>
       </Column>
     </Row>

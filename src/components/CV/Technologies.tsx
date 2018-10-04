@@ -32,9 +32,6 @@ const Technologies = () => (
     <SkillItem logo={<MobxLogo />} level={70}>
       MobX
     </SkillItem>
-    <SkillItem logo={<ApacheBeamLogo />} level={50}>
-      Apache Beam
-    </SkillItem>
   </div>
 )
 
