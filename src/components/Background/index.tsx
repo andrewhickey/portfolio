@@ -1,3 +1,3 @@
-import Background from './Background'
+import Background from './BackgroundPhaser'
 
 export default Background

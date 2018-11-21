@@ -16,44 +16,87 @@ interface BackgroundProps {
 // const attractionBehaviour = new.Proton.Attraction(new Proton.Vector2D())
 
 function createGame(width: number, height: number, canvas: HTMLCanvasElement) {
-  return new Promise<Phaser.GameObjects.Particles.ParticleEmitter>(resolve => {
+  return new Promise<{
+    pointEmitter: Phaser.GameObjects.Particles.ParticleEmitter
+    foregroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter
+    // backgroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter
+  }>(resolve => {
     function preload() {
-      console.log(withPrefix('snowflakes.png'))
       this.load.spritesheet('snowflakes', withPrefix('snowflakes.png'), {
         frameWidth: 17,
         frameHeight: 17,
       })
+      this.load.spritesheet(
+        'snowflakes_large',
+        withPrefix('snowflakes_large.png'),
+        {
+          frameWidth: 64,
+          frameHeight: 64,
+        }
+      )
     }
 
     function create() {
-      const particles = this.add.particles('snowflakes', [0, 1, 2, 3, 4, 5])
+      const smallParticles = this.add.particles('snowflakes', [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+      ])
+      // const largeParticles = this.add.particles('snowflakes_large', [
+      //   0,
+      //   1,
+      //   2,
+      //   3,
+      //   4,
+      //   5,
+      // ])
 
-      const emitter: Phaser.GameObjects.Particles.ParticleEmitter = particles.createEmitter(
+      const pointEmitter: Phaser.GameObjects.Particles.ParticleEmitter = smallParticles.createEmitter(
         {
           speed: 100,
-          gravityY: 200,
+          gravityY: 100,
           lifespan: 4000,
           // scale: { start: 1, end: 0 },
           blendMode: 'ADD',
         }
       )
 
-      resolve(emitter)
+      const foregroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter = smallParticles.createEmitter(
+        {
+          x: { min: 0, max: width },
+          y: -20,
+          speed: 100,
+          gravityY: 100,
+          lifespan: 4000,
+          // scale: { start: 1, end: 0 },
+          blendMode: 'ADD',
+        }
+      )
+
+      // const backgroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter = largeParticles.createEmitter(
+      //   {
+      //     speed: 100,
+      //     gravityY: 200,
+      //     lifespan: 4000,
+      //     // scale: { start: 1, end: 0 },
+      //     blendMode: 'ADD',
+      //     emitZone: { source: topEdge },
+      //   }
+      // )
+
+      resolve({ pointEmitter, foregroundEmitter })
     }
 
     const config = {
-      type: Phaser.AUTO,
+      type: Phaser.WEBGL,
       width: width,
       height: height,
       canvas: canvas,
       render: {
-        // transparent: true,
-      },
-      physics: {
-        default: 'arcade',
-        arcade: {
-          gravity: { y: 200 },
-        },
+        transparent: true,
       },
       scene: {
         preload: preload,
@@ -66,28 +109,40 @@ function createGame(width: number, height: number, canvas: HTMLCanvasElement) {
 }
 
 class Background extends React.Component<BackgroundProps> {
-  emitter: Phaser.GameObjects.Particles.ParticleEmitter
+  pointEmitter: Phaser.GameObjects.Particles.ParticleEmitter
+  foregroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter
+  backgroundEmitter: Phaser.GameObjects.Particles.ParticleEmitter
   game: Phaser.Game
   canvasRef = React.createRef<HTMLCanvasElement>()
 
   async componentDidMount() {
     const { width, height } = this.props
-    this.emitter = await createGame(width, height, this.canvasRef.current)
+
+    const {
+      pointEmitter,
+      foregroundEmitter,
+      // backgroundEmitter,
+    } = await createGame(width, height, this.canvasRef.current)
+
+    this.pointEmitter = pointEmitter
+    this.foregroundEmitter = foregroundEmitter
+    // this.backgroundEmitter = backgroundEmitter
   }
 
   triggerParticles = (prevProps: BackgroundProps) => {
     const { triggerPoint: prevTriggerPoint } = prevProps
     const { triggerPoint } = this.props
 
-    if (triggerPoint && this.emitter) {
-      this.emitter.setPosition(triggerPoint.x, triggerPoint.y)
+    if (this.pointEmitter) {
+      if (triggerPoint)
+        this.pointEmitter.setPosition(triggerPoint.x, triggerPoint.y)
+
+      const triggerStarted = !prevTriggerPoint && triggerPoint
+      if (triggerStarted) this.pointEmitter.start()
+
+      const triggerStopped = prevTriggerPoint && !triggerPoint
+      if (triggerStopped) this.pointEmitter.stop()
     }
-
-    const triggerStarted = !prevTriggerPoint && triggerPoint
-    if (triggerStarted && this.emitter) this.emitter.start()
-
-    const triggerStopped = prevTriggerPoint && !triggerPoint
-    if (triggerStopped && this.emitter) this.emitter.stop()
   }
 
   componentDidUpdate(prevProps: BackgroundProps) {
