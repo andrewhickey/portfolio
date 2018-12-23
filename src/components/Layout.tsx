@@ -49,7 +49,7 @@ const Layout = ({ children }: LayoutProps) => (
             {
               name: 'keywords',
               content:
-                'andrew, hickey, contract, web, developer, react, javascript',
+                'andrew, hickey, contract, web, developer, software, engineer, react, javascript',
             },
           ]}
         />
