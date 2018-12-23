@@ -43,7 +43,8 @@ const Layout = ({ children }: LayoutProps) => (
           meta={[
             {
               name: 'description',
-              content: 'Homepage for Andrew Hickey, contract web developer.',
+              content:
+                'Homepage for Andrew Hickey, contract software engineer.',
             },
             {
               name: 'keywords',
