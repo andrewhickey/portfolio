@@ -3,9 +3,6 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
-import { AquariumController, AquariumContext } from '../context/AquariumContext'
-import MeasureWindow from './MeasureWindow'
-import Background from './Background'
 
 const SiteContainer = styled.div`
   min-height: 100vh;

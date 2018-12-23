@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import ProfilePic from './ProfilePic'
 import Row from './layout/Row'
 import { Link, GatsbyLinkProps } from 'gatsby'
-import ParticleMoveTrigger from './ParticleMoveTrigger'
 
 const FullWidthRow = Row.extend`
   justify-content: center;
@@ -47,17 +46,7 @@ const MenuContainer = Row.extend`
 `
 
 const TriggerMenuLink = ({ children, ...props }: GatsbyLinkProps) => (
-  <ParticleMoveTrigger>
-    {({ onMouseMove, onMouseLeave }) => (
-      <MenuLink
-        {...props}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-      >
-        {children}
-      </MenuLink>
-    )}
-  </ParticleMoveTrigger>
+  <MenuLink {...props}>{children}</MenuLink>
 )
 
 const Menu = () => (
