@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import ProfilePic from './ProfilePic'
 import Row from './layout/Row'
-import { Link, GatsbyLinkProps } from 'gatsby'
+import { Link } from 'gatsby'
 
 const FullWidthRow = Row.extend`
   justify-content: center;
@@ -45,20 +45,16 @@ const MenuContainer = Row.extend`
   align-items: center;
 `
 
-const TriggerMenuLink = ({ children, ...props }: GatsbyLinkProps) => (
-  <MenuLink {...props}>{children}</MenuLink>
-)
-
 const Menu = () => (
   <FullWidthRow>
     <MenuContainer>
-      <TriggerMenuLink to="/portfolio/">PORTFOLIO</TriggerMenuLink>
-      <TriggerMenuLink to="/resume/">RESUME</TriggerMenuLink>
-      <TriggerMenuLink to="/">
+      <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
+      <MenuLink to="/resume/">RESUME</MenuLink>
+      <MenuLink to="/">
         <ProfilePic />
-      </TriggerMenuLink>
-      <TriggerMenuLink to="/availability/">AVAILABILITY</TriggerMenuLink>
-      <TriggerMenuLink to="/contact/">CONTACT</TriggerMenuLink>
+      </MenuLink>
+      <MenuLink to="/availability/">AVAILABILITY</MenuLink>
+      <MenuLink to="/contact/">CONTACT</MenuLink>
     </MenuContainer>
     <MenuBackground>
       <defs>
