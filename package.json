@@ -31,7 +31,7 @@
     "pixi.js": "^4.8.1",
     "polished": "^1.9.3",
     "proton-js": "^3.1.2",
-    "react": "^16.7.0-alpha.0",
+    "react": "^16.7.0",
     "react-big-calendar": "^0.19.2",
     "react-dom": "^16.7.0-alpha.0",
     "react-helmet": "^5.2.0",
