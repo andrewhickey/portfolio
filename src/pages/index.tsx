@@ -5,7 +5,6 @@ import Menu from '../components/Menu'
 import { rhythm } from '../utils/typography'
 import { color2 } from '../utils/colors'
 import Column from '../components/layout/Column'
-import Obstacle from '../components/Obstacle'
 
 const Title = styled.h1`
   color: black;
@@ -41,20 +40,10 @@ const IndexPage = () => (
     <Menu />
     <PaddedColumn>
       <div>
-        <Obstacle obstacleId="ob1">
-          {({ ref }) => (
-            <Title innerRef={ref}>
-              Hi, I'm <Name>Andrew</Name>
-            </Title>
-          )}
-        </Obstacle>
-        <Obstacle obstacleId="ob2">
-          {({ ref }) => (
-            <SubTitle innerRef={ref}>
-              full stack, contract, web developer
-            </SubTitle>
-          )}
-        </Obstacle>
+        <Title>
+          Hi, I'm <Name>Andrew</Name>
+        </Title>
+        <SubTitle>full stack, contract, web developer</SubTitle>
       </div>
     </PaddedColumn>
   </Layout>

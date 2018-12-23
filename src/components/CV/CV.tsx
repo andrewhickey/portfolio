@@ -74,14 +74,11 @@ const CV = () => (
       />
       <Column>
         <SubTitle>Senior Developer</SubTitle>
-        <Obstacle obstacleId="testparagraph">
-          {({ ref }) => (
-            <p ref={ref}>
-              Primarily responsible for front end development on the Alfa
-              Systems Point of sale product.
-            </p>
-          )}
-        </Obstacle>
+        <p>
+          Primarily responsible for front end development on the Alfa Systems
+          Point of sale product.
+        </p>
+
         <ul>
           <li>
             Set up build process and configured other tooling to be used
