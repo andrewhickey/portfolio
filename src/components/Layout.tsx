@@ -55,23 +55,7 @@ const Layout = ({ children }: LayoutProps) => (
             },
           ]}
         />
-        <AquariumController>
-          <MeasureWindow>
-            {({ windowWidth, windowHeight }) => (
-              <AquariumContext.Consumer>
-                {({ obstacles, triggerPoint }) => (
-                  <Background
-                    triggerPoint={triggerPoint}
-                    width={windowWidth}
-                    height={windowHeight}
-                    obstacles={obstacles}
-                  />
-                )}
-              </AquariumContext.Consumer>
-            )}
-          </MeasureWindow>
-          <SiteContainer>{children}</SiteContainer>
-        </AquariumController>
+        <SiteContainer>{children}</SiteContainer>
       </>
     )}
   />
