@@ -38,7 +38,7 @@ const PaddedColumn = Column.extend`
 const IndexPage = () => (
   <Layout>
     <Menu />
-    <PaddedColumn>
+    <PaddedColumn data-testid="home-content">
       <div>
         <Title>
           Hi, I'm <Name>Andrew</Name>
