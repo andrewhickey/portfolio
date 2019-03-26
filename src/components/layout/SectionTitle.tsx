@@ -7,29 +7,26 @@ import { color2 } from '../../utils/colors'
 const SectionRow = Row.extend`
   align-items: center;
 `
-const SectionHeader = styled.h1`
+const SectionHeader = styled.h3`
   color: ${color2};
 `
 
-const LargeSectionHeader = SectionHeader.extend`
-  flex: 1;
-`
 const SectionLine = styled.div`
-  border-bottom: 0.2rem solid ${color2};
-  margin-left: ${rhythm(0.5)};
+  border-top: 0.2rem solid ${color2};
   height: ${rhythm(0.5)};
+  width: 100%;
 `
 interface SectionHeaderProps {
   children: React.ReactNode
 }
 
 const SectionTitle = ({ children }: SectionHeaderProps) => (
-  <SectionRow>
-    <SectionHeader>{children}</SectionHeader>
-    <LargeSectionHeader>
+  <div>
+    <SectionHeader>
+      {children}
       <SectionLine />
-    </LargeSectionHeader>
-  </SectionRow>
+    </SectionHeader>
+  </div>
 )
 
 export default SectionTitle
