@@ -14,10 +14,9 @@ const ProfilePic = styled.div`
   box-shadow: 0 0 0 ${borderWidth}px ${color2},
     0px 0px ${borderWidth * 3}px ${borderWidth}px ${color2};
   margin: ${borderWidth}px;
-  transform: translateY(20%);
   transition: all 0.4s;
   &:hover {
-    transform: translateY(20%) scale(1.05);
+    transform: scale(1.05);
   }
 `
 export default ProfilePic
