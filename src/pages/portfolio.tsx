@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
-import Row from '../components/layout/Row'
+import Otro from '../components/projects/Otro'
 import AlfaPos from '../components/projects/AlfaPos'
 import PageColumn from '../components/layout/PageColumn'
 import LearningLocker from '../components/projects/LearningLocker'
@@ -11,6 +11,7 @@ const SecondPage = () => (
   <Layout>
     <Menu />
     <PageColumn>
+      <Otro />
       <AlfaPos />
       <LearningLocker />
       <OrganisationDesign />
