@@ -3,7 +3,7 @@ import { rhythm } from '../../utils/typography'
 
 const PageColumn = Column.extend`
   padding-top: ${rhythm(1.5)};
-  width: 992px;
+  max-width: 992px;
 `
 
 export default PageColumn

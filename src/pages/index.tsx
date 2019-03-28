@@ -31,7 +31,6 @@ const PaddedColumn = Column.extend`
   align-items: center;
   justify-content: space-around;
   padding: ${rhythm(2)};
-  width: 992px;
   flex: 1;
 `
 

@@ -57,7 +57,6 @@ const SubTitle = styled.h4`
 
 const CV = () => (
   <>
-    <SectionTitle>Bio</SectionTitle>
     <SectionTitle>Skills</SectionTitle>
     <SkillsRow>
       <Technologies />

@@ -5,7 +5,6 @@ import { StaticQuery, graphql } from 'gatsby'
 import { text } from '../utils/colors'
 
 const SiteContainer = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +12,6 @@ const SiteContainer = styled.div`
   & a {
     color: inherit;
   }
-  background-color: #e9f7fb;
 `
 
 interface LayoutProps {

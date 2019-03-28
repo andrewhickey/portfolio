@@ -10,7 +10,7 @@ import { rhythm } from '../utils/typography'
 
 const CenteredProfilePic = styled(ProfilePic)`
   align-self: center;
-  margin-bottom: ${rhythm(0.5)};
+  margin-bottom: ${rhythm(1)};
 `
 
 const Contact = () => (
