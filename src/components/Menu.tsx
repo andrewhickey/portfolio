@@ -16,6 +16,7 @@ const MenuLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
 `
@@ -29,6 +30,8 @@ const MenuContainer = Row.extend`
 const Menu = () => (
   <FullWidthRow>
     <MenuContainer>
+      <MenuLink to="/">ANDREW HICKEY'S WEBSITE</MenuLink>
+      {' | '}
       <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
       <MenuLink to="/resume/">RESUME</MenuLink>
       <MenuLink to="/contact/">CONTACT</MenuLink>

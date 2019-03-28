@@ -2,7 +2,7 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
-import { text, color3 } from '../utils/colors'
+import { text } from '../utils/colors'
 
 const SiteContainer = styled.div`
   min-height: 100vh;
