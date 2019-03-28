@@ -43,11 +43,10 @@ const TimeAt = ({ logo, companyName, time }: TimeAtProps) => (
 )
 
 const SkillsRow = Row.extend`
+  flex-wrap: wrap;
   & > * {
     flex: 1;
-  }
-  & > *:not(:last-child) {
-    margin-right: ${rhythm(1)};
+    margin: ${rhythm(0.5)};
   }
 `
 

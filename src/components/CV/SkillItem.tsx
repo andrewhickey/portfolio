@@ -16,6 +16,7 @@ const Progress = styled.div`
   width: ${(props: ProgressProps) => props.level}%;
   background-color: ${color3};
   padding: 0 ${rhythm(0.5)};
+  white-space: nowrap;
 `
 
 const LogoContainer = Row.extend`
