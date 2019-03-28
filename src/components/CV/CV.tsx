@@ -3,7 +3,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Technologies from './Technologies'
 import Languages from './Languages'
-import Bio from './Bio'
 import Row from '../layout/Row'
 import Column from '../layout/Column'
 import OtroLogo from './logos/OtroLogo'
@@ -59,7 +58,6 @@ const SubTitle = styled.h4`
 const CV = () => (
   <>
     <SectionTitle>Bio</SectionTitle>
-    <Bio />
     <SectionTitle>Skills</SectionTitle>
     <SkillsRow>
       <Technologies />

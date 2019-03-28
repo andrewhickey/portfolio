@@ -1,14 +1,24 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
+import styled from 'styled-components'
+import Bio from '../components/Bio'
+import ProfilePic from '../components/ProfilePic'
 import Layout from '../components/Layout'
 import Menu from '../components/Menu'
 import PageColumn from '../components/layout/PageColumn'
 import { EMAIL } from '../constants'
+import { rhythm } from '../utils/typography'
+
+const CenteredProfilePic = styled(ProfilePic)`
+  align-self: center;
+  margin-bottom: ${rhythm(0.5)};
+`
 
 const Contact = () => (
   <Layout>
     <Menu />
     <PageColumn>
+      <CenteredProfilePic />
+      <Bio />
       <p>
         email:{' '}
         <b>
