@@ -40,8 +40,8 @@ const Menu = () => (
     <HomeLink to="/">ANDREW HICKEY'S WEBSITE</HomeLink>
     <AutoWidthRow>
       <MenuLink to="/contact/">CONTACT</MenuLink>
-      <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
       <MenuLink to="/resume/">RESUME</MenuLink>
+      <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
     </AutoWidthRow>
   </MenuContainer>
 )
