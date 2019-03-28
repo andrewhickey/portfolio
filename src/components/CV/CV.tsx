@@ -6,6 +6,7 @@ import Languages from './Languages'
 import Bio from './Bio'
 import Row from '../layout/Row'
 import Column from '../layout/Column'
+import OtroLogo from './logos/OtroLogo'
 import AlfaLogo from './logos/AlfaLogo'
 import LearningLockerLogo from './logos/LearningLockerLogo'
 import HT2LabsLogo from './logos/HT2LabsLogo'
@@ -67,12 +68,46 @@ const CV = () => (
     <SectionTitle>Experience</SectionTitle>
     <Row>
       <TimeAt
+        logo={<OtroLogo width="100%" />}
+        companyName="Otro"
+        time="2018-2019"
+      />
+      <Column>
+        <SubTitle>Senior Software Engineer</SubTitle>
+        <p>
+          Picked up the project a couple of months before public release and
+          helped to push it to completion while improving test coverage and
+          eliminating bugs.
+        </p>
+
+        <ul>
+          <li>
+            Took responsibilty for some of the more complex areas of the
+            application involving animation and visualisation.
+          </li>
+          <li>
+            Isolated troublesome components using storybook and unit tests to
+            reduce overall complexity.
+          </li>
+          <li>
+            Integrated quickly with existing team members and other stakeholders
+            from the business.
+          </li>
+          <li>
+            Shared knowledge with other team members through code reviews, pair
+            programming and informal chats.
+          </li>
+        </ul>
+      </Column>
+    </Row>
+    <Row>
+      <TimeAt
         logo={<AlfaLogo width="100%" />}
         companyName="Alfa Systems"
         time="2017-2018"
       />
       <Column>
-        <SubTitle>Senior Developer</SubTitle>
+        <SubTitle>Senior Software Engineer</SubTitle>
         <p>
           Primarily responsible for front end development on the Alfa Systems
           Point of sale product.
@@ -109,7 +144,7 @@ const CV = () => (
         time="2015-2017"
       />
       <Column>
-        <SubTitle>Lead Developer</SubTitle>
+        <SubTitle>Product Lead</SubTitle>
         <p>
           Led design and development on Learning Locker, the world’s most
           installed Learning Record Store. Worked remotely with a team in Canada
