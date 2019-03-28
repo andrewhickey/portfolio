@@ -5,13 +5,10 @@ import TypeScriptLogo from './logos/TypeScriptLogo'
 import JavaLogo from './logos/JavaLogo'
 import PhpLogo from './logos/PhpLogo'
 import RustLogo from './logos/RustLogo'
-import WebPackLogo from './logos/WebPackLogo'
-import ReduxLogo from './logos/ReduxLogo'
-import MongoDBLogo from './logos/MongoDBLogo'
 
 const Languages = () => (
   <div>
-    <SkillItem logo={<JavaScriptLogo />} level={98}>
+    <SkillItem logo={<JavaScriptLogo />} level={99}>
       JavaScript
     </SkillItem>
     <SkillItem logo={<TypeScriptLogo />} level={85}>
