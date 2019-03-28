@@ -2,10 +2,12 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
+import favicon from '../favicon.png'
 import { text } from '../utils/colors'
 import { rhythm } from '../utils/typography'
 
 const SiteContainer = styled.div`
+  min-height: 100vh;
   width: 100%;
   padding-left: ${rhythm(1)};
   padding-right: ${rhythm(1)};
@@ -55,7 +57,9 @@ const Layout = ({ children }: LayoutProps) => (
                 'andrew, hickey, contract, web, developer, software, engineer, react, javascript',
             },
           ]}
-        />
+        >
+          <link rel="shortcut icon" href={favicon} />
+        </Helmet>
         <SiteContainer>{children}</SiteContainer>
       </>
     )}
