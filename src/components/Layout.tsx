@@ -2,7 +2,7 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
-import { text } from '../utils/colors'
+import { text, color3 } from '../utils/colors'
 
 const SiteContainer = styled.div`
   min-height: 100vh;
@@ -13,6 +13,7 @@ const SiteContainer = styled.div`
   & a {
     color: inherit;
   }
+  background-color: #e9f7fb;
 `
 
 interface LayoutProps {

@@ -9,8 +9,18 @@ const Contact = () => (
   <Layout>
     <Menu />
     <PageColumn>
-      <h1>email: {EMAIL}</h1>
-      <p>company name : company number</p>
+      <p>
+        email:{' '}
+        <b>
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </b>
+      </p>
+      <p>
+        company name: <b>ANDREW HICKEY LTD</b>
+      </p>
+      <p>
+        company number: <b>11508782</b>
+      </p>
     </PageColumn>
   </Layout>
 )

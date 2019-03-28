@@ -31,7 +31,6 @@ const Menu = () => (
     <MenuContainer>
       <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
       <MenuLink to="/resume/">RESUME</MenuLink>
-      <MenuLink to="/availability/">AVAILABILITY</MenuLink>
       <MenuLink to="/contact/">CONTACT</MenuLink>
     </MenuContainer>
   </FullWidthRow>
