@@ -1,12 +1,11 @@
 import * as React from 'react'
 import SkillItem from './SkillItem'
 import ReactLogo from './logos/ReactLogo'
-import WebPackLogo from './logos/WebPackLogo'
+import WebpackLogo from './logos/WebpackLogo'
 import ReduxLogo from './logos/ReduxLogo'
 import MobxLogo from './logos/MobxLogo'
 import MongoDBLogo from './logos/MongoDBLogo'
 import MySQLLogo from './logos/MySQLLogo'
-import ApacheBeamLogo from './logos/ApacheBeamLogo'
 import JestLogo from './logos/JestLogo'
 
 const Technologies = () => (
@@ -17,7 +16,7 @@ const Technologies = () => (
     <SkillItem logo={<ReduxLogo />} level={100}>
       Redux
     </SkillItem>
-    <SkillItem logo={<WebPackLogo />} level={97}>
+    <SkillItem logo={<WebpackLogo />} level={97}>
       Webpack
     </SkillItem>
     <SkillItem logo={<MongoDBLogo />} level={95}>
