@@ -15,8 +15,7 @@ const Bio = () => (
       Outside of work I can be found in Newbury UK, either cooking or coding.
     </p>
     <p>
-      If you have something that needs building then I'd love to{' '}
-      <Link to="/contact">hear about it</Link>
+      If you have something that needs building then I'd love to hear about it.
     </p>
   </div>
 )
