@@ -9,7 +9,7 @@ const Bio = () => (
       engineer positions.
     </p>
     <p>
-      I've used TDD and a variety of languages to build
+      I've used TDD and a variety of languages to build{' '}
       <Link to="/portfolio">award winning sites</Link> for clients in domains
       from e-learning to fin-tech. In recent projects I have used React, React
       Native and Node.js to solve some data heavy problems in a user friendly
