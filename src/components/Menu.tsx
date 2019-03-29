@@ -13,6 +13,7 @@ const MenuLink = styled(Link)`
   white-space: nowrap;
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
+  color: ${text};
 `
 
 const HomeLink = styled(MenuLink)`

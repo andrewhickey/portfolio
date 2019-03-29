@@ -1,5 +1,6 @@
 import * as Typography from 'typography'
 import sutroTheme from 'typography-theme-sutro'
+import { color1 } from './colors'
 
 sutroTheme.googleFonts = [
   {
@@ -9,6 +10,13 @@ sutroTheme.googleFonts = [
 ]
 sutroTheme.headerFontFamily = ['Inconsolata', 'sans-serif']
 sutroTheme.bodyFontFamily = ['Inconsolata', 'sans-serif']
+sutroTheme.bodyWeight = 400
+
+sutroTheme.overrideThemeStyles = () => ({
+  a: {
+    color: color1,
+  },
+})
 
 const typography = new Typography(sutroTheme)
 

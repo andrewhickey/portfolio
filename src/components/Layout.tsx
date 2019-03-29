@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import favicon from '../favicon.png'
-import { text } from '../utils/colors'
+import { text, color1 } from '../utils/colors'
 import { rhythm } from '../utils/typography'
 
 const SiteContainer = styled.div`
@@ -15,9 +15,6 @@ const SiteContainer = styled.div`
   flex-direction: column;
   align-items: center;
   color: ${text};
-  & a {
-    color: inherit;
-  }
 `
 
 interface LayoutProps {
