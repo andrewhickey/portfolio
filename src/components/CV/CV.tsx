@@ -22,6 +22,7 @@ const LogoContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
 `
+
 const TimeRow = Row.extend`
   width: 20rem;
 `
@@ -30,6 +31,7 @@ interface TimeAtProps {
   companyName: string
   time: string
 }
+
 const TimeAt = ({ logo, companyName, time }: TimeAtProps) => (
   <TimeRow>
     <LogoContainer>{logo}</LogoContainer>
@@ -42,11 +44,16 @@ const TimeAt = ({ logo, companyName, time }: TimeAtProps) => (
   </TimeRow>
 )
 
-const SkillsRow = Row.extend`
-  flex-wrap: wrap;
-  & > * {
-    flex: 1;
-    margin: ${rhythm(0.5)};
+const Skills = styled.div`
+  display: grid;
+
+  grid-column-gap: ${rhythm(0.5)};
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+
+  @media (min-width: 574px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
   }
 `
 
@@ -57,10 +64,10 @@ const SubTitle = styled.h4`
 const CV = () => (
   <>
     <SectionTitle>Skills</SectionTitle>
-    <SkillsRow>
+    <Skills>
       <Technologies />
       <Languages />
-    </SkillsRow>
+    </Skills>
     <SectionTitle>Experience</SectionTitle>
     <Row>
       <TimeAt
@@ -71,9 +78,9 @@ const CV = () => (
       <Column>
         <SubTitle>Senior Software Engineer</SubTitle>
         <p>
-          Picked up the project a couple of months before public release and
-          helped to push it to completion while improving test coverage and
-          eliminating bugs.
+          Joined the project a couple of months before public release and helped
+          to push it to completion while improving test coverage and eliminating
+          bugs.
         </p>
 
         <ul>

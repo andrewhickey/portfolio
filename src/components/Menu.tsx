@@ -1,49 +1,59 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import Row from './layout/Row'
 import { Link } from 'gatsby'
 import { rhythm } from '../utils/typography'
 import { text } from '../utils/colors'
 
-const MenuLink = styled(Link)`
+const PageLink = styled(Link)`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  color: ${text};
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
-  color: ${text};
 `
 
-const HomeLink = styled(MenuLink)`
+const HomeLink = styled(PageLink)`
+  grid-area: home;
   border-bottom: 1px solid ${text};
   @media (min-width: 574px) {
-    border-right: 1px solid ${text};
     border-bottom: none;
   }
 `
 
-const AutoWidthRow = styled(Row)`
-  width: auto;
+const MenuContainer = styled.div`
+  margin-top: ${rhythm(1)};
+  display: grid;
+
+  grid-template-areas: 'home home home';
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+
+  @media (min-width: 574px) {
+    grid-template-areas: 'home';
+    grid-template-columns: auto auto auto auto auto;
+  }
+
+  filter: drop-shadow(0 -3px 5px rgba(0, 0, 0, 0.25));
 `
 
-const MenuContainer = styled(AutoWidthRow)`
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: ${rhythm(1)};
-  filter: drop-shadow(0 -3px 5px rgba(0, 0, 0, 0.25));
+const Divider = styled.div`
+  display: none;
+
+  @media (min-width: 574px) {
+    display: block;
+  }
 `
 
 const Menu = () => (
   <MenuContainer>
     <HomeLink to="/">ANDREW HICKEY'S WEBSITE</HomeLink>
-    <AutoWidthRow>
-      <MenuLink to="/contact/">CONTACT</MenuLink>
-      <MenuLink to="/resume/">RESUME</MenuLink>
-      <MenuLink to="/portfolio/">PORTFOLIO</MenuLink>
-    </AutoWidthRow>
+    <Divider>|</Divider>
+    <PageLink to="/contact/">CONTACT</PageLink>
+    <PageLink to="/resume/">RESUME</PageLink>
+    <PageLink to="/portfolio/">PORTFOLIO</PageLink>
   </MenuContainer>
 )
 
