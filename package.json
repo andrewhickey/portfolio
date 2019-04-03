@@ -13,8 +13,7 @@
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:run": "cypress open",
-    "test:e2e:dev": "start-server-and-test develop http://localhost:8000 cy:run",
-    "deploy": "gatsby build && gh-pages -d public -b master -r git@github.com:andrewhickey/andrewhickey.github.io.git"
+    "test:e2e:dev": "start-server-and-test develop http://localhost:8000 cy:run"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
