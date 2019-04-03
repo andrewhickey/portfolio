@@ -20,8 +20,8 @@ interface SectionHeaderProps {
   children: React.ReactNode
 }
 
-const SectionTitle = ({ children }: SectionHeaderProps) => (
-  <div>
+const SectionTitle = ({ children, ...props }: SectionHeaderProps) => (
+  <div {...props}>
     <SectionHeader>
       {children}
       <SectionLine />
