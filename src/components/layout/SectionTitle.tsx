@@ -1,9 +1,13 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../../utils/typography'
+import { text } from '../../utils/colors'
 
 const SectionHeader = styled.h3`
   text-transform: uppercase;
+  a {
+    color: ${text};
+  }
 `
 
 const SectionLine = styled.div`
