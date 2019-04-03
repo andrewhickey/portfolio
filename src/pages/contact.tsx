@@ -11,6 +11,7 @@ import { rhythm } from '../utils/typography'
 const CenteredProfilePic = styled(ProfilePic)`
   align-self: center;
   margin-bottom: ${rhythm(1)};
+  margin-top: ${rhythm(1)};
 `
 
 const Contact = () => (
@@ -20,16 +21,16 @@ const Contact = () => (
       <CenteredProfilePic />
       <Bio />
       <p>
-        email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        <i>email:</i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       </p>
       <p>
-        linkedin: <a href={LINKEDIN}>{LINKEDIN}</a>
+        <i>linkedin:</i> <a href={LINKEDIN}>{LINKEDIN}</a>
       </p>
       <p>
-        company name: <b>ANDREW HICKEY LTD</b>
+        <i>company name:</i> <b>ANDREW HICKEY LTD</b>
       </p>
       <p>
-        company number: <b>11508782</b>
+        <i>company number:</i> <b>11508782</b>
       </p>
     </PageColumn>
   </Layout>

@@ -5,8 +5,8 @@ const Bio = () => (
   <div>
     <p>
       I work with my clients to build products from the ground up or iterate on
-      an existing design. I am comfortable in both leadership and senior
-      engineer positions.
+      an existing design. I can help if your business requires a team
+      lead/architect or simply some fast and reliable feature delivery.
     </p>
     <p>
       I've used TDD and a variety of languages to build{' '}
