@@ -15,14 +15,23 @@ import { rhythm } from '../../utils/typography'
 const Section = styled.div`
   display: grid;
   grid-template-areas:
-    'logo dates'
     'logo subtitle'
+    'logo dates'
     'summary summary'
     'achievements achievements';
   grid-template-columns: ${rhythm(3)} auto;
   grid-template-rows: auto;
   grid-column-gap: ${rhythm(0.5)};
   margin-bottom: ${rhythm(0.5)};
+
+  @media (min-width: 574px) {
+    grid-template-columns: minmax(20%, 150px) auto;
+    grid-template-areas:
+      'logo subtitle'
+      'dates summary'
+      'empty achievements';
+    grid-column-gap: ${rhythm(1)};
+  }
 `
 
 const Logo = styled.div`
@@ -33,13 +42,14 @@ const Logo = styled.div`
 
 const Dates = styled.p`
   grid-area: dates;
-  align-self: end;
+  align-self: start;
 `
 
 const SubTitle = styled.p`
   grid-area: subtitle;
   font-weight: bold;
   font-size: 1.1rem;
+  margin-bottom: 0;
 `
 
 const Summary = styled.p`
@@ -77,7 +87,7 @@ const CV = () => (
         <OtroLogo width="100%" />
       </Logo>
       <Dates>
-        <b>Otro</b> 2018-2019
+        <b>Otro</b> 2018‑2019
       </Dates>
       <SubTitle>Senior Software Engineer</SubTitle>
       <Summary>
@@ -110,7 +120,7 @@ const CV = () => (
         <AlfaLogo width="100%" />
       </Logo>
       <Dates>
-        <b>Alfa Systems</b> 2017-2018
+        <b>Alfa Systems</b> 2017‑2018
       </Dates>
       <SubTitle>Senior Software Engineer</SubTitle>
       <Summary>
@@ -146,7 +156,7 @@ const CV = () => (
         <LearningLockerLogo />
       </Logo>
       <Dates>
-        <b>HT2 Labs</b> 2015-2017
+        <b>HT2 Labs</b> 2015‑2017
       </Dates>
       <SubTitle>Product Lead</SubTitle>
       <Summary>
@@ -181,7 +191,7 @@ const CV = () => (
         <HT2LabsLogo />
       </Logo>
       <Dates>
-        <b>HT2 Labs</b> 2014-2015
+        <b>HT2 Labs</b> 2014‑2015
       </Dates>
       <SubTitle>Software Engineer</SubTitle>
       <Summary>
@@ -213,7 +223,7 @@ const CV = () => (
         <ContentGuruLogo />
       </Logo>
       <Dates>
-        <b>Content Guru</b> 2011-2014
+        <b>Content Guru</b> 2011‑2014
       </Dates>
       <SubTitle>Systems Engineer</SubTitle>
       <Summary>
@@ -242,7 +252,7 @@ const CV = () => (
         <LauncestonLogo />
       </Logo>
       <Dates>
-        <b>Manchester University</b> 2007-2010
+        <b>Manchester University</b> 2007‑2010
       </Dates>
       <SubTitle>BSc Computer Science</SubTitle>
     </Section>
@@ -252,7 +262,7 @@ const CV = () => (
         <MancUniLogo />
       </Logo>
       <Dates>
-        <b>Launceston College</b> 2004-2006
+        <b>Launceston College</b> 2004‑2006
       </Dates>
       <SubTitle>Computing, Maths, Physics, French A-Level</SubTitle>
     </Section>
