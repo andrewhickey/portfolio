@@ -53,7 +53,7 @@ const SubTitle = styled.p`
   grid-area: subtitle;
   font-weight: bold;
   font-size: 1.1rem;
-  margin-bottom: 0;
+  align-self: end;
 `
 
 const Summary = styled.p`
