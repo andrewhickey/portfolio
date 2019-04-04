@@ -27,8 +27,8 @@ const Section = styled.div`
   @media (min-width: 574px) {
     grid-template-columns: minmax(20%, 150px) auto;
     grid-template-areas:
-      'logo subtitle'
-      'dates summary'
+      'dates subtitle'
+      'logo summary'
       'empty achievements';
     grid-column-gap: ${rhythm(1)};
   }
@@ -40,20 +40,23 @@ const NoWrap = styled.span`
 
 const Logo = styled.div`
   grid-area: logo;
-  justify-self: center;
+  justify-self: right;
   align-self: start;
 `
 
 const Dates = styled.p`
   grid-area: dates;
   align-self: start;
+  @media (min-width: 574px) {
+    text-align: right;
+  }
 `
 
 const SubTitle = styled.p`
   grid-area: subtitle;
   font-weight: bold;
   font-size: 1.1rem;
-  align-self: end;
+  align-self: start;
 `
 
 const Summary = styled.p`
@@ -253,7 +256,7 @@ const CV = () => (
     <SectionTitle>Education</SectionTitle>
     <Section>
       <Logo>
-        <LauncestonLogo />
+        <MancUniLogo />
       </Logo>
       <Dates>
         <b>Manchester University</b> <NoWrap>2007‑2010</NoWrap>
@@ -263,7 +266,7 @@ const CV = () => (
 
     <Section>
       <Logo>
-        <MancUniLogo />
+        <LauncestonLogo />
       </Logo>
       <Dates>
         <b>Launceston College</b> <NoWrap>2004‑2006</NoWrap>
