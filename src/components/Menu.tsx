@@ -47,13 +47,25 @@ const Divider = styled.div`
   }
 `
 
+const activeStyle = {
+  fontWeight: 'bold',
+}
+
 const Menu = () => (
   <MenuContainer>
-    <HomeLink to="/">ANDREW HICKEY'S WEBSITE</HomeLink>
+    <HomeLink to="/" activeStyle={activeStyle}>
+      ANDREW HICKEY'S WEBSITE
+    </HomeLink>
     <Divider>|</Divider>
-    <PageLink to="/contact/">CONTACT</PageLink>
-    <PageLink to="/resume/">RESUME</PageLink>
-    <PageLink to="/portfolio/">PORTFOLIO</PageLink>
+    <PageLink to="/contact/" activeStyle={activeStyle}>
+      CONTACT
+    </PageLink>
+    <PageLink to="/resume/" activeStyle={activeStyle}>
+      RESUME
+    </PageLink>
+    <PageLink to="/portfolio/" activeStyle={activeStyle}>
+      PORTFOLIO
+    </PageLink>
   </MenuContainer>
 )
 
