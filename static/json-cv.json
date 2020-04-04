@@ -1,0 +1,102 @@
+{
+  "basics": {
+    "name": "Andrew Hickey",
+    "label": "Software Engineer",
+    "picture": "",
+    "email": "andrewhickey@live.co.uk",
+    "phone": "",
+    "website": "https://ahickey.dev",
+    "summary": "An experienced guy",
+    "location": {
+      "address": "",
+      "postalCode": "RG14 1RG",
+      "city": "Newbury",
+      "countryCode": "UK",
+      "region": "Berkshire"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "url": "https://www.linkedin.com/in/andrew-hickey-0290a4a8/"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Golddust Ltd",
+      "position": "Lead sofware engineer",
+      "website": "https://golddust.io",
+      "startDate": "2020-01-01",
+      "endDate": "2020-04-01",
+      "summary": "Lead development on React Native app and back end stack.",
+      "highlights": ["Took the app from wireframes to initial user testing."]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Project Trust",
+      "position": "Volunteer Teacher",
+      "website": "https://projecttrust.org.uk/",
+      "startDate": "2006-07-01",
+      "endDate": "2007-07-01",
+      "summary": "Spent a year as a volunteer English teacher in Mauritania, West Africa",
+      "highlights": [
+        "Put on extra-curricular computer literacy classes",
+        "Worked as a tutor for children needing extra help"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Manchester",
+      "area": "Computer Science",
+      "studyType": "Bachelor",
+      "startDate": "2007-09-01",
+      "endDate": "2010-07-01"
+    }
+  ],
+  "awards": [
+    {
+      "title": "MongoDB award",
+      "date": "2016-06-01",
+      "awarder": "MongoDB Inc",
+      "summary": "Given for innovation with MongoDB in open source."
+    },
+    {
+      "title": "Learning Awards",
+      "date": "2015-05-01",
+      "awarder": "Learning & Performance Institute",
+      "summary": "Won gold and silver for advances in social learning"
+    }
+  ],
+  "publications": [],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": ["HTML", "CSS", "Javascript"]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "French",
+      "fluency": "Rusty"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": ["Ferrets", "Unicorns"]
+    }
+  ],
+  "references": [
+    {
+      "name": "Jane Doe",
+      "reference": "Reference..."
+    }
+  ]
+}
