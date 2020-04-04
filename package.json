@@ -33,6 +33,7 @@
     "react-images": "^0.5.19",
     "react-typography": "^0.16.19",
     "resize-observer-polyfill": "^1.5.0",
+    "resume-schema": "^0.0.18",
     "styled-components": "^3.3.3",
     "typography": "^0.16.17",
     "typography-theme-sutro": "^0.16.18"
