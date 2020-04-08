@@ -38,12 +38,7 @@ const IndexPage = () => (
   <Layout>
     <Menu />
     <PaddedColumn data-testid="home-content">
-      <div>
-        <Title>
-          Hi, I'm <Name>Andrew</Name>
-        </Title>
-        <SubTitle>full stack, contract, web developer</SubTitle>
-      </div>
+      <DeveloperProfile data={JSON.stringify(resume)} mode="readOnly" />
     </PaddedColumn>
   </Layout>
 )
