@@ -8,27 +8,27 @@ module.exports = {
       options: {
         transpileOnly: true,
         compilerOptions: {
-          target: `esnext`,
+          target: 'esnext',
           experimentalDecorators: true,
-          jsx: `react`,
+          jsx: 'react',
         },
       },
     },
     {
-      resolve: `gatsby-plugin-typography`,
+      resolve: 'gatsby-plugin-typography',
       options: {
-        pathToConfigModule: `src/utils/typography`,
+        pathToConfigModule: 'src/utils/typography',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: 'src/markdown',
         name: 'markdown-pages',
       },
     },
-    `gatsby-transformer-remark`,
-    'gatsby-plugin-styled-components',
+    'gatsby-transformer-remark',
+    'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
   ],
 }

@@ -1,21 +1,10 @@
+import { css } from '@emotion/core'
+import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
-import styled from 'styled-components'
-import { StaticQuery, graphql } from 'gatsby'
 import favicon from '../favicon.png'
-import { text, color1 } from '../utils/colors'
+import { text } from '../utils/colors'
 import { rhythm } from '../utils/typography'
-
-const SiteContainer = styled.div`
-  min-height: 100vh;
-  width: 100%;
-  padding-left: ${rhythm(1)};
-  padding-right: ${rhythm(1)};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: ${text};
-`
 
 interface LayoutProps {
   children: React.ReactNode
@@ -57,7 +46,20 @@ const Layout = ({ children }: LayoutProps) => (
         >
           <link rel="shortcut icon" href={favicon} />
         </Helmet>
-        <SiteContainer>{children}</SiteContainer>
+        <div
+          css={css`
+            min-height: 100vh;
+            width: 100%;
+            padding-left: ${rhythm(1)};
+            padding-right: ${rhythm(1)};
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: ${text};
+          `}
+        >
+          {children}
+        </div>
       </>
     )}
   />
