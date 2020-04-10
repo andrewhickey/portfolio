@@ -1,3 +1,4 @@
 import Timeline from './Timeline'
+import Layout from './Layout'
 
-export { Timeline }
+export { Timeline, Layout }

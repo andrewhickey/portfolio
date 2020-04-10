@@ -2,9 +2,9 @@ import { css } from '@emotion/core'
 import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
+import { text } from '../../utils/colors'
+import { rhythm } from '../../utils/typography'
 import favicon from '../favicon.png'
-import { text } from '../utils/colors'
-import { rhythm } from '../utils/typography'
 
 interface LayoutProps {
   children: React.ReactNode
