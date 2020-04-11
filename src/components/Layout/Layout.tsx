@@ -2,9 +2,9 @@ import { css } from '@emotion/core'
 import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
+import favicon from '../../../static/favicon.png'
 import { text } from '../../utils/colors'
 import { rhythm } from '../../utils/typography'
-import favicon from '../favicon.png'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -54,7 +54,7 @@ const Layout = ({ children }: LayoutProps) => (
             padding-right: ${rhythm(1)};
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
             color: ${text};
           `}
         >

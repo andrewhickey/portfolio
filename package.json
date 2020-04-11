@@ -20,8 +20,11 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@types/d3-path": "^1.0.8",
     "bluebird": "^3.5.1",
     "core-js": "^3.6.4",
+    "d3-path": "^1.0.9",
+    "date-fns": "^2.12.0",
     "gatsby": "^2.20.12",
     "gatsby-plugin-emotion": "^4.2.1",
     "gatsby-plugin-react-helmet": "^3.2.1",

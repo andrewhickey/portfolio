@@ -4,9 +4,7 @@ import { resume } from '../constants'
 
 const IndexPage = () => (
   <Layout>
-    <div data-testid="home-content">
-      <Timeline resume={resume} />
-    </div>
+    <Timeline resume={resume} />
   </Layout>
 )
 

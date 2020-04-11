@@ -25,7 +25,7 @@ const resume: ResumeSchema = {
   },
   work: [
     {
-      company: 'Golddust Ltd',
+      name: 'Golddust Ltd',
       position: 'Lead sofware engineer',
       website: 'https://golddust.io',
       startDate: '2020-01-01',
@@ -37,7 +37,7 @@ const resume: ResumeSchema = {
       ],
     },
     {
-      company: 'GLG',
+      name: 'GLG',
       position: 'Principal software engineer',
       website: 'https://glg.it/',
       startDate: '2019-08',
@@ -46,7 +46,7 @@ const resume: ResumeSchema = {
       highlights: [],
     },
     {
-      company: 'Woodford Investment',
+      name: 'Woodford Investment',
       position: 'Lead software engineer',
       website: 'https://app.otro.com/',
       startDate: '2019-03',
@@ -55,7 +55,7 @@ const resume: ResumeSchema = {
       highlights: [],
     },
     {
-      company: 'Otro',
+      name: 'Otro',
       position: 'Senior software engineer',
       website: 'https://app.otro.com/',
       startDate: '2018-07',
@@ -64,7 +64,7 @@ const resume: ResumeSchema = {
       highlights: [],
     },
     {
-      company: 'Alfa Systems',
+      name: 'Alfa Systems',
       position: 'Senior software engineer',
       website: 'https://www.alfasystems.com/',
       startDate: '2017-06',
@@ -73,7 +73,7 @@ const resume: ResumeSchema = {
       highlights: [],
     },
     {
-      company: 'HT2 Labs - Learning Locker',
+      name: 'HT2 Labs - Learning Locker',
       position: 'Lead software engineer',
       website: 'http://docs.learninglocker.net/welcome/',
       startDate: '2015-04',
@@ -82,7 +82,7 @@ const resume: ResumeSchema = {
       highlights: [],
     },
     {
-      company: 'HT2 Labs',
+      name: 'HT2 Labs',
       position: 'Software engineer',
       website: 'http://docs.learninglocker.net/welcome/',
       startDate: '2014-01',
