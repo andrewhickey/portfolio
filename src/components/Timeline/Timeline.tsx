@@ -4,7 +4,7 @@ import { parseISO, format } from 'date-fns'
 import { css } from '@emotion/core'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { rhythm } from '../../utils/typography'
-import { color4, color2 } from '../../utils/colors'
+import { color4, color2, color3 } from '../../utils/colors'
 import useDimensions, { Dimensions } from '../../utils/useDimensions'
 import TimelineBackground from './TimelineBackground'
 
@@ -22,7 +22,7 @@ function BorderedContainer({
   children,
   className,
 }: BorderedEventProps) {
-  const [measureRef, dimensions] = useDimensions({ liveMeasure: false })
+  const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
 
   useEffect(() => {
     onChangeDimensions(id, dimensions)
@@ -63,7 +63,7 @@ type TimelineProps = {
 }
 
 function Timeline({ resume }: TimelineProps) {
-  const [measureRef, dimensions] = useDimensions({ liveMeasure: false })
+  const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
   const [eventDimensions, setEventDimensions] = useState<{
     [id: string]: Dimensions
   }>({})
@@ -93,12 +93,15 @@ function Timeline({ resume }: TimelineProps) {
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
+        paddingTop: rhythm(2),
+        paddingBottom: rhythm(2),
       }}
     >
       <TimelineBackground
         containerDimensions={dimensions}
         eventDimensions={eventDimensions}
         css={{
+          top: 0,
           position: 'absolute',
         }}
       />
@@ -127,6 +130,7 @@ function Timeline({ resume }: TimelineProps) {
             >
               <h2
                 css={{
+                  color: color3,
                   marginTop: rhythm(0.5),
                 }}
               >
@@ -134,12 +138,19 @@ function Timeline({ resume }: TimelineProps) {
               </h2>
               <h3
                 css={{
+                  color: color2,
                   marginTop: rhythm(0.5),
                 }}
               >
                 {job.name}
               </h3>
-              <b>{job.position}</b>
+              <b
+                css={{
+                  color: 'white',
+                }}
+              >
+                {job.position}
+              </b>
             </BorderedContainer>
           </div>
         )

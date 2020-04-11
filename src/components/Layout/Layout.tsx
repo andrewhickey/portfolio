@@ -3,7 +3,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import favicon from '../../../static/favicon.png'
-import { text } from '../../utils/colors'
+import { text, color1 } from '../../utils/colors'
 import { rhythm } from '../../utils/typography'
 
 interface LayoutProps {
@@ -55,6 +55,7 @@ const Layout = ({ children }: LayoutProps) => (
             display: flex;
             flex-direction: column;
             align-items: stretch;
+            background-color: ${color1};
             color: ${text};
           `}
         >

@@ -1,8 +1,8 @@
-const color1 = '#3860FF'
-const color2 = '#3387E8'
-const color3 = '#44CCFF'
-const color4 = '#33E6E8'
-const color5 = '#38FFC8'
+const color1 = '#2b2b2b'
+const color2 = '#769aa5'
+const color3 = '#cc7832'
+const color4 = '#a5c25c'
+const color5 = '#9876aa'
 
 const text = '#4f4f4f'
 
