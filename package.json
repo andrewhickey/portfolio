@@ -38,6 +38,7 @@
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
+    "react-icons": "^3.9.0",
     "react-images": "^0.5.19",
     "react-typography": "^0.16.19",
     "resize-observer-polyfill": "^1.5.0",

@@ -1,12 +1,13 @@
-import * as React from 'react'
-import { useEffect, useState, useCallback } from 'react'
-import { parseISO, format } from 'date-fns'
 import { css } from '@emotion/core'
+import { format, parseISO } from 'date-fns'
+import * as React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ResumeSchema } from '../../types/ResumeSchema'
+import { color2, color3 } from '../../utils/colors'
 import { rhythm } from '../../utils/typography'
-import { color4, color2, color3 } from '../../utils/colors'
 import useDimensions, { Dimensions } from '../../utils/useDimensions'
 import TimelineBackground from './TimelineBackground'
+import SkillIcon from '../SkillIcon/SkillIcon'
 
 type BorderedEventProps = {
   onChangeDimensions: (id: string, dimensions: any) => void
@@ -41,11 +42,13 @@ function BorderedContainer({
 
 type Event = {
   startDate: Date
+  endDate: Date
 }
 
 function getEventsFromResume(resume: ResumeSchema) {
   const work = resume.work?.map(job => ({
     ...job,
+    keywords: job.keywords,
     startDate: parseISO(job.startDate),
     endDate: parseISO(job.endDate),
   }))
@@ -150,6 +153,9 @@ function Timeline({ resume }: TimelineProps) {
                 }}
               >
                 {job.position}
+                {/* {job.keywords?.map((keyword: string) => (
+                  <SkillIcon skill={keyword} />
+                ))} */}
               </b>
             </BorderedContainer>
           </div>

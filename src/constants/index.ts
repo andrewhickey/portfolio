@@ -35,6 +35,7 @@ const resume: ResumeSchema = {
         'Took the app from wireframes to initial user testing.',
         'Set up distribution for both iOS and Android',
       ],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'GLG',
@@ -44,6 +45,7 @@ const resume: ResumeSchema = {
       endDate: '2019-012',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'Woodford Investment',
@@ -53,6 +55,7 @@ const resume: ResumeSchema = {
       endDate: '2019-08',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'Otro',
@@ -62,6 +65,7 @@ const resume: ResumeSchema = {
       endDate: '2019-03',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'Alfa Systems',
@@ -71,6 +75,7 @@ const resume: ResumeSchema = {
       endDate: '2018-06',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'HT2 Labs - Learning Locker',
@@ -80,6 +85,7 @@ const resume: ResumeSchema = {
       endDate: '2017-06',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'HT2 Labs',
@@ -89,6 +95,7 @@ const resume: ResumeSchema = {
       endDate: '2015-04',
       summary: '',
       highlights: [],
+      keywords: ['HTML', 'CSS', 'Javascript'],
     },
   ],
   volunteer: [
