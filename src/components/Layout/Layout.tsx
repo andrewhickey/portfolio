@@ -50,8 +50,6 @@ const Layout = ({ children }: LayoutProps) => (
           css={css`
             min-height: 100vh;
             width: 100%;
-            padding-left: ${rhythm(1)};
-            padding-right: ${rhythm(1)};
             display: flex;
             flex-direction: column;
             align-items: stretch;
