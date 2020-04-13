@@ -30,5 +30,6 @@ module.exports = {
     'gatsby-transformer-remark',
     'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-postcss',
   ],
 }
