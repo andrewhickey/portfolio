@@ -4,7 +4,7 @@ import { Dimensions } from '../../utils/useDimensions'
 import { color2 } from '../../utils/colors'
 
 const LINE_WEIGHT = 5
-const PADDING_VERTICAL = 20
+const PADDING_VERTICAL = 60
 
 type TimelineBackgroundProps = {
   className?: string
