@@ -5,14 +5,17 @@ import { FaHtml5, FaCss3, FaJs } from 'react-icons/fa'
 type SkillIconProps = {
   skill: string
 }
-function SkillIcon({ skill }: SkillIconProps) {
+function SkillIcon({
+  skill,
+  ...svgProps
+}: SkillIconProps & React.SVGProps<SVGElement>) {
   switch (skill) {
     case 'HTML':
-      return <FaHtml5 />
+      return <FaHtml5 {...svgProps} />
     case 'CSS':
-      return <FaCss3 />
+      return <FaCss3 {...svgProps} />
     case 'Javascript':
-      return <FaJs />
+      return <FaJs {...svgProps} />
 
     default:
       return null

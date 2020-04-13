@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { Layout, Timeline, Header } from '../components'
+import { Layout, Timeline, Header, Skills } from '../components'
 import { resume } from '../constants'
 
 const IndexPage = () => (
   <Layout>
-    <Header resume={resume} />
+    <div className="p-6">
+      <Header resume={resume} />
+    </div>
+
     <Timeline resume={resume} />
   </Layout>
 )

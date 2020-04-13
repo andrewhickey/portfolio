@@ -3,8 +3,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import favicon from '../../../static/favicon.png'
-import { text, color1 } from '../../utils/colors'
-import { rhythm } from '../../utils/typography'
+import { color1, text } from '../../utils/colors'
 
 interface LayoutProps {
   children: React.ReactNode

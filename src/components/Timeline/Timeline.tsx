@@ -114,6 +114,7 @@ function Timeline({ resume }: TimelineProps) {
 
         return (
           <div
+            key={index}
             css={css`
               position: relative;
               padding: ${rhythm(1)};
@@ -126,7 +127,6 @@ function Timeline({ resume }: TimelineProps) {
               css={{
                 padding: rhythm(0.5),
               }}
-              key={index}
               id={index.toString()}
               onChangeDimensions={onChangeDimensions}
               onUnmount={onUnmount}
