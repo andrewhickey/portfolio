@@ -1,8 +1,7 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import SectionTitle from '../layout/SectionTitle'
 import Lightbox from 'react-images'
-import { rhythm } from '../../utils/typography'
+import { rhythm } from '../utils/typography'
 
 const ProjectCardContainer = styled.div`
   margin-bottom: ${rhythm(1)};
