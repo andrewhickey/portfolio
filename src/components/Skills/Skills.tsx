@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTrail, animated, config, AnimatedValue } from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1 } from '../../utils/colors'
@@ -22,36 +22,57 @@ type SkillsProps = {
 
 function Skills({ resume }: SkillsProps) {
   const [target, setTarget] = useState(1)
+  const [targetOpacity, setTargetOpacity] = useState(0)
+
   useEffect(() => {
     setTarget(0)
+    setTargetOpacity(1)
   }, [setTarget])
 
   const keywords = useMemo(() => getKeywords(resume), [resume])
   const translations = useTrail(keywords.length, {
     value: target,
+    opacity: targetOpacity,
     config: config.default,
   })
 
+  const handleMouseEnter = useCallback(() => {
+    setTarget(0.1)
+  }, [setTarget])
+
+  const handleMouseLeave = useCallback(() => {
+    setTarget(0)
+  }, [setTarget])
+
   return (
-    <>
-      {translations.reverse().map(({ value }, index) => (
+    <div
+      className="flex justify-center md:justify-end"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {translations.reverse().map(({ value, opacity }, index) => (
         <animated.div
           key={keywords[index]}
-          className="rounded-full p-2 ml-2"
+          className="rounded-full p-2"
           css={{
             backgroundColor: 'white',
+            boxShadow: `0px 0px 5px 0px ${color1}`,
           }}
           style={{
             transform: value
-              .interpolate({ range: [0, 1], output: [0, -200] })
-              .interpolate(translation => `translate(${translation}px, 0px)`),
-            opacity: value.interpolate({ range: [0, 1], output: [1, 0] }),
+              .interpolate({ range: [0, 1], output: [10, -200] })
+              .interpolate(
+                translation =>
+                  `translate(${translation *
+                    (translations.length - 1 - index)}px, 0px)`
+              ),
+            opacity,
           }}
         >
           <SkillIcon skill={keywords[index]} stroke={color1} fill={color1} />
         </animated.div>
       ))}
-    </>
+    </div>
   )
 }
 

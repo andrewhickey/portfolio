@@ -28,9 +28,9 @@ function Header({ resume }: HeaderProps) {
         src={profilePicSrc}
         className="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
       />
-      <div className="text-center md:text-left">
+      <div className="text-center md:text-left md:mr-6">
         <h3 className="text-lg">{resume.basics?.name}</h3>
-        <p className="mt-2">{resume.basics?.summary}</p>
+        <p className="mt-6">{resume.basics?.summary}</p>
       </div>
       <div>
         <h3 className="text-center md:text-right text-lg whitespace-no-wrap">
@@ -38,7 +38,7 @@ function Header({ resume }: HeaderProps) {
           {resume.basics?.location?.countryCode}{' '}
           <FaMapMarkerAlt className="inline align-bottom" />
         </h3>
-        <div className="flex justify-end mt-2">
+        <div className="mt-6">
           <Skills resume={resume} />
         </div>
       </div>
