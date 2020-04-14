@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useState, useEffect, useMemo } from 'react'
+import { useTrail, animated, config, AnimatedValue } from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
-import SkillIcon from '../SkillIcon'
 import { color1 } from '../../utils/colors'
+import SkillIcon from '../SkillIcon'
 
 const getKeywords = (resume: ResumeSchema) => {
   const keywords = new Set<string>()
@@ -18,30 +19,37 @@ const getKeywords = (resume: ResumeSchema) => {
 type SkillsProps = {
   resume: ResumeSchema
 }
+
 function Skills({ resume }: SkillsProps) {
-  const [translation, setTranslation] = useState(200)
+  const [target, setTarget] = useState(1)
   useEffect(() => {
-    setTimeout(() => setTranslation(0), 200)
-  }, [setTranslation])
+    setTarget(0)
+  }, [setTarget])
 
   const keywords = useMemo(() => getKeywords(resume), [resume])
+  const translations = useTrail(keywords.length, {
+    value: target,
+    config: config.default,
+  })
 
   return (
     <>
-      {keywords.map(keyword => (
-        <div
-          key={keyword}
+      {translations.reverse().map(({ value }, index) => (
+        <animated.div
+          key={keywords[index]}
           className="rounded-full p-2 ml-2"
           css={{
             backgroundColor: 'white',
-            transition: 'transform 5s ease-in-out',
           }}
           style={{
-            transform: `translate(-${translation}px, 0px)`,
+            transform: value
+              .interpolate({ range: [0, 1], output: [0, -200] })
+              .interpolate(translation => `translate(${translation}px, 0px)`),
+            opacity: value.interpolate({ range: [0, 1], output: [1, 0] }),
           }}
         >
-          <SkillIcon skill={keyword} stroke={color1} fill={color1} />
-        </div>
+          <SkillIcon skill={keywords[index]} stroke={color1} fill={color1} />
+        </animated.div>
       ))}
     </>
   )
