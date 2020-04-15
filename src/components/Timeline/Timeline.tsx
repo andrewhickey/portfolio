@@ -115,26 +115,24 @@ function Timeline({ resume }: TimelineProps) {
         return (
           <div
             key={index}
+            className="p-3"
             css={css`
               position: relative;
-              padding: ${rhythm(1)};
               width: 50%;
               text-align: ${isEven ? 'right' : 'left'};
               align-self: ${isEven ? 'flex-start' : 'flex-end'};
             `}
           >
             <BorderedContainer
-              css={{
-                padding: rhythm(0.5),
-              }}
+              className="p-3"
               id={index.toString()}
               onChangeDimensions={onChangeDimensions}
               onUnmount={onUnmount}
             >
               <h2
+                className="text-xl font-bold"
                 css={{
                   color: color3,
-                  marginTop: rhythm(0.5),
                 }}
               >
                 {format(job.startDate, 'LLL yyyy')}
@@ -142,12 +140,12 @@ function Timeline({ resume }: TimelineProps) {
               <h3
                 css={{
                   color: color2,
-                  marginTop: rhythm(0.5),
                 }}
               >
                 {job.name}
               </h3>
-              <b
+              <span
+                className="font-bold"
                 css={{
                   color: 'white',
                 }}
@@ -156,7 +154,7 @@ function Timeline({ resume }: TimelineProps) {
                 {/* {job.keywords?.map((keyword: string) => (
                   <SkillIcon skill={keyword} />
                 ))} */}
-              </b>
+              </span>
             </BorderedContainer>
           </div>
         )

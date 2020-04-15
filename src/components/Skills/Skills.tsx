@@ -21,7 +21,7 @@ type SkillsProps = {
 }
 
 function Skills({ resume }: SkillsProps) {
-  const [target, setTarget] = useState(20)
+  const [target, setTarget] = useState(3)
   const [targetOpacity, setTargetOpacity] = useState(0)
 
   useEffect(() => {
