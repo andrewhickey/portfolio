@@ -29,11 +29,11 @@ function Header({ resume }: HeaderProps) {
         className="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
       />
       <div className="text-center md:text-left md:mr-6">
-        <h3 className="text-lg">{resume.basics?.name}</h3>
+        <h3 className="text-xl">{resume.basics?.name}</h3>
         <p className="mt-6">{resume.basics?.summary}</p>
       </div>
-      <div>
-        <h3 className="text-center md:text-right text-lg whitespace-no-wrap">
+      <div className="flex-1 ">
+        <h3 className="text-center mt-6 md:mt-0 md:text-right text-xl whitespace-no-wrap">
           {resume.basics?.location?.city},{' '}
           {resume.basics?.location?.countryCode}{' '}
           <FaMapMarkerAlt className="inline align-bottom" />
@@ -42,19 +42,6 @@ function Header({ resume }: HeaderProps) {
           <Skills resume={resume} />
         </div>
       </div>
-    </div>
-  )
-  return (
-    <div>
-      <div
-        css={{
-          marginRight: rhythm(1),
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      ></div>
-      <div css={{ marginRight: rhythm(1) }}></div>
-      <div css={{ textAlign: 'right', flex: 1, whiteSpace: 'nowrap' }}></div>
     </div>
   )
 }

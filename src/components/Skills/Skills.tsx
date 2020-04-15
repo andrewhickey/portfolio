@@ -21,7 +21,7 @@ type SkillsProps = {
 }
 
 function Skills({ resume }: SkillsProps) {
-  const [target, setTarget] = useState(1)
+  const [target, setTarget] = useState(20)
   const [targetOpacity, setTargetOpacity] = useState(0)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Skills({ resume }: SkillsProps) {
   })
 
   const handleMouseEnter = useCallback(() => {
-    setTarget(0.1)
+    setTarget(1)
   }, [setTarget])
 
   const handleMouseLeave = useCallback(() => {
@@ -53,14 +53,10 @@ function Skills({ resume }: SkillsProps) {
       {translations.reverse().map(({ value, opacity }, index) => (
         <animated.div
           key={keywords[index]}
-          className="rounded-full p-2"
-          css={{
-            backgroundColor: 'white',
-            boxShadow: `0px 0px 5px 0px ${color1}`,
-          }}
+          className="ml-4 flex flex-col items-center w-10"
           style={{
             transform: value
-              .interpolate({ range: [0, 1], output: [10, -200] })
+              .interpolate({ range: [0, 1], output: [40, 0] })
               .interpolate(
                 translation =>
                   `translate(${translation *
@@ -69,7 +65,23 @@ function Skills({ resume }: SkillsProps) {
             opacity,
           }}
         >
-          <SkillIcon skill={keywords[index]} stroke={color1} fill={color1} />
+          <div
+            className="rounded-full p-2"
+            css={{
+              backgroundColor: 'white',
+              boxShadow: `0px 0px 5px 0px ${color1}`,
+            }}
+          >
+            <SkillIcon skill={keywords[index]} stroke={color1} fill={color1} />
+          </div>
+          <animated.div
+            className="text-xs"
+            style={{
+              opacity: value,
+            }}
+          >
+            {keywords[index]}
+          </animated.div>
         </animated.div>
       ))}
     </div>
