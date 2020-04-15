@@ -142,6 +142,11 @@ const resume: ResumeSchema = {
       level: 'Master',
       keywords: ['HTML', 'CSS', 'Javascript'],
     },
+    {
+      name: 'React',
+      level: 'Master',
+      keywords: ['React', 'React-Native'],
+    },
   ],
   languages: [
     {
