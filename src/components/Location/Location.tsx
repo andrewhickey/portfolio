@@ -10,10 +10,10 @@ type LocationProps = {
 }
 
 function Location({ resume }: LocationProps) {
-  const [dropAnimationValue, setDropAnimationValue] = useState(1)
+  const [enterAnimationValue, setEnterAnimationValue] = useState(1)
   const [hoverAnimationValue, setHoverAnimationValue] = useState(0)
-  const { dropAnimation } = useSpring({
-    dropAnimation: dropAnimationValue,
+  const { enterAnimation } = useSpring({
+    enterAnimation: enterAnimationValue,
     config: config.wobbly,
   })
   const { hoverAnimation } = useSpring({
@@ -22,8 +22,8 @@ function Location({ resume }: LocationProps) {
   })
 
   useEffect(() => {
-    setTimeout(() => setDropAnimationValue(0), 0)
-  }, [setDropAnimationValue])
+    setTimeout(() => setEnterAnimationValue(0), 0)
+  }, [setEnterAnimationValue])
 
   const handleMouseEnter = useCallback(() => {
     setHoverAnimationValue(1)
@@ -34,12 +34,12 @@ function Location({ resume }: LocationProps) {
   }, [])
 
   const transform = interpolate(
-    [dropAnimation, hoverAnimation],
-    (dropAnimation, hoverAnimation) =>
-      `translate(0, ${dropAnimation * -20}px) scale(${1 +
-        dropAnimation * -0.5}, ${1 +
-        dropAnimation * 0.5}) translate(0, ${hoverAnimation * -4}px) scale(${1 +
-        hoverAnimation * 0.2})`
+    [enterAnimation, hoverAnimation],
+    (enterAnimation, hoverAnimation) =>
+      `translate(0, ${enterAnimation * -20}px) scale(${1 +
+        enterAnimation * -0.5}, ${1 +
+        enterAnimation * 0.5}) translate(0, ${hoverAnimation *
+        -4}px) scale(${1 + hoverAnimation * 0.2})`
   )
 
   return (
