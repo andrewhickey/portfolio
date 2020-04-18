@@ -47,6 +47,7 @@ function TimelineBackground({
 
           return (
             <TimelineBackgroundItem
+              key={id}
               dimensions={{
                 ...dimensions,
                 left: adjustedLeft,
