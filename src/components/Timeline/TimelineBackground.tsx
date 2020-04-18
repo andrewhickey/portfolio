@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { color2 } from '../../utils/colors'
 import { Dimensions } from '../../utils/useDimensions'
 import { PositionContext } from './PositionContext'
+import TimelineBackgroundItem from './TimelineBackgroundItem'
 
 const LINE_WEIGHT = 5
 const PADDING_VERTICAL = 60
@@ -44,96 +45,15 @@ function TimelineBackground({
           const adjustedLeft = dimensions.left - left
           const adjustedTop = dimensions.top - top
 
-          const borderTopPath = path()
-          const borderBottomPath = path()
-          const insetPath = path()
-
-          if (adjustedLeft + 1 >= horizontalCenter) {
-            borderTopPath.moveTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height / 2
-            )
-            borderTopPath.lineTo(adjustedLeft, adjustedTop)
-            borderTopPath.lineTo(adjustedLeft + dimensions.width, adjustedTop)
-            borderTopPath.lineTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height / 2
-            )
-
-            borderBottomPath.moveTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height / 2
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height / 2
-            )
-
-            insetPath.moveTo(
-              horizontalCenter,
-              adjustedTop + dimensions.height / 2
-            )
-            insetPath.lineTo(adjustedLeft, adjustedTop + dimensions.height / 2)
-          }
-
-          if (adjustedLeft + 1 < horizontalCenter) {
-            borderTopPath.moveTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height / 2
-            )
-            borderTopPath.lineTo(adjustedLeft + dimensions.width, adjustedTop)
-            borderTopPath.lineTo(adjustedLeft, adjustedTop)
-            borderTopPath.lineTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height / 2
-            )
-
-            borderBottomPath.moveTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height / 2
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height
-            )
-            borderBottomPath.lineTo(
-              adjustedLeft,
-              adjustedTop + dimensions.height / 2
-            )
-
-            insetPath.moveTo(
-              horizontalCenter,
-              adjustedTop + dimensions.height / 2
-            )
-            insetPath.lineTo(
-              adjustedLeft + dimensions.width,
-              adjustedTop + dimensions.height / 2
-            )
-          }
-
           return (
-            <g
-              key={id}
-              css={{
-                fill: 'none',
+            <TimelineBackgroundItem
+              dimensions={{
+                ...dimensions,
+                left: adjustedLeft,
+                top: adjustedTop,
               }}
-            >
-              <path d={insetPath.toString()} />
-              {/* <path d={borderTopPath.toString()} /> */}
-              {/* <path d={borderBottomPath.toString()} /> */}
-            </g>
+              horizontalCenter={horizontalCenter}
+            />
           )
         })}
       </g>
