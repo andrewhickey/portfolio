@@ -7,6 +7,7 @@ import { lighten, transparentize, mix } from 'polished'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import profilePicSrc from './profile.jpg'
 import Skills from '../Skills'
+import Location from '../Location'
 
 // const stripeColor = transparentize(0.9, '#fff')
 const stripeColor = transparentize(0.7, color1)
@@ -34,9 +35,7 @@ function Header({ resume }: HeaderProps) {
       </div>
       <div className="flex-1 ">
         <h3 className="text-center mt-6 md:mt-0 md:text-right text-xl whitespace-no-wrap">
-          {resume.basics?.location?.city},{' '}
-          {resume.basics?.location?.countryCode}{' '}
-          <FaMapMarkerAlt className="inline align-bottom" />
+          <Location resume={resume} />
         </h3>
         <div className="mt-6">
           <Skills resume={resume} />

@@ -33,7 +33,7 @@ function Skills({ resume }: SkillsProps) {
   const translations = useTrail(keywords.length, {
     value: target,
     opacity: targetOpacity,
-    config: config.default,
+    config: config.stiff,
   })
 
   const handleMouseEnter = useCallback(() => {
