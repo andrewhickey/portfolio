@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { useEffect, useContext } from 'react'
-import { PositionContext } from './PositionContext'
+import { useContext, useEffect } from 'react'
 import useDimensions from '../../utils/useDimensions'
+import { PositionContext } from './PositionContext'
 
 type PositionTrackerProps = {
   id: string

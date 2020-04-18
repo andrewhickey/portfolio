@@ -3,9 +3,9 @@ import * as React from 'react'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { rhythm } from '../../utils/typography'
 import useDimensions from '../../utils/useDimensions'
+import PositionContextProvider from './PositionContext'
 import TimelineBackground from './TimelineBackground'
 import TimelineWebItem from './TimelineWebItem'
-import PositionContextProvider from './PositionContext'
 
 type Event = {
   startDate: Date

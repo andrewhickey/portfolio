@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useCallback, useState } from 'react'
-import useDimensions, { Dimensions } from '../../utils/useDimensions'
-import { ThemeContext } from '@emotion/core'
+import { Dimensions } from '../../utils/useDimensions'
 
 const PositionContext = React.createContext<{
   dimensions: {

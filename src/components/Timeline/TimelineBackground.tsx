@@ -1,8 +1,8 @@
+import { path } from 'd3-path'
 import * as React from 'react'
 import { useContext } from 'react'
-import { path } from 'd3-path'
-import { Dimensions } from '../../utils/useDimensions'
 import { color2 } from '../../utils/colors'
+import { Dimensions } from '../../utils/useDimensions'
 import { PositionContext } from './PositionContext'
 
 const LINE_WEIGHT = 5
