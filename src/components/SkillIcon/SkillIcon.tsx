@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { FaHtml5, FaCss3, FaJs, FaReact } from 'react-icons/fa'
+import { FaHtml5, FaCss3, FaJs, FaReact, FaNodeJs } from 'react-icons/fa'
+import { DiMongodb } from 'react-icons/di'
 // HTML', 'CSS', 'Javascript'
 
 type SkillIconProps = {
@@ -20,6 +21,10 @@ function SkillIcon({
       return <FaReact {...svgProps} />
     case 'React-Native':
       return <FaReact {...svgProps} />
+    case 'Node.js':
+      return <FaNodeJs {...svgProps} />
+    case 'MongoDB':
+      return <DiMongodb {...svgProps} />
 
     default:
       return null

@@ -1,7 +1,9 @@
 import * as React from 'react'
+import { useContext } from 'react'
 import { path } from 'd3-path'
 import { Dimensions } from '../../utils/useDimensions'
 import { color2 } from '../../utils/colors'
+import { PositionContext } from './PositionContext'
 
 const LINE_WEIGHT = 5
 const PADDING_VERTICAL = 60
@@ -9,14 +11,13 @@ const PADDING_VERTICAL = 60
 type TimelineBackgroundProps = {
   className?: string
   containerDimensions: Dimensions
-  eventDimensions: { [id: string]: Dimensions }
 }
 
 function TimelineBackground({
   className,
   containerDimensions,
-  eventDimensions,
 }: TimelineBackgroundProps) {
+  const { dimensions: eventDimensions } = useContext(PositionContext)
   const { width, height, top, left } = containerDimensions
   const horizontalCenter = width / 2
 

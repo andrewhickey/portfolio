@@ -43,19 +43,26 @@ const resume: ResumeSchema = {
       website: 'https://glg.it/',
       startDate: '2019-08',
       endDate: '2019-012',
-      summary: '',
-      highlights: [],
+      summary: 'Lead development on an existing in house messaging tool',
+      highlights: [
+        'Integrated messaging into other tools',
+        'Added file upload backed by sharepoint',
+      ],
       keywords: ['HTML', 'CSS', 'Javascript'],
     },
     {
       name: 'Woodford Investment',
       position: 'Lead software engineer',
-      website: 'https://app.otro.com/',
+      website: 'https://woodfordfunds.com/',
       startDate: '2019-03',
       endDate: '2019-08',
-      summary: '',
-      highlights: [],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      summary: 'Lead development on a new data visualisation tool',
+      highlights: [
+        "Built a tool allowing high level and deep understanding of the company's holdings",
+        'Created an intuitive UX for even non-technical users',
+        'Maintained fluid 60fps animations even on mobile devices',
+      ],
+      keywords: ['HTML', 'CSS', 'Javascript', 'Node.js'],
     },
     {
       name: 'Otro',
@@ -64,8 +71,11 @@ const resume: ResumeSchema = {
       startDate: '2018-07',
       endDate: '2019-03',
       summary: '',
-      highlights: [],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      highlights: [
+        'Lead development on animation and data heavy elements of the app',
+        'Got all animations to 60fps on web and in React-Native',
+      ],
+      keywords: ['HTML', 'CSS', 'Javascript', 'React-Native'],
     },
     {
       name: 'Alfa Systems',
@@ -73,9 +83,14 @@ const resume: ResumeSchema = {
       website: 'https://www.alfasystems.com/',
       startDate: '2017-06',
       endDate: '2018-06',
-      summary: '',
-      highlights: [],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      summary:
+        'Lead front end development on a new point of sale leasing application',
+      highlights: [
+        'Separated view and business logic to improve development speed',
+        'Worked with UI design team to streamline customer UX',
+        'Built a proof of concept port in React-Native',
+      ],
+      keywords: ['HTML', 'CSS', 'Javascript', 'React-Native'],
     },
     {
       name: 'HT2 Labs - Learning Locker',
@@ -83,9 +98,10 @@ const resume: ResumeSchema = {
       website: 'http://docs.learninglocker.net/welcome/',
       startDate: '2015-04',
       endDate: '2017-06',
-      summary: '',
+      summary:
+        'Managed development team, open source community and product features for Learning Locker, a data warehousing and analysis tool',
       highlights: [],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      keywords: ['HTML', 'CSS', 'Javascript', 'Node.js', 'MongoDB'],
     },
     {
       name: 'HT2 Labs',
