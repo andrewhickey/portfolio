@@ -5,6 +5,7 @@ import { color2 } from '../../utils/colors'
 import { Dimensions } from '../../utils/useDimensions'
 import { PositionContext } from './PositionContext'
 import TimelineBackgroundItem from './TimelineBackgroundItem'
+import { AnimatedValue } from 'react-spring'
 
 const LINE_WEIGHT = 5
 const PADDING_VERTICAL = 60
@@ -12,11 +13,13 @@ const PADDING_VERTICAL = 60
 type TimelineBackgroundProps = {
   className?: string
   containerDimensions: Dimensions
+  animations: AnimatedValue<{ value: number }>[]
 }
 
 function TimelineBackground({
   className,
   containerDimensions,
+  animations,
 }: TimelineBackgroundProps) {
   const { dimensions: eventDimensions } = useContext(PositionContext)
   const { width, height, top, left } = containerDimensions
@@ -34,6 +37,16 @@ function TimelineBackground({
       viewBox={`0 0 ${width} ${height}`}
     >
       <g fill={color2} stroke={color2} strokeWidth={LINE_WEIGHT}>
+        <defs>
+          <linearGradient id="gradientLeft">
+            <stop offset="90%" stopColor={color2} stopOpacity={0} />
+            <stop offset="100%" stopColor={color2} />
+          </linearGradient>
+          <linearGradient id="gradientRight">
+            <stop offset="0%" stopColor={color2} />
+            <stop offset="10%" stopColor={color2} stopOpacity={0} />
+          </linearGradient>
+        </defs>
         <circle r={LINE_WEIGHT} cx={horizontalCenter} cy={PADDING_VERTICAL} />
         <path d={centerLinePath.toString()} />
         <circle
@@ -41,13 +54,14 @@ function TimelineBackground({
           cx={horizontalCenter}
           cy={height - PADDING_VERTICAL}
         />
-        {Object.entries(eventDimensions).map(([id, dimensions]) => {
+        {Object.entries(eventDimensions).map(([id, dimensions], index) => {
           const adjustedLeft = dimensions.left - left
           const adjustedTop = dimensions.top - top
 
           return (
             <TimelineBackgroundItem
               key={id}
+              animation={animations[index]}
               dimensions={{
                 ...dimensions,
                 left: adjustedLeft,

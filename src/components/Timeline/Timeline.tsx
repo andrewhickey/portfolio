@@ -1,11 +1,13 @@
 import { parseISO } from 'date-fns'
 import * as React from 'react'
+import { useCallback } from 'react'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { rhythm } from '../../utils/typography'
 import useDimensions from '../../utils/useDimensions'
 import PositionContextProvider from './PositionContext'
 import TimelineBackground from './TimelineBackground'
 import TimelineWebItem from './TimelineWebItem'
+import { useSprings, animated } from 'react-spring'
 
 type Event = {
   startDate: Date
@@ -37,6 +39,30 @@ function Timeline({ resume }: TimelineProps) {
 
   const events = getEventsFromResume(resume)
 
+  const [animations, setAnimation] = useSprings(events.length, index => ({
+    value: 0,
+  }))
+
+  const handleMouseEnter = useCallback(
+    (index: number) => {
+      setAnimation((i: number) => {
+        if (index !== i) return
+        return { value: 0.2 }
+      })
+    },
+    [setAnimation]
+  )
+
+  const handleMouseLeave = useCallback(
+    (index: number) => {
+      setAnimation((i: number) => {
+        if (index !== i) return
+        return { value: 0 }
+      })
+    },
+    [setAnimation]
+  )
+
   return (
     <PositionContextProvider>
       <div
@@ -50,6 +76,7 @@ function Timeline({ resume }: TimelineProps) {
         }}
       >
         <TimelineBackground
+          animations={animations}
           containerDimensions={dimensions}
           css={{
             top: 0,
@@ -66,6 +93,8 @@ function Timeline({ resume }: TimelineProps) {
               index={index}
               isEven={isEven}
               item={item}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             />
           )
         })}

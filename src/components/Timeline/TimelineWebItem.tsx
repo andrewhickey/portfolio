@@ -1,6 +1,7 @@
 import { css } from '@emotion/core'
 import { format } from 'date-fns'
 import * as React from 'react'
+import { useCallback } from 'react'
 import { color2, color3 } from '../../utils/colors'
 import PositionTracker from './PositionTracker'
 import { TimelineItem } from './types'
@@ -9,18 +10,36 @@ type TimelineWebItemProps = {
   index: number
   isEven: boolean
   item: TimelineItem
+  onMouseEnter: (index: number) => void
+  onMouseLeave: (index: number) => void
 }
 
-function TimelineWebItem({ index, isEven, item }: TimelineWebItemProps) {
+function TimelineWebItem({
+  index,
+  isEven,
+  item,
+  onMouseEnter,
+  onMouseLeave,
+}: TimelineWebItemProps) {
+  const handleMouseEnter = useCallback(() => {
+    onMouseEnter(index)
+  }, [onMouseEnter])
+
+  const handleMouseLeave = useCallback(() => {
+    onMouseLeave(index)
+  }, [onMouseEnter])
+
   return (
     <div
-      className="p-3"
+      className="p-6"
       css={css`
         position: relative;
         width: 50%;
         text-align: ${isEven ? 'right' : 'left'};
         align-self: ${isEven ? 'flex-start' : 'flex-end'};
       `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <PositionTracker className="p-3" id={index.toString()}>
         <h2

@@ -1,21 +1,27 @@
 import * as React from 'react'
 import { path } from 'd3-path'
 import { Dimensions } from '../../utils/useDimensions'
+import { AnimatedValue, animated } from 'react-spring'
 
 type TimelineBackgroundItemProps = {
   dimensions: Dimensions
   horizontalCenter: number
+  animation: AnimatedValue<{ value: number }>
 }
 
 function TimelineBackgroundItem({
   dimensions,
   horizontalCenter,
+  animation,
 }: TimelineBackgroundItemProps) {
+  const { value } = animation
   const borderTopPath = path()
   const borderBottomPath = path()
   const insetPath = path()
 
-  if (dimensions.left + 1 >= horizontalCenter) {
+  const isRight = dimensions.left + 1 >= horizontalCenter
+
+  if (isRight) {
     borderTopPath.moveTo(
       dimensions.left,
       dimensions.top + dimensions.height / 2
@@ -43,9 +49,7 @@ function TimelineBackgroundItem({
 
     insetPath.moveTo(horizontalCenter, dimensions.top + dimensions.height / 2)
     insetPath.lineTo(dimensions.left, dimensions.top + dimensions.height / 2)
-  }
-
-  if (dimensions.left + 1 < horizontalCenter) {
+  } else {
     borderTopPath.moveTo(
       dimensions.left + dimensions.width,
       dimensions.top + dimensions.height / 2
@@ -78,15 +82,41 @@ function TimelineBackgroundItem({
     )
   }
 
+  const lineLength = dimensions.height + dimensions.width
+
+  const strokeDashoffset = value.interpolate(
+    value => lineLength - lineLength * value
+  )
+
   return (
     <g
       css={{
         fill: 'none',
       }}
     >
-      <path d={insetPath.toString()} />
-      {/* <path d={borderTopPath.toString()} /> */}
-      {/* <path d={borderBottomPath.toString()} /> */}
+      <path d={insetPath.toString()} css={{ strokeLinecap: 'round' }} />
+      <animated.path
+        d={borderTopPath.toString()}
+        css={{
+          stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
+          strokeDasharray: lineLength,
+          strokeLinecap: 'round',
+        }}
+        style={{
+          strokeDashoffset,
+        }}
+      />
+      <animated.path
+        d={borderBottomPath.toString()}
+        css={{
+          stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
+          strokeDasharray: lineLength,
+          strokeLinecap: 'round',
+        }}
+        style={{
+          strokeDashoffset,
+        }}
+      />
     </g>
   )
 }
