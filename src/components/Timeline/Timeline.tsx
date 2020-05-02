@@ -58,10 +58,10 @@ function Timeline({ resume }: TimelineProps) {
     (index: number) => {
       setAnimation((i: number) => {
         if (index !== i) return
-        return { value: 0 }
+        return { value: openStates[index] ? 1 : 0 }
       })
     },
-    [setAnimation]
+    [setAnimation, openStates]
   )
 
   const handleClick = useCallback(
