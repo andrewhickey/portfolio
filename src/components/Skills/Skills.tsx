@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { useState, useEffect, useMemo, useCallback } from 'react'
-import { useTrail, animated, config, AnimatedValue } from 'react-spring'
+import {
+  useTrail,
+  animated,
+  config,
+  AnimatedValue,
+  useSpring,
+} from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
@@ -23,6 +29,8 @@ type SkillsProps = {
 function Skills({ resume }: SkillsProps) {
   const [target, setTarget] = useState(3)
   const [targetOpacity, setTargetOpacity] = useState(0)
+  // const [textOpacity, setTextOpacity] = useState(0)
+  // const animatedTextOpacity = useSpring({ opacity: textOpacity })
 
   useEffect(() => {
     setTarget(0)
@@ -38,18 +46,26 @@ function Skills({ resume }: SkillsProps) {
 
   const handleMouseEnter = useCallback(() => {
     setTarget(1)
+    // setTextOpacity(1)
   }, [setTarget])
 
   const handleMouseLeave = useCallback(() => {
     setTarget(0)
+    // setTextOpacity(0)
   }, [setTarget])
 
   return (
     <div
-      className="flex justify-center md:justify-end"
+      className="flex justify-center items-center md:justify-end"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {/* <animated.div
+        className="whitespace-no-wrap"
+        style={{ opacity: animatedTextOpacity.opacity }}
+      >
+        CLICK ME
+      </animated.div> */}
       {translations.reverse().map(({ value, opacity }, index) => (
         <animated.div
           key={keywords[index]}
@@ -75,7 +91,7 @@ function Skills({ resume }: SkillsProps) {
             <SkillIcon skill={keywords[index]} stroke={color1} fill={color1} />
           </div>
           <animated.div
-            className="text-xs"
+            className="text-xs whitespace-no-wrap"
             style={{
               opacity: value,
             }}
