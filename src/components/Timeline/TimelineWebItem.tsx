@@ -50,11 +50,7 @@ function TimelineWebItem({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <PositionTracker
-        className="p-3"
-        css={{ cursor: 'pointer' }}
-        id={index.toString()}
-      >
+      <PositionTracker className="p-3 cursor-pointer" id={index.toString()}>
         <h2
           css={{
             color: color3,
