@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext, useEffect } from 'react'
-import useDimensions from '../../utils/useDimensions'
+import useDimensions from './useDimensions'
 import { PositionContext } from './PositionContext'
 
 type PositionTrackerProps = {
@@ -10,10 +10,10 @@ type PositionTrackerProps = {
 }
 function PositionTracker({ id, children, className }: PositionTrackerProps) {
   const { onChangeDimensions, onUnmount } = useContext(PositionContext)
-  const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
+  const [measureRef, dimensions, node] = useDimensions({ liveMeasure: true })
 
   useEffect(() => {
-    onChangeDimensions(id, dimensions)
+    onChangeDimensions(id, dimensions, node)
   }, [dimensions, id])
 
   useEffect(() => {

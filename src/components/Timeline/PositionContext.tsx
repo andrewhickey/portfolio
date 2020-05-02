@@ -1,12 +1,31 @@
 import * as React from 'react'
 import { useCallback, useState } from 'react'
-import { Dimensions } from '../../utils/useDimensions'
+import { Dimensions } from './useDimensions'
+
+function getDimensionObject(node: HTMLElement): Dimensions {
+  const rect = node.getBoundingClientRect()
+
+  return {
+    width: rect.width,
+    height: rect.height,
+    x: rect.x,
+    y: rect.y,
+    top: rect.top,
+    left: rect.left,
+    right: rect.right,
+    bottom: rect.bottom,
+  }
+}
 
 const PositionContext = React.createContext<{
   dimensions: {
     [id: string]: Dimensions
   }
-  onChangeDimensions: (id: string, dimensions: Dimensions) => void
+  onChangeDimensions: (
+    id: string,
+    dimensions: Dimensions,
+    node: HTMLElement
+  ) => void
   onUnmount: (id: string) => void
 }>({ dimensions: {}, onChangeDimensions: () => {}, onUnmount: () => {} })
 
@@ -17,13 +36,28 @@ function PositionContextProvider({ children }: PositionContextProviderProps) {
   const [dimesionsMap, setDimensionsMap] = useState<{
     [id: string]: Dimensions
   }>({})
+  const [nodesMap, setNodesMap] = useState<{
+    [id: string]: HTMLElement
+  }>({})
 
   const onChangeDimensions = useCallback(
-    (index, dimensions) => {
-      const nextDimensionsMap = { ...dimesionsMap, [index]: dimensions }
+    (index, dimensions, node) => {
+      const nextNodesMap = { ...nodesMap, [index]: node }
+      const nextDimensionsMap = Object.entries(nodesMap).reduce(
+        (accumlation, [id, node]) => {
+          if (node) {
+            return { ...accumlation, [id]: getDimensionObject(node) }
+          } else {
+            return accumlation
+          }
+        },
+        {}
+      )
+
+      setNodesMap(nextNodesMap)
       setDimensionsMap(nextDimensionsMap)
     },
-    [setDimensionsMap, dimesionsMap]
+    [setDimensionsMap, dimesionsMap, nodesMap, setNodesMap]
   )
 
   const onUnmount = useCallback(

@@ -1,4 +1,5 @@
-import { useState, useCallback, useLayoutEffect } from 'react'
+import { useState, useCallback, useLayoutEffect, useContext } from 'react'
+import ResizeObserver from 'resize-observer-polyfill'
 
 export type Dimensions = {
   width: number
@@ -26,7 +27,10 @@ function getDimensionObject(node: HTMLElement): Dimensions {
   }
 }
 
-function useDimensions({ liveMeasure = true }) {
+type UseDimensionsOptions = {
+  liveMeasure: boolean
+}
+function useDimensions({ liveMeasure = true }: UseDimensionsOptions) {
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
     height: 0,
@@ -37,11 +41,14 @@ function useDimensions({ liveMeasure = true }) {
     right: 0,
     bottom: 0,
   })
-  const [node, setNode] = useState(null)
+  const [node, setNode] = useState<HTMLElement>(null)
 
-  const ref = useCallback(node => {
-    setNode(node)
-  }, [])
+  const ref = useCallback(
+    (node: HTMLElement) => {
+      setNode(node)
+    },
+    [setNode]
+  )
 
   useLayoutEffect(() => {
     if (node) {
@@ -52,14 +59,19 @@ function useDimensions({ liveMeasure = true }) {
       measure()
 
       if (liveMeasure) {
-        window.addEventListener('resize', measure)
+        const observer = new ResizeObserver(measure)
+        observer.observe(node)
+        // window.addEventListener('resize', measure)
+        // window.addEventListener('scroll', measure)
 
         return () => {
-          window.removeEventListener('resize', measure)
+          observer.disconnect()
+          // window.removeEventListener('resize', measure)
+          // window.removeEventListener('scroll', measure)
         }
       }
     }
-  }, [node])
+  }, [node, liveMeasure, setDimensions])
 
   return [ref, dimensions, node]
 }

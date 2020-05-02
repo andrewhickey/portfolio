@@ -1,9 +1,9 @@
 import { parseISO } from 'date-fns'
 import * as React from 'react'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { rhythm } from '../../utils/typography'
-import useDimensions from '../../utils/useDimensions'
+import useDimensions from './useDimensions'
 import PositionContextProvider from './PositionContext'
 import TimelineBackground from './TimelineBackground'
 import TimelineWebItem from './TimelineWebItem'
@@ -36,10 +36,11 @@ type TimelineProps = {
 
 function Timeline({ resume }: TimelineProps) {
   const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
+  const [openStates, setOpenStates] = useState<{ [index: number]: boolean }>({})
 
   const events = getEventsFromResume(resume)
 
-  const [animations, setAnimation] = useSprings(events.length, index => ({
+  const [animations, setAnimation] = useSprings(events.length, () => ({
     value: 0,
   }))
 
@@ -47,10 +48,10 @@ function Timeline({ resume }: TimelineProps) {
     (index: number) => {
       setAnimation((i: number) => {
         if (index !== i) return
-        return { value: 0.2 }
+        return { value: openStates[index] ? 1 : 0.2 }
       })
     },
-    [setAnimation]
+    [setAnimation, openStates]
   )
 
   const handleMouseLeave = useCallback(
@@ -61,6 +62,20 @@ function Timeline({ resume }: TimelineProps) {
       })
     },
     [setAnimation]
+  )
+
+  const handleClick = useCallback(
+    (index: number) => {
+      const isOpen = !openStates[index]
+      const nextState = { ...openStates, [index]: isOpen }
+      setOpenStates(nextState)
+
+      setAnimation((i: number) => {
+        if (index !== i) return
+        return { value: isOpen ? 1 : 0.2 }
+      })
+    },
+    [setAnimation, openStates, setOpenStates]
   )
 
   return (
@@ -92,9 +107,11 @@ function Timeline({ resume }: TimelineProps) {
               key={index}
               index={index}
               isEven={isEven}
+              isOpen={openStates[index]}
               item={item}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              onClick={handleClick}
             />
           )
         })}

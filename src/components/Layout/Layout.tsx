@@ -3,7 +3,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import favicon from '../../../static/favicon.png'
-import { color1, text } from '../../utils/colors'
+import { text } from '../../utils/colors'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -52,7 +52,6 @@ const Layout = ({ children }: LayoutProps) => (
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            background-color: ${color1};
             color: ${text};
           `}
         >

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { path } from 'd3-path'
-import { Dimensions } from '../../utils/useDimensions'
+import { Dimensions } from './useDimensions'
 import { AnimatedValue, animated } from 'react-spring'
 
 type TimelineBackgroundItemProps = {
@@ -82,7 +82,7 @@ function TimelineBackgroundItem({
     )
   }
 
-  const lineLength = dimensions.height + dimensions.width
+  const lineLength = dimensions.height + dimensions.width + 1
 
   const strokeDashoffset = value.interpolate(
     value => lineLength - lineLength * value
@@ -98,7 +98,7 @@ function TimelineBackgroundItem({
       <animated.path
         d={borderTopPath.toString()}
         css={{
-          stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
+          // stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
           strokeDasharray: lineLength,
           strokeLinecap: 'round',
         }}
@@ -109,7 +109,7 @@ function TimelineBackgroundItem({
       <animated.path
         d={borderBottomPath.toString()}
         css={{
-          stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
+          // stroke: `url(#${isRight ? 'gradientRight' : 'gradientLeft'})`,
           strokeDasharray: lineLength,
           strokeLinecap: 'round',
         }}
