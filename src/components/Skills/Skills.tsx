@@ -5,7 +5,7 @@ import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1, color2 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
 
-const getKeywords = (resume: ResumeSchema) => {
+const getSkills = (resume: ResumeSchema) => {
   const keywords = new Set<string>()
   resume.skills?.forEach(skill => {
     skill.keywords?.forEach(keyword => {
@@ -17,22 +17,21 @@ const getKeywords = (resume: ResumeSchema) => {
 }
 
 type SkillItemProps = {
-  keyword: string
+  skill: any
   style?: React.CSSProperties
   barStyle?: React.CSSProperties
   textStyle?: React.CSSProperties
 }
-function SkillItem({ keyword, style, barStyle, textStyle }: SkillItemProps) {
+function SkillItem({ skill, style, barStyle, textStyle }: SkillItemProps) {
   return (
     <animated.div
-      key={keyword}
       className="ml-4 relative flex flex-col items-end"
       style={style}
     >
       <animated.div
         css={{
           height: '20px',
-          width: '100px',
+          width: skill.skill * 2,
           zIndex: -1,
           backgroundColor: color2,
           position: 'absolute',
@@ -50,11 +49,11 @@ function SkillItem({ keyword, style, barStyle, textStyle }: SkillItemProps) {
           boxShadow: `0px 0px 5px 0px ${color1}`,
         }}
       >
-        <SkillIcon skill={keyword} stroke={color1} fill={color1} />
+        <SkillIcon skill={skill.name} stroke={color1} fill={color1} />
       </div>
 
       <animated.div className="text-xs whitespace-no-wrap" style={textStyle}>
-        {keyword}
+        {skill.name}
       </animated.div>
     </animated.div>
   )
@@ -73,9 +72,9 @@ function Skills({ resume }: SkillsProps) {
     setTargetOpacity(1)
   }, [setTargetX, setTargetOpacity])
 
-  const keywords = useMemo(() => getKeywords(resume), [resume])
+  const skills = resume.skills || []
 
-  const transitions = useTrail(keywords.length, {
+  const transitions = useTrail(skills.length, {
     targetX: isExpanded ? 0 : targetX,
     targetY: isExpanded ? 1 : 0,
     opacity: targetOpacity,
@@ -108,11 +107,11 @@ function Skills({ resume }: SkillsProps) {
         }}
       >
         {/* Render an invisble list of the items so that we reserve the correct amount of space */}
-        {keywords.map((keyword, index) => (
-          <SkillItem key={keyword} keyword={keyword} />
+        {skills.map((skill, index) => (
+          <SkillItem key={skill.name} skill={skill} />
         ))}
       </div>
-      {keywords.map((keyword, index) => {
+      {skills.map((skill, index) => {
         const { targetX, targetY, opacity } = transitions[index]
         const scaledX = targetX.interpolate({
           range: [0, 1],
@@ -125,8 +124,8 @@ function Skills({ resume }: SkillsProps) {
 
         return (
           <SkillItem
-            key={keyword}
-            keyword={keyword}
+            key={skill.name}
+            skill={skill}
             style={{
               zIndex: index,
               position: 'absolute',
@@ -139,7 +138,6 @@ function Skills({ resume }: SkillsProps) {
               opacity,
             }}
             barStyle={{
-              width: 100,
               transform: targetY.interpolate(
                 y => `translate3d(${-30}px, 0, 0) scale(${y}, 1)`
               ),

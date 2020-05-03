@@ -43,7 +43,7 @@ const resume: ResumeSchema = {
       website: 'https://glg.it/',
       startDate: '2019-08',
       endDate: '2019-012',
-      summary: 'Lead development on an existing in house messaging tool',
+      summary: 'Lead development on an in house messaging tool',
       highlights: [
         'Integrated messaging into other tools',
         'Added file upload backed by sharepoint',
@@ -161,14 +161,46 @@ const resume: ResumeSchema = {
   ],
   skills: [
     {
-      name: 'Web Development',
+      name: 'HTML',
       level: 'Master',
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      skill: 90,
+      keywords: [],
+    },
+    {
+      name: 'CSS',
+      level: 'Master',
+      skill: 95,
+      keywords: [],
+    },
+    {
+      name: 'Javascript',
+      level: 'Master',
+      skill: 100,
+      keywords: [],
     },
     {
       name: 'React',
       level: 'Master',
-      keywords: ['React', 'React-Native'],
+      skill: 100,
+      keywords: [],
+    },
+    {
+      name: 'React-Native',
+      level: 'Master',
+      skill: 100,
+      keywords: [],
+    },
+    {
+      name: 'MongoDB',
+      level: 'Master',
+      skill: 85,
+      keywords: [],
+    },
+    {
+      name: 'Node.js',
+      level: 'Master',
+      skill: 85,
+      keywords: [],
     },
   ],
   languages: [
