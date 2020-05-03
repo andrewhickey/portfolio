@@ -29,11 +29,11 @@ function Header({ resume }: HeaderProps) {
         src={profilePicSrc}
         className="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
       />
-      <div className="text-center md:text-left md:mr-6">
+      <div className="text-center md:text-left md:mr-6 flex-1">
         <h3 className="text-xl">{resume.basics?.name}</h3>
         <p className="mt-6">{resume.basics?.summary}</p>
       </div>
-      <div className="flex-1 ">
+      <div className="flex-1">
         <h3 className="text-center mt-6 md:mt-0 md:text-right text-xl whitespace-no-wrap">
           <Location resume={resume} />
         </h3>
