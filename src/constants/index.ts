@@ -163,6 +163,12 @@ const resume: ResumeSchema = {
   ],
   skills: [
     {
+      name: 'Software Engineering',
+      level: 'Master',
+      skill: 90,
+      keywords: ['Javascript', 'Git', 'C#', 'Python'],
+    },
+    {
       name: 'Web Front-End',
       level: 'Master',
       skill: 90,
@@ -180,6 +186,12 @@ const resume: ResumeSchema = {
       skill: 100,
       keywords: ['React-Native', 'Android', 'iOS'],
     },
+    {
+      name: 'DevOps',
+      level: 'Intermediate',
+      skill: 65,
+      keywords: ['CircleCI', 'GCP', 'AWS', 'Azure'],
+    },
   ],
   languages: [
     {
@@ -193,14 +205,8 @@ const resume: ResumeSchema = {
   ],
   interests: [
     {
-      name: 'Wildlife',
-      keywords: ['Ferrets', 'Unicorns'],
-    },
-  ],
-  references: [
-    {
-      name: 'Jane Doe',
-      reference: 'Reference...',
+      name: 'Games development',
+      keywords: ['Unity3D'],
     },
   ],
 }
