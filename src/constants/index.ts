@@ -100,7 +100,10 @@ const resume: ResumeSchema = {
       endDate: '2017-06',
       summary:
         'Managed development team, open source community and product features for Learning Locker, a data warehousing and analysis tool',
-      highlights: [],
+      highlights: [
+        'Prototyped first version of the product to allow securing funding',
+        'Led a team to turn the prototype into an industry leader',
+      ],
       keywords: ['HTML', 'CSS', 'Javascript', 'Node.js', 'MongoDB'],
     },
     {
@@ -109,8 +112,12 @@ const resume: ResumeSchema = {
       website: 'http://docs.learninglocker.net/welcome/',
       startDate: '2014-01',
       endDate: '2015-04',
-      summary: '',
-      highlights: [],
+      summary:
+        "Built bespoke applications for HT2 clients including BP, Duke University, City and Guilds and Great Ormond Street Children's hospital",
+      highlights: [
+        'Won gold and bronze at the Learning & Performance Institute - Learning Awards.',
+        "In between projects added enhancements such as video capture to the company's L&D platform, Curatr",
+      ],
       keywords: ['HTML', 'CSS', 'Javascript'],
     },
   ],
