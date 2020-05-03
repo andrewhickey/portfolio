@@ -24,21 +24,33 @@ type SkillItemProps = {
 }
 function SkillItem({ keyword, style, barStyle, textStyle }: SkillItemProps) {
   return (
-    <animated.div key={keyword} className="ml-4" style={style}>
-      <div className="flex items-center">
-        <animated.div
-          css={{ height: '20px', backgroundColor: color2, width: 0 }}
-          style={barStyle}
-        />
-        <div
-          className="rounded-full p-2"
-          css={{
-            backgroundColor: 'white',
-            boxShadow: `0px 0px 5px 0px ${color1}`,
-          }}
-        >
-          <SkillIcon skill={keyword} stroke={color1} fill={color1} />
-        </div>
+    <animated.div
+      key={keyword}
+      className="ml-4 relative flex flex-col items-end"
+      style={style}
+    >
+      <animated.div
+        css={{
+          height: '20px',
+          width: '100px',
+          zIndex: -1,
+          backgroundColor: color2,
+          position: 'absolute',
+          transformOrigin: 'right',
+          right: 0,
+          top: (36 - 20) / 2,
+        }}
+        style={barStyle}
+      />
+
+      <div
+        className="rounded-full p-2"
+        css={{
+          backgroundColor: 'white',
+          boxShadow: `0px 0px 5px 0px ${color1}`,
+        }}
+      >
+        <SkillIcon skill={keyword} stroke={color1} fill={color1} />
       </div>
 
       <animated.div className="text-xs whitespace-no-wrap" style={textStyle}>
@@ -70,15 +82,8 @@ function Skills({ resume }: SkillsProps) {
     config: config.stiff,
   })
 
-  const barTransitions = useTrail(keywords.length, {
-    width: isExpanded ? 100 : 0,
-    config: config.stiff,
-  })
-
   const handleMouseEnter = useCallback(() => {
-    if (!isExpanded) {
-      setTargetX(1)
-    }
+    setTargetX(1)
   }, [setTargetX])
 
   const handleMouseLeave = useCallback(() => {
@@ -102,27 +107,16 @@ function Skills({ resume }: SkillsProps) {
           flexDirection: isExpanded ? 'column' : 'row',
         }}
       >
-        {/* <animated.div
-        className="whitespace-no-wrap"
-        style={{ opacity: animatedTextOpacity.opacity }}
-      >
-        CLICK ME
-      </animated.div> */}
-
         {/* Render an invisble list of the items so that we reserve the correct amount of space */}
         {keywords.map((keyword, index) => (
           <SkillItem key={keyword} keyword={keyword} />
         ))}
       </div>
       {keywords.map((keyword, index) => {
-        if (!transitions[index]) return null
-        if (!barTransitions[index]) return null
-
         const { targetX, targetY, opacity } = transitions[index]
-        const { width } = barTransitions[index]
         const scaledX = targetX.interpolate({
           range: [0, 1],
-          output: [0, -50],
+          output: [0, -40],
         })
         const scaledY = targetY.interpolate({
           range: [0, 1],
@@ -144,7 +138,13 @@ function Skills({ resume }: SkillsProps) {
               ),
               opacity,
             }}
-            barStyle={{ width, opacity: targetY }}
+            barStyle={{
+              width: 100,
+              transform: targetY.interpolate(
+                y => `translate3d(${-30}px, 0, 0) scale(${y}, 1)`
+              ),
+              opacity: targetY,
+            }}
             textStyle={{
               opacity: targetY,
               textAlign: 'right',
