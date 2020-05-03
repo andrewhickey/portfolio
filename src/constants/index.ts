@@ -102,7 +102,9 @@ const resume: ResumeSchema = {
         'Managed development team, open source community and product features for Learning Locker, a data warehousing and analysis tool',
       highlights: [
         'Prototyped first version of the product to allow securing funding',
-        'Led a team to turn the prototype into an industry leader',
+        'Led a team to make Learning Locker the most popular solution in its field.',
+        "Delivered large scale implementations to clients including Walmart, Nike, Macy's, Xerox, UK Universities and others.",
+        'Won the MongoDB award for open source innovation 2016 (won by Facebook the year before).',
       ],
       keywords: ['HTML', 'CSS', 'Javascript', 'Node.js', 'MongoDB'],
     },
