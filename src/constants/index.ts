@@ -116,7 +116,7 @@ const resume: ResumeSchema = {
         "Built bespoke applications for HT2 clients including BP, Duke University, City and Guilds and Great Ormond Street Children's hospital",
       highlights: [
         'Won gold and bronze at the Learning & Performance Institute - Learning Awards.',
-        "In between projects added enhancements such as video capture to the company's L&D platform, Curatr",
+        "Added enhancements such as video capture to the company's L&D platform, Curatr",
       ],
       keywords: ['HTML', 'CSS', 'Javascript'],
     },
