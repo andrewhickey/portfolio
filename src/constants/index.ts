@@ -163,46 +163,22 @@ const resume: ResumeSchema = {
   ],
   skills: [
     {
-      name: 'HTML',
+      name: 'Web Front-End',
       level: 'Master',
       skill: 90,
-      keywords: [],
+      keywords: ['HTML', 'CSS'],
     },
     {
-      name: 'CSS',
+      name: 'Web Back-End',
       level: 'Master',
       skill: 95,
-      keywords: [],
+      keywords: ['Node.js', 'SQL', 'MongoDb'],
     },
     {
-      name: 'Javascript',
+      name: 'Native',
       level: 'Master',
       skill: 100,
-      keywords: [],
-    },
-    {
-      name: 'React',
-      level: 'Master',
-      skill: 100,
-      keywords: [],
-    },
-    {
-      name: 'React-Native',
-      level: 'Master',
-      skill: 100,
-      keywords: [],
-    },
-    {
-      name: 'MongoDB',
-      level: 'Master',
-      skill: 85,
-      keywords: [],
-    },
-    {
-      name: 'Node.js',
-      level: 'Master',
-      skill: 85,
-      keywords: [],
+      keywords: ['React-Native', 'Android', 'iOS'],
     },
   ],
   languages: [
