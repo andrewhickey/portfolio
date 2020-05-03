@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTrail, animated, config, interpolate } from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1, color2 } from '../../utils/colors'
@@ -146,7 +146,6 @@ function Skills({ resume }: SkillsProps) {
             textStyle={{
               opacity: targetY,
               textAlign: 'right',
-              display: isExpanded ? 'block' : 'none',
             }}
           />
         )

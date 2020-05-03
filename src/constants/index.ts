@@ -166,7 +166,7 @@ const resume: ResumeSchema = {
       name: 'Software Engineering',
       level: 'Master',
       skill: 90,
-      keywords: ['Javascript', 'Git', 'C#', 'Python'],
+      keywords: ['Javascript', 'Git', 'Python'],
     },
     {
       name: 'Web Front-End',
@@ -190,7 +190,7 @@ const resume: ResumeSchema = {
       name: 'DevOps',
       level: 'Intermediate',
       skill: 65,
-      keywords: ['CircleCI', 'GCP', 'AWS', 'Azure'],
+      keywords: ['CI', 'GCP', 'AWS', 'Azure'],
     },
   ],
   languages: [
