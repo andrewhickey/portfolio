@@ -178,7 +178,7 @@ const resume: ResumeSchema = {
       name: 'Web Back-End',
       level: 'Master',
       skill: 95,
-      keywords: ['Node.js', 'SQL', 'MongoDb'],
+      keywords: ['Node.js', 'SQL', 'MongoDB'],
     },
     {
       name: 'Native',

@@ -1,28 +1,45 @@
 import * as React from 'react'
-import { useState, useEffect, useCallback } from 'react'
-import { useTrail, animated, config, interpolate } from 'react-spring'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import {
+  useTrail,
+  animated,
+  config,
+  interpolate,
+  useSpring,
+} from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1, color2 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
 
-const getSkills = (resume: ResumeSchema) => {
-  const keywords = new Set<string>()
-  resume.skills?.forEach(skill => {
-    skill.keywords?.forEach(keyword => {
-      keywords.add(keyword)
-    })
-  })
-
-  return [...keywords.values()]
-}
+const ITEM_WIDTH = 40
+const ITEM_HEIGHT = 60
 
 type SkillItemProps = {
-  skill: any
+  index: number
+  item: any
   style?: React.CSSProperties
   barStyle?: React.CSSProperties
   textStyle?: React.CSSProperties
+  onClick?: (index: number) => void
 }
-function SkillItem({ skill, style, barStyle, textStyle }: SkillItemProps) {
+function SkillItem({
+  item,
+  index,
+  style,
+  barStyle,
+  textStyle,
+  onClick,
+}: SkillItemProps) {
+  const handleClick = useCallback(
+    e => {
+      if (onClick) {
+        e.stopPropagation()
+        onClick(index)
+      }
+    },
+    [onClick, index]
+  )
+
   return (
     <animated.div
       className="ml-4 relative flex flex-col items-end"
@@ -31,7 +48,7 @@ function SkillItem({ skill, style, barStyle, textStyle }: SkillItemProps) {
       <animated.div
         css={{
           height: '20px',
-          width: skill.skill * 2,
+          width: item.skill * 2,
           zIndex: -1,
           backgroundColor: color2,
           position: 'absolute',
@@ -43,19 +60,81 @@ function SkillItem({ skill, style, barStyle, textStyle }: SkillItemProps) {
       />
 
       <div
+        onClick={handleClick}
         className="rounded-full p-2"
         css={{
           backgroundColor: 'white',
           boxShadow: `0px 0px 5px 0px ${color1}`,
         }}
       >
-        <SkillIcon skill={skill.name} stroke={color1} fill={color1} />
+        <SkillIcon skill={item.name} stroke={color1} fill={color1} />
       </div>
 
       <animated.div className="text-xs whitespace-no-wrap" style={textStyle}>
-        {skill.name}
+        {item.name}
       </animated.div>
     </animated.div>
+  )
+}
+
+type AnimatedSkillItemProps = {
+  targetX: any
+  targetY: any
+  item: any
+  index: number
+  opacity: any
+  onClick?: (index: number) => void
+}
+function AnimatedSkillItem({
+  opacity,
+  targetX,
+  targetY,
+  index,
+  item,
+  onClick,
+}: AnimatedSkillItemProps) {
+  const { xOffset } = useSpring({ xOffset: index * -ITEM_WIDTH })
+  const { yOffset } = useSpring({
+    to: { yOffset: index * ITEM_HEIGHT },
+    from: { yOffset: (index - 1) * ITEM_HEIGHT },
+  })
+
+  const scaledX = interpolate(
+    [targetX, xOffset],
+    (targetX, xOffset) => targetX * xOffset
+  )
+  const scaledY = interpolate(
+    [targetY, yOffset],
+    (targetY, yOffset) => targetY * yOffset
+  )
+
+  return (
+    <SkillItem
+      onClick={onClick}
+      index={index}
+      item={item}
+      style={{
+        zIndex: index,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        transform: interpolate(
+          [scaledX, scaledY],
+          (x, y) => `translate3d(${x}px, ${y}px, 0)`
+        ),
+        opacity,
+      }}
+      barStyle={{
+        transform: targetY.interpolate(
+          y => `translate3d(${-30}px, 0, 0) scale(${y}, 1)`
+        ),
+        opacity: targetY,
+      }}
+      textStyle={{
+        opacity: targetY,
+        textAlign: 'right',
+      }}
+    />
   )
 }
 
@@ -63,18 +142,36 @@ type SkillsProps = {
   resume: ResumeSchema
 }
 function Skills({ resume }: SkillsProps) {
+  const skills = resume.skills || []
+
+  const [openStates, setOpenStates] = useState<boolean[]>(
+    skills.map(() => false)
+  )
   const [isExpanded, setIsExpanded] = useState(false)
   const [targetX, setTargetX] = useState(3)
   const [targetOpacity, setTargetOpacity] = useState(0)
+
+  const items = useMemo(
+    () =>
+      skills.reduce<Array<any>>((allItems, skill, index) => {
+        if (openStates[index]) {
+          const keywords = (skill.keywords || []).map(keyword => ({
+            name: keyword,
+          }))
+          return [...allItems, skill, ...keywords]
+        } else {
+          return [...allItems, skill]
+        }
+      }, []),
+    [openStates, skills]
+  )
 
   useEffect(() => {
     setTargetX(0.4)
     setTargetOpacity(1)
   }, [setTargetX, setTargetOpacity])
 
-  const skills = resume.skills || []
-
-  const transitions = useTrail(skills.length, {
+  const transitions = useTrail(items.length, {
     targetX: isExpanded ? 0 : targetX,
     targetY: isExpanded ? 1 : 0,
     opacity: targetOpacity,
@@ -93,6 +190,21 @@ function Skills({ resume }: SkillsProps) {
     setIsExpanded(!isExpanded)
   }, [isExpanded, setIsExpanded])
 
+  const handleClickItem = useCallback(
+    index => {
+      setOpenStates(
+        openStates.map((isOpen, i) => {
+          if (i === index) {
+            return !isOpen
+          } else {
+            return isOpen
+          }
+        })
+      )
+    },
+    [openStates, setOpenStates]
+  )
+
   return (
     <div
       className="relative cursor-pointer"
@@ -107,46 +219,21 @@ function Skills({ resume }: SkillsProps) {
         }}
       >
         {/* Render an invisble list of the items so that we reserve the correct amount of space */}
-        {skills.map((skill, index) => (
-          <SkillItem key={skill.name} skill={skill} />
+        {items.map((item, index) => (
+          <SkillItem key={item.name} item={item} index={index} />
         ))}
       </div>
-      {skills.map((skill, index) => {
+      {items.map((item, index) => {
         const { targetX, targetY, opacity } = transitions[index]
-        const scaledX = targetX.interpolate({
-          range: [0, 1],
-          output: [0, -40],
-        })
-        const scaledY = targetY.interpolate({
-          range: [0, 1],
-          output: [0, 60],
-        })
-
         return (
-          <SkillItem
-            key={skill.name}
-            skill={skill}
-            style={{
-              zIndex: index,
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              transform: interpolate(
-                [scaledX, scaledY],
-                (x, y) => `translate3d(${x * index}px, ${y * index}px, 0)`
-              ),
-              opacity,
-            }}
-            barStyle={{
-              transform: targetY.interpolate(
-                y => `translate3d(${-30}px, 0, 0) scale(${y}, 1)`
-              ),
-              opacity: targetY,
-            }}
-            textStyle={{
-              opacity: targetY,
-              textAlign: 'right',
-            }}
+          <AnimatedSkillItem
+            key={item.name}
+            item={item}
+            index={index}
+            onClick={isExpanded ? handleClickItem : undefined}
+            targetX={targetX}
+            targetY={targetY}
+            opacity={opacity}
           />
         )
       })}
