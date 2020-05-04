@@ -14,12 +14,13 @@ import {
 } from 'react-icons/fa'
 import { MdWeb } from 'react-icons/md'
 import { BsBraces } from 'react-icons/bs'
-import { DiMongodb, DiAndroid, DiGoogleCloudPlatform } from 'react-icons/di'
 import {
-  AiOutlineCloudServer,
-  AiOutlineCiCircle,
-  AiOutlineConsoleSql,
-} from 'react-icons/ai'
+  DiMongodb,
+  DiAndroid,
+  DiGoogleCloudPlatform,
+  DiMysql,
+} from 'react-icons/di'
+import { AiOutlineCloudServer, AiOutlineCiCircle } from 'react-icons/ai'
 import { FiServer } from 'react-icons/fi'
 
 type SkillIconProps = {
@@ -71,7 +72,7 @@ function SkillIcon({
     case 'Azure':
       return <FaMicrosoft {...svgProps} />
     case 'SQL':
-      return <AiOutlineConsoleSql {...svgProps} />
+      return <DiMysql {...svgProps} />
 
     default:
       return null
