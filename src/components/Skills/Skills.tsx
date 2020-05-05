@@ -60,9 +60,11 @@ function SkillItem({
 
   return (
     <animated.div
-      className="ml-4 relative flex flex-col items-end"
+      className={`ml-4 relative flex flex-col items-end ${
+        canHover ? 'hoverable' : ''
+      } ${isExpanded ? 'expanded' : ''}`}
       css={{
-        '&:hover': {
+        '.hoverable&:hover': {
           svg: {
             fill: color3,
             stroke: color3,
@@ -119,6 +121,7 @@ function SkillItem({
 
         return (
           <animated.div
+            key={keyword}
             className="rounded-full p-2 absolute"
             css={{
               zIndex: -1,
