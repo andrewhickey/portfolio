@@ -7,24 +7,31 @@ import {
   interpolate,
   useSpring,
   useTransition,
+  useSprings,
+  useChain,
 } from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
-import { color1, color2 } from '../../utils/colors'
+import { color1, color2, color3 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
-import { position } from 'polished'
+import { AiOutlineClose } from 'react-icons/ai'
 
 const ITEM_WIDTH = 40
 const ITEM_HEIGHT = 60
+const BAR_MAX_WIDTH = 200
 
 type SkillItemProps = {
+  isExpanded: boolean
+  canHover: boolean
   index: number
   item: any
-  style?: React.CSSProperties
-  barStyle?: React.CSSProperties
-  textStyle?: React.CSSProperties
+  style?: any
+  barStyle?: any
+  textStyle?: any
   onClick?: (index: number) => void
 }
 function SkillItem({
+  isExpanded,
+  canHover,
   item,
   index,
   style,
@@ -32,6 +39,15 @@ function SkillItem({
   textStyle,
   onClick,
 }: SkillItemProps) {
+  const transforms = useSprings(
+    item.keywords.length,
+    item.keywords.map((keyword: string, index: number) => ({
+      transform: `translate3d(0, ${(isExpanded ? 1 : 0) *
+        (index + 1) *
+        ITEM_HEIGHT}px, 0)`,
+    }))
+  )
+
   const handleClick = useCallback(
     e => {
       if (onClick) {
@@ -45,31 +61,51 @@ function SkillItem({
   return (
     <animated.div
       className="ml-4 relative flex flex-col items-end"
+      css={{
+        '&:hover': {
+          svg: {
+            fill: color3,
+            stroke: color3,
+          },
+          '.bar': {
+            backgroundColor: color3,
+          },
+        },
+      }}
+      onClick={handleClick}
       style={style}
     >
       <animated.div
+        className="bar"
         css={{
           height: '20px',
-          width: item.skill * 2,
+          width: (item.skill / 100) * BAR_MAX_WIDTH,
           zIndex: -1,
+          transition: 'background-color 0.3s ease-out',
           backgroundColor: color2,
           position: 'absolute',
           transformOrigin: 'right',
           right: 0,
-          top: (36 - 20) / 2,
+          top: 8,
         }}
         style={barStyle}
       />
 
       <div
-        onClick={handleClick}
         className="rounded-full p-2"
         css={{
           backgroundColor: 'white',
           boxShadow: `0px 0px 5px 0px ${color1}`,
         }}
       >
-        <SkillIcon skill={item.name} stroke={color1} fill={color1} />
+        <SkillIcon
+          skill={item.name}
+          css={{
+            transition: 'all 0.3s ease-out',
+            stroke: color1,
+            fill: color1,
+          }}
+        />
       </div>
 
       <animated.div
@@ -78,6 +114,32 @@ function SkillItem({
       >
         {item.name}
       </animated.div>
+      {item.keywords.map((keyword, index) => {
+        const { transform } = transforms[index]
+
+        return (
+          <animated.div
+            className="rounded-full p-2 absolute"
+            css={{
+              zIndex: -1,
+              backgroundColor: 'white',
+              boxShadow: `0px 0px 5px 0px ${color1}`,
+            }}
+            style={{
+              transform,
+            }}
+          >
+            <SkillIcon
+              skill={keyword}
+              css={{
+                transition: 'stroke, fill 0.3s ease-out',
+                stroke: color1,
+                fill: color1,
+              }}
+            />
+          </animated.div>
+        )
+      })}
     </animated.div>
   )
 }
@@ -93,74 +155,42 @@ function Skills({ resume }: SkillsProps) {
   )
   const [isExpanded, setIsExpanded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const items = useMemo(() => {
-    const { items, subItems } = skills.reduce<{
-      items: any[]
-      subItems: any[]
-      visibleItems: number
-    }>(
-      ({ items, subItems, visibleItems }, skill, index) => {
-        const nextSkill = {
-          ...skill,
-          startIndex: 0,
-          endIndex: visibleItems,
-          visible: true,
-        }
+  const [offsets, totalOffsets] = useMemo(() => {
+    const offsets: number[] = []
+    let totalOffsets = 0
 
-        const keywords = (skill.keywords || []).map(
-          (keyword, keyWordIndex) => ({
-            name: keyword,
-            endIndex: openStates[index]
-              ? visibleItems + keyWordIndex + 1
-              : visibleItems,
-            startIndex: visibleItems,
-            visible: openStates[index],
-          })
-        )
+    for (let index = 0; index < skills.length; index++) {
+      let lastValue = index > 0 ? offsets[index - 1] : -1
+      let difference = 1
+      if (openStates[index - 1]) {
+        difference += skills[index - 1]?.keywords.length
+      }
 
-        const visibleItemsToAdd = openStates[index] ? keywords.length + 1 : 1
+      offsets.push(lastValue + difference)
+      if (openStates[index]) {
+        totalOffsets += skills[index]?.keywords.length
+      } else {
+        totalOffsets += 1
+      }
+    }
 
-        return {
-          items: [...items, nextSkill],
-          subItems: [...subItems, ...keywords],
-          visibleItems: visibleItems + visibleItemsToAdd,
-        }
-      },
-      { items: [], subItems: [], visibleItems: 0 }
-    )
+    return [offsets, totalOffsets]
+  }, [skills, openStates])
 
-    return [...items, ...subItems]
-  }, [openStates, isExpanded, skills])
-
-  const positions = useTransition(items, item => item.name, {
-    from: item => ({
-      xOffset: isExpanded ? 0 : item.startIndex * -ITEM_WIDTH,
-      yOffset: isExpanded ? item.startIndex * ITEM_HEIGHT : 0,
-      opacity: 0,
-      expanded: isExpanded ? 1 : 0,
-    }),
-    enter: item => ({
-      xOffset: isExpanded ? 0 : item.endIndex * -ITEM_WIDTH,
-      yOffset: isExpanded ? item.endIndex * ITEM_HEIGHT : 0,
+  const animationValues = useSprings(
+    skills.length,
+    skills.map((skill, index) => ({
+      xOffset: isExpanded
+        ? 0
+        : offsets[index] * -ITEM_WIDTH * (isHovered ? 1 : 0.4),
+      yOffset: isExpanded ? offsets[index] * ITEM_HEIGHT : 0,
       opacity: 1,
       expanded: isExpanded ? 1 : 0,
-    }),
-    leave: item => ({
-      expanded: 0,
-      xOffset: isExpanded ? 0 : item.startIndex * -ITEM_WIDTH,
-      yOffset: isExpanded ? item.startIndex * ITEM_HEIGHT : 0,
-      opacity: 0,
-    }),
-    update: item => ({
-      xOffset: isExpanded ? 0 : item.endIndex * -ITEM_WIDTH,
-      yOffset: isExpanded ? item.endIndex * ITEM_HEIGHT : 0,
-      opacity: item.visible ? 1 : 0,
-      expanded: isExpanded ? 1 : 0,
-    }),
-    trail: 60,
-    unique: true,
-  })
+      delay: (index - activeIndex) * 50,
+    }))
+  )
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true)
@@ -170,9 +200,20 @@ function Skills({ resume }: SkillsProps) {
     setIsHovered(false)
   }, [setIsHovered])
 
-  const handleClick = useCallback(() => {
-    setIsExpanded(!isExpanded)
-  }, [isExpanded, setIsExpanded])
+  const handleExpand = useCallback(() => {
+    if (!isExpanded) {
+      setIsExpanded(true)
+      setActiveIndex(0)
+    }
+  }, [isExpanded, setIsExpanded, setActiveIndex])
+
+  const handleCollapse = useCallback(() => {
+    if (isExpanded) {
+      setIsExpanded(false)
+      setActiveIndex(0)
+      setOpenStates(openStates.map(() => false))
+    }
+  }, [isExpanded, setIsExpanded, setActiveIndex, setOpenStates])
 
   const handleClickItem = useCallback(
     index => {
@@ -185,32 +226,34 @@ function Skills({ resume }: SkillsProps) {
           }
         })
       )
+      setActiveIndex(index)
     },
-    [openStates, setOpenStates]
+    [openStates, skills, setOpenStates]
   )
+
+  const width = isExpanded
+    ? ITEM_WIDTH + BAR_MAX_WIDTH
+    : skills.length * ITEM_WIDTH
+
+  const height = isExpanded ? totalOffsets * ITEM_HEIGHT : ITEM_HEIGHT
 
   return (
     <div
       className="relative cursor-pointer"
-      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleExpand}
     >
       <div
-        className="flex justify-center items-center md:justify-end invisible"
         css={{
-          flexDirection: isExpanded ? 'column' : 'row',
+          width,
+          height,
         }}
       >
-        {/* Render an invisble list of the items so that we reserve the correct amount of space */}
-        {items.map((item, index) =>
-          item.visible ? (
-            <SkillItem key={item.name} item={item} index={index} />
-          ) : null
-        )}
+        {isExpanded && <AiOutlineClose onClick={handleCollapse} />}
       </div>
-      {items.map((item, index) => {
-        const { xOffset, yOffset, opacity, expanded } = positions[index].props
+      {skills.map((item, index) => {
+        const { xOffset, yOffset, opacity, expanded } = animationValues[index]
 
         return (
           <SkillItem
@@ -218,8 +261,10 @@ function Skills({ resume }: SkillsProps) {
             item={item}
             index={index}
             onClick={isExpanded ? handleClickItem : undefined}
+            isExpanded={openStates[index]}
+            canHover={isExpanded && item.keywords?.length > 0}
             style={{
-              zIndex: items.length - index,
+              zIndex: skills.length - index,
               position: 'absolute',
               right: 0,
               top: 0,
