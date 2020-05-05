@@ -1,19 +1,10 @@
 import * as React from 'react'
-import { useState, useEffect, useCallback, useMemo } from 'react'
-import {
-  useTrail,
-  animated,
-  config,
-  interpolate,
-  useSpring,
-  useTransition,
-  useSprings,
-  useChain,
-} from 'react-spring'
+import { useCallback, useMemo, useState } from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
+import { animated, interpolate, useSprings } from 'react-spring'
 import { ResumeSchema } from '../../types/ResumeSchema'
 import { color1, color2, color3 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
-import { AiOutlineClose } from 'react-icons/ai'
 
 const ITEM_WIDTH = 40
 const ITEM_HEIGHT = 60
@@ -60,26 +51,28 @@ function SkillItem({
 
   return (
     <animated.div
-      className={`ml-4 relative flex flex-col items-end ${
-        canHover ? 'hoverable' : ''
+      className={`relative flex flex-col items-end ${
+        canHover ? 'hoverable cursor-pointer' : ''
       } ${isExpanded ? 'expanded' : ''}`}
-      css={{
-        '.hoverable&:hover': {
-          svg: {
-            fill: color3,
-            stroke: color3,
-          },
-          '.bar': {
-            backgroundColor: color3,
-          },
-        },
-      }}
+      css={{ willChange: 'transform' }}
+      // css={{
+      //   '.hoverable&:hover': {
+      //     svg: {
+      //       fill: color3,
+      //       stroke: color3,
+      //     },
+      //     '.bar': {
+      //       backgroundColor: color3,
+      //     },
+      //   },
+      // }}
       onClick={handleClick}
       style={style}
     >
       <animated.div
         className="bar"
         css={{
+          willChange: 'transform',
           height: '20px',
           width: (item.skill / 100) * BAR_MAX_WIDTH,
           zIndex: -1,
@@ -122,24 +115,40 @@ function SkillItem({
         return (
           <animated.div
             key={keyword}
-            className="rounded-full p-2 absolute"
-            css={{
-              zIndex: -1,
-              backgroundColor: 'white',
-              boxShadow: `0px 0px 5px 0px ${color1}`,
-            }}
             style={{
               transform,
             }}
+            css={{
+              willChange: 'transform',
+              zIndex: -1,
+            }}
+            className="absolute flex flex-col items-end"
           >
-            <SkillIcon
-              skill={keyword}
+            <div
+              className="rounded-full p-2"
               css={{
-                transition: 'stroke, fill 0.3s ease-out',
-                stroke: color1,
-                fill: color1,
+                backgroundColor: 'white',
+                boxShadow: `0px 0px 5px 0px ${color1}`,
               }}
-            />
+            >
+              <SkillIcon
+                skill={keyword}
+                css={{
+                  transition: 'stroke, fill 0.3s ease-out',
+                  stroke: color1,
+                  fill: color1,
+                }}
+              />
+            </div>
+            <div
+              className="text-xs whitespace-no-wrap text-right"
+              css={{ transition: 'opacity 0.3s ease-in' }}
+              style={{
+                opacity: isExpanded ? 1 : 0,
+              }}
+            >
+              {keyword}
+            </div>
           </animated.div>
         )
       })}
@@ -153,10 +162,10 @@ type SkillsProps = {
 function Skills({ resume }: SkillsProps) {
   const skills = resume.skills || []
 
+  const [isExpanded, setIsExpanded] = useState(false)
   const [openStates, setOpenStates] = useState<boolean[]>(
     skills.map(() => false)
   )
-  const [isExpanded, setIsExpanded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -234,26 +243,23 @@ function Skills({ resume }: SkillsProps) {
     [openStates, skills, setOpenStates]
   )
 
-  const width = isExpanded
-    ? ITEM_WIDTH + BAR_MAX_WIDTH
-    : skills.length * ITEM_WIDTH
-
   const height = isExpanded ? totalOffsets * ITEM_HEIGHT : ITEM_HEIGHT
 
   return (
     <div
-      className="relative cursor-pointer"
+      className={`relative ${isExpanded ? '' : 'cursor-pointer'}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleExpand}
     >
       <div
         css={{
-          width,
           height,
         }}
       >
-        {isExpanded && <AiOutlineClose onClick={handleCollapse} />}
+        {isExpanded && (
+          <AiOutlineClose className="cursor-pointer" onClick={handleCollapse} />
+        )}
       </div>
       {skills.map((item, index) => {
         const { xOffset, yOffset, opacity, expanded } = animationValues[index]
