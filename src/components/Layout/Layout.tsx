@@ -52,7 +52,10 @@ const Layout = ({ children }: LayoutProps) => (
             display: flex;
             flex-direction: column;
             align-items: stretch;
+            max-width: 900px;
             color: ${text};
+            margin-left: auto;
+            margin-right: auto;
           `}
         >
           {children}

@@ -165,7 +165,7 @@ const resume: ResumeSchema = {
     {
       name: 'Software Engineering',
       level: 'Master',
-      skill: 90,
+      skill: 95,
       keywords: ['Javascript', 'Git', 'Python'],
     },
     {
@@ -177,13 +177,13 @@ const resume: ResumeSchema = {
     {
       name: 'Web Back-End',
       level: 'Master',
-      skill: 95,
+      skill: 85,
       keywords: ['Node.js', 'SQL', 'MongoDB'],
     },
     {
       name: 'Native',
       level: 'Master',
-      skill: 100,
+      skill: 90,
       keywords: ['React-Native', 'Android', 'iOS'],
     },
     {
