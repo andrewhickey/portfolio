@@ -15,18 +15,37 @@ const createIconFlipId = (index: number) => `icon-${index}`
 const createSubIconFlipId = (keyword: string) => `subIcon-${keyword}`
 const createTextFlipId = (index: number) => `text-${index}`
 const createSubTextFlipId = (keyword: string) => `subText-${keyword}`
-
-const shouldFlip = (index: number) => (prev: number, current: number) =>
-  index === current
+const shouldFlip = (isOpen: boolean, index: number) => (
+  prev: number,
+  current: number
+) => isOpen || index === current
 
 type SubItemProps = {
-  index: number
   keyword: string
+  index: number
+  isOpen: boolean
 }
-function SubItem({ index, keyword }: SubItemProps) {
+function SubItem({ keyword, index, isOpen }: SubItemProps) {
+  const [isVisible, setIsVisible] = useState(isOpen)
+  const handleComplete = useCallback(() => {
+    setIsVisible(isOpen)
+  }, [setIsVisible, isOpen])
+
   return (
-    <li className="flex flex-col items-end">
-      <Flipped flipId={createSubIconFlipId(keyword)} stagger="item">
+    <li
+      className="flex flex-col items-end"
+      css={{ top: 0, right: 0 }}
+      style={{
+        position: isOpen ? 'relative' : 'absolute',
+        opacity: isVisible || isOpen ? 1 : 0,
+      }}
+    >
+      <Flipped
+        onComplete={handleComplete}
+        flipId={createSubIconFlipId(keyword)}
+        shouldFlip={shouldFlip(isOpen, index)}
+        stagger="item"
+      >
         <div
           className="rounded-full p-2"
           css={{
@@ -43,7 +62,11 @@ function SubItem({ index, keyword }: SubItemProps) {
           />
         </div>
       </Flipped>
-      <Flipped flipId={createSubTextFlipId(keyword)} stagger="text">
+      <Flipped
+        flipId={createSubTextFlipId(keyword)}
+        shouldFlip={shouldFlip(isOpen, index)}
+        stagger="text"
+      >
         <div className="text-xs whitespace-no-wrap text-right">{keyword}</div>
       </Flipped>
     </li>
@@ -60,6 +83,7 @@ function VerticalItem({ index, onClick, item, isOpen }: VerticalItemProps) {
   const handleClick = useCallback(
     e => {
       if (onClick) {
+        e.preventDefault()
         e.stopPropagation()
         onClick(index)
       }
@@ -107,6 +131,17 @@ function VerticalItem({ index, onClick, item, isOpen }: VerticalItemProps) {
             {item.name}
           </div>
         </Flipped>
+
+        <ul>
+          {item.keywords.map((keyword: string) => (
+            <SubItem
+              key={keyword}
+              keyword={keyword}
+              index={index}
+              isOpen={isOpen}
+            />
+          ))}
+        </ul>
       </div>
     </li>
   )
@@ -186,7 +221,7 @@ function Skills({ resume }: SkillsProps) {
       decisionData={activeIndex}
     >
       <ul
-        className={classNames('flex', {
+        className={classNames('flex items-end', {
           'flex-col': isVertical,
           'flex-row-reverse': !isVertical,
         })}
@@ -196,31 +231,21 @@ function Skills({ resume }: SkillsProps) {
           <AiOutlineClose className="cursor-pointer" onClick={handleCollapse} />
         )}
 
-        {skills
-          .map((item, index) => {
-            if (isVertical) {
-              const parent = (
-                <VerticalItem
-                  key={item.name}
-                  item={item}
-                  index={index}
-                  onClick={isVertical ? handleClickItem : undefined}
-                  isOpen={openStates[index]}
-                />
-              )
-              const children = openStates[index]
-                ? item.keywords.map(keyword => (
-                    <SubItem key={keyword} index={index} keyword={keyword} />
-                  ))
-                : []
-              return [parent, ...children]
-            } else {
-              return (
-                <HorizontalItem key={item.name} item={item} index={index} />
-              )
-            }
-          })
-          .flat()}
+        {skills.map((item, index) => {
+          if (isVertical) {
+            return (
+              <VerticalItem
+                key={item.name}
+                item={item}
+                index={index}
+                onClick={isVertical ? handleClickItem : undefined}
+                isOpen={openStates[index]}
+              />
+            )
+          } else {
+            return <HorizontalItem key={item.name} item={item} index={index} />
+          }
+        })}
       </ul>
     </Flipper>
   )
