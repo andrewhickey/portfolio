@@ -1,14 +1,12 @@
+import classNames from 'classnames'
 import * as React from 'react'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { Flipped, Flipper } from 'react-flip-toolkit'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ResumeSchema } from '../../types/ResumeSchema'
-import { color1, color2, color3 } from '../../utils/colors'
+import { color1, color3 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
-import classNames from 'classnames'
-import { Flipper, Flipped } from 'react-flip-toolkit'
 
-const ITEM_WIDTH = 40
-const ITEM_HEIGHT = 60
 const BAR_MAX_WIDTH = 200
 
 const createIconFlipId = (index: number) => `icon-${index}`
