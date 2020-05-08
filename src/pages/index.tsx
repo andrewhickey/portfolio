@@ -8,7 +8,7 @@ const IndexPage = () => (
       <Header resume={resume} />
     </div>
 
-    {/* <Timeline resume={resume} /> */}
+    <Timeline resume={resume} />
   </Layout>
 )
 
