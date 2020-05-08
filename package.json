@@ -28,6 +28,7 @@
     "core-js": "^3.6.4",
     "d3-path": "^1.0.9",
     "date-fns": "^2.12.0",
+    "framer-motion": "^1.10.3",
     "gatsby": "^2.20.12",
     "gatsby-plugin-emotion": "^4.2.1",
     "gatsby-plugin-postcss": "^2.2.1",

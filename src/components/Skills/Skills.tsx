@@ -3,12 +3,15 @@ import * as React from 'react'
 import { useCallback, useState } from 'react'
 import { Flipped, Flipper } from 'react-flip-toolkit'
 import { AiOutlineClose } from 'react-icons/ai'
+import { motion } from 'framer-motion'
 import { ResumeSchema } from '../../types/ResumeSchema'
-import { color1, color3 } from '../../utils/colors'
+import { color1, color2, color3 } from '../../utils/colors'
 import SkillIcon from '../SkillIcon'
 
 const BAR_MAX_WIDTH = 200
 
+const createBarFlipId = (index: number) => `bar-${index}`
+const createSubBarFlipId = (keyword: string) => `subBar-${keyword}`
 const createIconFlipId = (index: number) => `icon-${index}`
 const createSubIconFlipId = (keyword: string) => `subIcon-${keyword}`
 const createTextFlipId = (index: number) => `text-${index}`
@@ -32,12 +35,21 @@ function SubItem({ keyword, index, isOpen }: SubItemProps) {
   return (
     <li
       className="flex flex-col items-end"
-      css={{ top: 0, right: 0 }}
+      css={{ top: 0, right: 0, transition: 'opacity 0.5s' }}
       style={{
         position: isOpen ? 'relative' : 'absolute',
-        opacity: isVisible || isOpen ? 1 : 0,
+        visibility: isVisible || isOpen ? 'visible' : 'hidden',
+        opacity: isOpen ? 1 : 0,
       }}
     >
+      {/* make sure that we always render the right number of bars for staggering */}
+      <Flipped
+        flipId={createSubBarFlipId(keyword)}
+        shouldFlip={shouldFlip(isOpen, index)}
+        stagger="bar"
+      >
+        <div />
+      </Flipped>
       <Flipped
         onComplete={handleComplete}
         flipId={createSubIconFlipId(keyword)}
@@ -78,32 +90,29 @@ type VerticalItemProps = {
   isOpen: boolean
 }
 function VerticalItem({ index, onClick, item, isOpen }: VerticalItemProps) {
-  const handleClick = useCallback(
-    e => {
-      if (onClick) {
-        e.preventDefault()
-        e.stopPropagation()
-        onClick(index)
-      }
-    },
-    [index, onClick]
-  )
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      onClick(index)
+    }
+  }, [index, onClick])
 
   return (
-    <li className="relative" onClick={handleClick}>
-      <div className="flex flex-col items-end">
-        {/* <div
-          css={{
-            height: '20px',
-            width: (item.skill / 100) * BAR_MAX_WIDTH,
-            zIndex: -1,
-            backgroundColor: color2,
-            position: 'absolute',
-            transformOrigin: 'right',
-            right: 0,
-            top: 8,
-          }}
-        /> */}
+    <li
+      className="relative cursor-pointer flex flex-col items-end"
+      onClick={handleClick}
+    >
+      <div className="flex items-center">
+        <Flipped flipId={createBarFlipId(index)} stagger="bar">
+          <div
+            css={{
+              marginRight: '-10px',
+              transformOrigin: 'right',
+              height: '20px',
+              width: (item.skill / 100) * BAR_MAX_WIDTH,
+              backgroundColor: color2,
+            }}
+          />
+        </Flipped>
 
         <Flipped flipId={createIconFlipId(index)} stagger="item">
           <div
@@ -123,24 +132,22 @@ function VerticalItem({ index, onClick, item, isOpen }: VerticalItemProps) {
             />
           </div>
         </Flipped>
-
-        <Flipped flipId={createTextFlipId(index)} stagger="text">
-          <div className="text-xs whitespace-no-wrap text-right">
-            {item.name}
-          </div>
-        </Flipped>
-
-        <ul>
-          {item.keywords.map((keyword: string) => (
-            <SubItem
-              key={keyword}
-              keyword={keyword}
-              index={index}
-              isOpen={isOpen}
-            />
-          ))}
-        </ul>
       </div>
+
+      <Flipped flipId={createTextFlipId(index)} stagger="text">
+        <div className="text-xs whitespace-no-wrap text-right">{item.name}</div>
+      </Flipped>
+
+      <ul>
+        {item.keywords.map((keyword: string) => (
+          <SubItem
+            key={keyword}
+            keyword={keyword}
+            index={index}
+            isOpen={isOpen}
+          />
+        ))}
+      </ul>
     </li>
   )
 }
@@ -152,24 +159,38 @@ type HorizontalItemProps = {
 function HorizontalItem({ index, item }: HorizontalItemProps) {
   return (
     <li>
-      <Flipped flipId={createIconFlipId(index)} stagger="item">
-        <div
-          className="rounded-full p-2"
-          css={{
-            backgroundColor: 'white',
-            boxShadow: `0px 0px 5px 0px ${color1}`,
-            zIndex: 10,
-          }}
-        >
-          <SkillIcon
-            skill={item.name}
+      <div className="flex items-center">
+        <Flipped flipId={createBarFlipId(index)} stagger="bar">
+          <div
             css={{
-              stroke: color1,
-              fill: color1,
+              position: 'absolute',
+              opacity: 0,
+              height: '20px',
+              width: 0,
+              backgroundColor: color2,
             }}
           />
-        </div>
-      </Flipped>
+        </Flipped>
+
+        <Flipped flipId={createIconFlipId(index)} stagger="item">
+          <div
+            className="rounded-full p-2"
+            css={{
+              backgroundColor: 'white',
+              boxShadow: `0px 0px 5px 0px ${color1}`,
+              zIndex: 10,
+            }}
+          >
+            <SkillIcon
+              skill={item.name}
+              css={{
+                stroke: color1,
+                fill: color1,
+              }}
+            />
+          </div>
+        </Flipped>
+      </div>
     </li>
   )
 }
@@ -222,11 +243,20 @@ function Skills({ resume }: SkillsProps) {
         className={classNames('flex items-end', {
           'flex-col': isVertical,
           'flex-row-reverse': !isVertical,
+          'cursor-pointer': !isVertical,
         })}
-        onClick={isVertical ? handleCollapse : handleExpand}
+        css={{
+          '& li': {
+            margin: 0,
+          },
+        }}
+        onClick={handleExpand}
       >
         {isVertical && (
-          <AiOutlineClose className="cursor-pointer" onClick={handleCollapse} />
+          <AiOutlineClose
+            className="cursor-pointer self-start"
+            onClick={handleCollapse}
+          />
         )}
 
         {skills.map((item, index) => {
