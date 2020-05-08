@@ -245,7 +245,7 @@ function Skills({ resume }: SkillsProps) {
           'cursor-pointer': !isVertical,
         })}
         css={{
-          '& li': {
+          '& li, & ul': {
             margin: 0,
           },
         }}
