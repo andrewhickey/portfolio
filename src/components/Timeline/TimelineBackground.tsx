@@ -2,27 +2,29 @@ import { path } from 'd3-path'
 import * as React from 'react'
 import { useContext } from 'react'
 import { color2 } from '../../utils/colors'
-import { Dimensions } from './useDimensions'
+import useDimensions, { Dimensions } from './useDimensions'
 import { PositionContext } from './PositionContext'
 import TimelineBackgroundItem from './TimelineBackgroundItem'
-import { AnimatedValue } from 'react-spring'
+import { TimelineItem } from './types'
 
 const LINE_WEIGHT = 5
 const PADDING_VERTICAL = 60
 
 type TimelineBackgroundProps = {
   className?: string
-  containerDimensions: Dimensions
-  animations: AnimatedValue<{ value: number }>[]
+  items: TimelineItem[]
+  onClickItem: (index: number) => void
+  openStates: boolean[]
 }
 
 function TimelineBackground({
   className,
-  containerDimensions,
-  animations,
+  items,
+  onClickItem,
+  openStates,
 }: TimelineBackgroundProps) {
-  const { dimensions: eventDimensions } = useContext(PositionContext)
-  const { width, height, top, left } = containerDimensions
+  const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
+  const { width, height, top, left } = dimensions
   const horizontalCenter = width / 2
 
   const centerLinePath = path()
@@ -32,12 +34,12 @@ function TimelineBackground({
   return (
     <svg
       className={className}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      width="100%"
+      height={400}
+      viewBox={`0 0 ${826} ${400}`}
     >
       <g fill={color2} stroke={color2} strokeWidth={LINE_WEIGHT}>
-        <defs>
+        {/* <defs>
           <linearGradient id="gradientLeft">
             <stop offset="90%" stopColor={color2} stopOpacity={0} />
             <stop offset="100%" stopColor={color2} />
@@ -46,7 +48,7 @@ function TimelineBackground({
             <stop offset="0%" stopColor={color2} />
             <stop offset="10%" stopColor={color2} stopOpacity={0} />
           </linearGradient>
-        </defs>
+        </defs> */}
         <circle r={LINE_WEIGHT} cx={horizontalCenter} cy={PADDING_VERTICAL} />
         <path d={centerLinePath.toString()} />
         <circle
@@ -54,20 +56,15 @@ function TimelineBackground({
           cx={horizontalCenter}
           cy={height - PADDING_VERTICAL}
         />
-        {Object.entries(eventDimensions).map(([id, dimensions], index) => {
-          const adjustedLeft = dimensions.left - left
-          const adjustedTop = dimensions.top - top
-
+        {items.map((item, index) => {
           return (
             <TimelineBackgroundItem
-              key={id}
-              animation={animations[index]}
-              dimensions={{
-                ...dimensions,
-                left: adjustedLeft,
-                top: adjustedTop,
-              }}
-              horizontalCenter={horizontalCenter}
+              onClick={onClickItem}
+              key={index}
+              item={item}
+              index={index}
+              isEven={index % 2 == 0}
+              isOpen={openStates[index]}
             />
           )
         })}

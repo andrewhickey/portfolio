@@ -35,88 +35,24 @@ type TimelineProps = {
 }
 
 function Timeline({ resume }: TimelineProps) {
-  const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
-  const [openStates, setOpenStates] = useState<{ [index: number]: boolean }>({})
-
   const events = getEventsFromResume(resume)
-
-  const [animations, setAnimation] = useSprings(events.length, () => ({
-    value: 0,
-  }))
-
-  const handleMouseEnter = useCallback(
-    (index: number) => {
-      setAnimation((i: number) => {
-        if (index !== i) return
-        return { value: openStates[index] ? 1 : 0.2 }
-      })
-    },
-    [setAnimation, openStates]
+  const [openStates, setOpenStates] = useState<boolean[]>(
+    events.map(event => false)
   )
-
-  const handleMouseLeave = useCallback(
-    (index: number) => {
-      setAnimation((i: number) => {
-        if (index !== i) return
-        return { value: openStates[index] ? 1 : 0 }
+  const handleClickItem = useCallback(index => {
+    setOpenStates(
+      openStates.map((isOpen, i) => {
+        return index === i ? !isOpen : isOpen
       })
-    },
-    [setAnimation, openStates]
-  )
-
-  const handleClick = useCallback(
-    (index: number) => {
-      const isOpen = !openStates[index]
-      const nextState = { ...openStates, [index]: isOpen }
-      setOpenStates(nextState)
-
-      setAnimation((i: number) => {
-        if (index !== i) return
-        return { value: isOpen ? 1 : 0.2 }
-      })
-    },
-    [setAnimation, openStates, setOpenStates]
-  )
+    )
+  }, [])
 
   return (
-    <PositionContextProvider>
-      <div
-        ref={measureRef}
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          paddingTop: rhythm(2),
-          paddingBottom: rhythm(2),
-        }}
-      >
-        <TimelineBackground
-          animations={animations}
-          containerDimensions={dimensions}
-          css={{
-            top: 0,
-            position: 'absolute',
-          }}
-        />
-
-        {events.map((item, index) => {
-          const isEven = index % 2 === 0
-
-          return (
-            <TimelineWebItem
-              key={index}
-              index={index}
-              isEven={isEven}
-              isOpen={openStates[index]}
-              item={item}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={handleClick}
-            />
-          )
-        })}
-      </div>
-    </PositionContextProvider>
+    <TimelineBackground
+      items={events}
+      openStates={openStates}
+      onClickItem={handleClickItem}
+    />
   )
 }
 
