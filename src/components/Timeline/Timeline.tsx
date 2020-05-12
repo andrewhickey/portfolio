@@ -8,6 +8,7 @@ import PositionContextProvider from './PositionContext'
 import TimelineBackground from './TimelineBackground'
 import TimelineWebItem from './TimelineWebItem'
 import { useSprings, animated } from 'react-spring'
+import { Flipper } from 'react-flip-toolkit'
 
 type Event = {
   startDate: Date
@@ -39,20 +40,31 @@ function Timeline({ resume }: TimelineProps) {
   const [openStates, setOpenStates] = useState<boolean[]>(
     events.map(event => false)
   )
-  const handleClickItem = useCallback(index => {
-    setOpenStates(
-      openStates.map((isOpen, i) => {
-        return index === i ? !isOpen : isOpen
-      })
-    )
-  }, [])
+  const handleClickItem = useCallback(
+    index => {
+      setOpenStates(
+        openStates.map((isOpen, i) => {
+          return index === i ? !isOpen : isOpen
+        })
+      )
+    },
+    [openStates, setOpenStates]
+  )
 
   return (
-    <TimelineBackground
-      items={events}
-      openStates={openStates}
-      onClickItem={handleClickItem}
-    />
+    <Flipper flipKey={openStates.join('')}>
+      <div className="flex flex-col">
+        {events.map((event, index) => (
+          <TimelineWebItem
+            key={index}
+            item={event}
+            index={index}
+            isOpen={openStates[index]}
+            onClick={handleClickItem}
+          />
+        ))}
+      </div>
+    </Flipper>
   )
 }
 

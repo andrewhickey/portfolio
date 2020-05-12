@@ -1,6 +1,6 @@
 import { path } from 'd3-path'
 import * as React from 'react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { color2 } from '../../utils/colors'
 import useDimensions, { Dimensions } from './useDimensions'
 import { PositionContext } from './PositionContext'
@@ -23,7 +23,9 @@ function TimelineBackground({
   onClickItem,
   openStates,
 }: TimelineBackgroundProps) {
+  const sizes = useState<(Dimensions | null)[]>(items.map((item): null => null))
   const [measureRef, dimensions] = useDimensions({ liveMeasure: true })
+
   const { width, height, top, left } = dimensions
   const horizontalCenter = width / 2
 
@@ -37,6 +39,7 @@ function TimelineBackground({
       width="100%"
       height={400}
       viewBox={`0 0 ${826} ${400}`}
+      ref={measureRef}
     >
       <g fill={color2} stroke={color2} strokeWidth={LINE_WEIGHT}>
         {/* <defs>
