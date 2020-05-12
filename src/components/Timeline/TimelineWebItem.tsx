@@ -40,14 +40,15 @@ function TimelineWebItem({
   return (
     <Flipped
       flipId={createItemFlipId(index)}
-      transformOrigin="top right"
       onStart={handleStart}
       onComplete={handleComplete}
-      stagger="item"
+      stagger={isEven ? 'item-right' : 'item-left'}
       translate
     >
       <div
-        className={classNames('p-6', { 'select-none': transitioning })}
+        className={classNames('p-6 cursor-pointer', {
+          'select-none': transitioning,
+        })}
         css={{
           position: 'relative',
           width: '50%',
@@ -56,51 +57,47 @@ function TimelineWebItem({
         }}
         onClick={handleClick}
       >
-        <Flipped inverseFlipId={createItemFlipId(index)} scale>
-          <div>
-            <h2
-              css={{
-                color: color3,
-              }}
-            >
-              <span className="text-lg">{format(item.startDate, 'LLL')} </span>
-              <span className="text-xl font-bold">
-                {format(item.startDate, 'yyyy')}
-              </span>
-            </h2>
-            <h3
-              css={{
-                color: color2,
-              }}
-              className="text-lg mt-2"
-            >
-              {item.name}
-            </h3>
-            <h3
-              className="font-bold mt-2"
-              css={{
-                color: 'white',
-              }}
-            >
-              {item.position}
-              {/* {item.keywords?.map((keyword: string) => (
+        <h2
+          css={{
+            color: color3,
+          }}
+        >
+          <span className="text-lg">{format(item.startDate, 'LLL')} </span>
+          <span className="text-xl font-bold">
+            {format(item.startDate, 'yyyy')}
+          </span>
+        </h2>
+        <h3
+          css={{
+            color: color2,
+          }}
+          className="text-lg mt-2"
+        >
+          {item.name}
+        </h3>
+        <h3
+          className="font-bold mt-2"
+          css={{
+            color: 'white',
+          }}
+        >
+          {item.position}
+          {/* {item.keywords?.map((keyword: string) => (
             <SkillIcon skill={keyword} />
           ))} */}
-            </h3>
-            {isOpen && (
-              <>
-                <h3 className="mt-8">{item.summary}</h3>
-                {item.highlights && (
-                  <ul className="mt-4 text-sm">
-                    {item.highlights.map((highlight: string, index: number) => (
-                      <li key={index}>{highlight}</li>
-                    ))}
-                  </ul>
-                )}
-              </>
+        </h3>
+        {isOpen && (
+          <>
+            <h3 className="mt-8">{item.summary}</h3>
+            {item.highlights && (
+              <ul className="mt-4 text-sm">
+                {item.highlights.map((highlight: string, index: number) => (
+                  <li key={index}>{highlight}</li>
+                ))}
+              </ul>
             )}
-          </div>
-        </Flipped>
+          </>
+        )}
       </div>
     </Flipped>
   )
