@@ -9,6 +9,7 @@ import TimelineBackground from './TimelineBackground'
 import TimelineWebItem from './TimelineWebItem'
 import { useSprings, animated } from 'react-spring'
 import { Flipper } from 'react-flip-toolkit'
+import { color2 } from '../../utils/colors'
 
 type Event = {
   startDate: Date
@@ -53,7 +54,45 @@ function Timeline({ resume }: TimelineProps) {
 
   return (
     <Flipper flipKey={openStates.join('')}>
-      <div className="flex flex-col">
+      <div className="flex flex-col relative pb-6 pt-4">
+        <div
+          className="flex flex-col items-center"
+          css={{
+            height: '100%',
+            position: 'absolute',
+            right: 0,
+            left: 0,
+            top: 0,
+            margin: 'auto',
+          }}
+        >
+          <div
+            css={{
+              width: '16px',
+              height: '16px',
+              borderRadius: '8px',
+              backgroundColor: color2,
+              marginBottom: '-4px',
+            }}
+          />
+
+          <div
+            className="flex-1"
+            css={{
+              width: '8px',
+              backgroundColor: color2,
+            }}
+          />
+          <div
+            css={{
+              width: '16px',
+              height: '16px',
+              borderRadius: '8px',
+              backgroundColor: color2,
+              marginTop: '-4px',
+            }}
+          />
+        </div>
         {events.map((event, index) => (
           <TimelineWebItem
             key={index}

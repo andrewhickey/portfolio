@@ -44,18 +44,18 @@ function TimelineWebItem({
       onStart={handleStart}
       onComplete={handleComplete}
       stagger="item"
+      translate
     >
       <div
         className={classNames('p-6', { 'select-none': transitioning })}
-        css={css`
-          position: relative;
-          width: 50%;
-          text-align: ${isEven ? 'right' : 'left'};
-          align-self: ${isEven ? 'flex-start' : 'flex-end'};
-        `}
+        css={{
+          position: 'relative',
+          width: '50%',
+          textAlign: isEven ? 'right' : 'left',
+          alignSelf: isEven ? 'flex-start' : 'flex-end',
+        }}
         onClick={handleClick}
       >
-        {' '}
         <Flipped inverseFlipId={createItemFlipId(index)} scale>
           <div>
             <h2
