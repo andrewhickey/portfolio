@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import * as React from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, memo } from 'react'
 import { Flipped, Flipper } from 'react-flip-toolkit'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ResumeSchema } from '../../types/ResumeSchema'
@@ -25,7 +25,7 @@ type SubItemProps = {
   index: number
   isOpen: boolean
 }
-function SubItem({ keyword, index, isOpen }: SubItemProps) {
+const SubItem = memo(({ keyword, index, isOpen }: SubItemProps) => {
   const [isVisible, setIsVisible] = useState(isOpen)
   const handleComplete = useCallback(() => {
     setIsVisible(isOpen)
@@ -41,23 +41,17 @@ function SubItem({ keyword, index, isOpen }: SubItemProps) {
         opacity: isOpen ? 1 : 0,
       }}
     >
-      {/* make sure that we always render the right number of bars for staggering */}
       <Flipped
-        flipId={createSubBarFlipId(keyword)}
-        shouldFlip={shouldFlip(isOpen, index)}
-        stagger="bar"
-      >
-        <div />
-      </Flipped>
-      <Flipped
+        spring="gentle"
         onComplete={handleComplete}
         flipId={createSubIconFlipId(keyword)}
         shouldFlip={shouldFlip(isOpen, index)}
-        stagger="item"
+        stagger="subitem"
       >
         <div
           className="rounded-full p-2"
           css={{
+            willChange: 'transform',
             backgroundColor: 'white',
             boxShadow: `0px 0px 5px 0px ${color1}`,
           }}
@@ -72,15 +66,21 @@ function SubItem({ keyword, index, isOpen }: SubItemProps) {
         </div>
       </Flipped>
       <Flipped
+        spring="gentle"
         flipId={createSubTextFlipId(keyword)}
         shouldFlip={shouldFlip(isOpen, index)}
-        stagger="text"
+        stagger="subtext"
       >
-        <div className="text-xs whitespace-no-wrap text-right">{keyword}</div>
+        <div
+          css={{ willChange: 'transform' }}
+          className="text-xs whitespace-no-wrap text-right"
+        >
+          {keyword}
+        </div>
       </Flipped>
     </li>
   )
-}
+})
 
 type VerticalItemProps = {
   index: number
@@ -88,78 +88,99 @@ type VerticalItemProps = {
   item: any
   isOpen: boolean
 }
-function VerticalItem({ index, onClick, item, isOpen }: VerticalItemProps) {
-  const handleClick = useCallback(() => {
-    if (onClick) {
-      onClick(index)
-    }
-  }, [index, onClick])
+const VerticalItem = memo(
+  ({ index, onClick, item, isOpen }: VerticalItemProps) => {
+    const handleClick = useCallback(() => {
+      if (onClick) {
+        onClick(index)
+      }
+    }, [index, onClick])
 
-  return (
-    <li
-      className="relative cursor-pointer flex flex-col items-end"
-      onClick={handleClick}
-    >
-      <div className="flex items-center">
-        <Flipped flipId={createBarFlipId(index)} stagger="bar">
-          <div
-            css={{
-              marginRight: '-10px',
-              transformOrigin: 'right',
-              height: '20px',
-              width: (item.skill / 100) * BAR_MAX_WIDTH,
-              backgroundColor: color2,
-            }}
-          />
-        </Flipped>
-
-        <Flipped flipId={createIconFlipId(index)} stagger="item">
-          <div
-            className="rounded-full p-2"
-            css={{
-              backgroundColor: color3,
-              boxShadow: `0px 0px 5px 0px ${color1}`,
-              zIndex: 10,
-            }}
+    return (
+      <li
+        className="relative cursor-pointer flex flex-col items-end"
+        onClick={handleClick}
+      >
+        <div className="flex items-center">
+          <Flipped
+            spring="gentle"
+            flipId={createBarFlipId(index)}
+            stagger="bar"
           >
-            <SkillIcon
-              skill={item.name}
+            <div
               css={{
-                stroke: 'white',
-                fill: 'white',
+                willChange: 'transform',
+                marginRight: '-10px',
+                transformOrigin: 'right',
+                height: '20px',
+                width: (item.skill / 100) * BAR_MAX_WIDTH,
+                backgroundColor: color2,
               }}
             />
+          </Flipped>
+
+          <Flipped
+            spring="gentle"
+            flipId={createIconFlipId(index)}
+            stagger="item"
+          >
+            <div
+              className="rounded-full p-2"
+              css={{
+                willChange: 'transform',
+                backgroundColor: color3,
+                boxShadow: `0px 0px 5px 0px ${color1}`,
+                zIndex: 10,
+              }}
+            >
+              <SkillIcon
+                skill={item.name}
+                css={{
+                  stroke: 'white',
+                  fill: 'white',
+                }}
+              />
+            </div>
+          </Flipped>
+        </div>
+
+        <Flipped
+          spring="gentle"
+          flipId={createTextFlipId(index)}
+          stagger="text"
+        >
+          <div
+            css={{ willChange: 'transform' }}
+            className="text-xs whitespace-no-wrap text-right"
+          >
+            {item.name}
           </div>
         </Flipped>
-      </div>
 
-      <Flipped flipId={createTextFlipId(index)} stagger="text">
-        <div className="text-xs whitespace-no-wrap text-right">{item.name}</div>
-      </Flipped>
-
-      <ul>
-        {item.keywords.map((keyword: string) => (
-          <SubItem
-            key={keyword}
-            keyword={keyword}
-            index={index}
-            isOpen={isOpen}
-          />
-        ))}
-      </ul>
-    </li>
-  )
-}
+        <ul>
+          {item.keywords.map((keyword: string) => (
+            <SubItem
+              key={keyword}
+              keyword={keyword}
+              index={index}
+              isOpen={isOpen}
+            />
+          ))}
+        </ul>
+      </li>
+    )
+  }
+)
 
 type HorizontalItemProps = {
   index: number
   item: any
 }
-function HorizontalItem({ index, item }: HorizontalItemProps) {
+const HorizontalItem = memo(({ index, item }: HorizontalItemProps) => {
   return (
     <li>
       <div className="flex items-center">
-        <Flipped flipId={createBarFlipId(index)} stagger="bar">
+        <Flipped spring="gentle" flipId={createBarFlipId(index)} stagger="bar">
           <div
             css={{
               position: 'absolute',
@@ -171,7 +192,11 @@ function HorizontalItem({ index, item }: HorizontalItemProps) {
           />
         </Flipped>
 
-        <Flipped flipId={createIconFlipId(index)} stagger="item">
+        <Flipped
+          spring="gentle"
+          flipId={createIconFlipId(index)}
+          stagger="item"
+        >
           <div
             className="rounded-full p-2"
             css={{
@@ -192,12 +217,12 @@ function HorizontalItem({ index, item }: HorizontalItemProps) {
       </div>
     </li>
   )
-}
+})
 
 type SkillsProps = {
   resume: ResumeSchema
 }
-function Skills({ resume }: SkillsProps) {
+const Skills = memo(({ resume }: SkillsProps) => {
   const skills = resume.skills || []
 
   const [isVertical, setIsVertical] = useState(false)
@@ -276,6 +301,6 @@ function Skills({ resume }: SkillsProps) {
       </ul>
     </Flipper>
   )
-}
+})
 
 export default Skills

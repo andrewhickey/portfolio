@@ -43,6 +43,7 @@ function TimelineWebItem({
       onStart={handleStart}
       onComplete={handleComplete}
       stagger={isEven ? 'item-right' : 'item-left'}
+      spring="veryGentle"
       translate
     >
       <div
