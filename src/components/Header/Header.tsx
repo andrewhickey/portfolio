@@ -4,7 +4,7 @@ import ProfilePic from '../ProfilePic'
 import { color2, color1, color3 } from '../../utils/colors'
 import { rhythm } from '../../utils/typography'
 import { lighten, transparentize, mix } from 'polished'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { AiFillMail } from 'react-icons/ai'
 import profilePicSrc from './profile.jpg'
 import Skills from '../Skills'
 import Location from '../Location'
@@ -36,6 +36,12 @@ function Header({ resume }: HeaderProps) {
       <div className="flex-1">
         <h3 className="text-center mt-6 md:mt-0 md:text-right text-xl whitespace-no-wrap">
           <Location resume={resume} />
+        </h3>
+        <h3 className="text-right mt-4">
+          <a href={`mailto:${resume.basics?.email}`}>
+            {resume.basics?.email}{' '}
+            <AiFillMail className="inline align-bottom" />
+          </a>
         </h3>
         <div className="mt-6">
           <Skills resume={resume} />
