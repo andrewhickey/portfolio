@@ -12,6 +12,7 @@ const createItemFlipId = (index: number) => `item-${index}`
 type TimelineWebItemProps = {
   index: number
   isOpen: boolean
+  isSmall: boolean
   item: TimelineItem
   onClick: (index: number) => void
 }
@@ -21,6 +22,7 @@ function TimelineWebItem({
   item,
   isOpen,
   onClick,
+  isSmall,
 }: TimelineWebItemProps) {
   const [transitioning, setTransitioning] = useState(false)
   const handleClick = useCallback(() => {
@@ -42,7 +44,7 @@ function TimelineWebItem({
       flipId={createItemFlipId(index)}
       onStart={handleStart}
       onComplete={handleComplete}
-      stagger={isEven ? 'item-right' : 'item-left'}
+      stagger={isEven || isSmall ? 'item-right' : 'item-left'}
       spring="veryGentle"
       translate
     >
@@ -51,10 +53,9 @@ function TimelineWebItem({
           'select-none': transitioning,
         })}
         css={{
-          position: 'relative',
-          width: '50%',
-          textAlign: isEven ? 'right' : 'left',
-          alignSelf: isEven ? 'flex-start' : 'flex-end',
+          width: isSmall ? '100%' : '50%',
+          textAlign: isEven && !isSmall ? 'right' : 'left',
+          alignSelf: isEven && !isSmall ? 'flex-start' : 'flex-end',
         }}
         onClick={handleClick}
       >

@@ -11,6 +11,8 @@ import { useSprings, animated } from 'react-spring'
 import { Flipper } from 'react-flip-toolkit'
 import { color2 } from '../../utils/colors'
 
+const sm = 640
+
 type Event = {
   startDate: Date
   endDate: Date
@@ -37,9 +39,12 @@ type TimelineProps = {
 }
 
 function Timeline({ resume }: TimelineProps) {
+  const screenWidth = window.innerWidth
+  const isSmall = screenWidth <= sm
+
   const events = getEventsFromResume(resume)
   const [openStates, setOpenStates] = useState<boolean[]>(
-    events.map(event => false)
+    events.map(() => false)
   )
   const handleClickItem = useCallback(
     index => {
@@ -60,7 +65,7 @@ function Timeline({ resume }: TimelineProps) {
           css={{
             height: '100%',
             position: 'absolute',
-            right: 0,
+            right: isSmall ? 'calc(100% - 16px)' : 0,
             left: 0,
             top: 0,
             margin: 'auto',
@@ -99,6 +104,7 @@ function Timeline({ resume }: TimelineProps) {
             item={event}
             index={index}
             isOpen={openStates[index]}
+            isSmall={isSmall}
             onClick={handleClickItem}
           />
         ))}
