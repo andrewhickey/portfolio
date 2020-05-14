@@ -40,7 +40,7 @@ const resume: ResumeSchema = {
         'Took the app from wireframes to initial user testing.',
         'Set up distribution for both iOS and Android',
       ],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      keywords: ['React-Native', 'Firebase', 'Gatsby'],
     },
     {
       name: 'GLG',
@@ -53,7 +53,7 @@ const resume: ResumeSchema = {
         'Integrated messaging into other tools',
         'Added file upload backed by sharepoint',
       ],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      keywords: ['React', 'Node.js', 'SQL'],
     },
     {
       name: 'Woodford Investment',
@@ -67,7 +67,7 @@ const resume: ResumeSchema = {
         'Created an intuitive UX for even non-technical users',
         'Maintained fluid 60fps animations even on mobile devices',
       ],
-      keywords: ['HTML', 'CSS', 'Javascript', 'Node.js'],
+      keywords: ['React', 'D3', 'Node.js', 'SQL'],
     },
     {
       name: 'Otro',
@@ -80,7 +80,7 @@ const resume: ResumeSchema = {
         'Lead development on animation and data heavy elements of the app',
         'Got all animations to 60fps on web and in React-Native',
       ],
-      keywords: ['HTML', 'CSS', 'Javascript', 'React-Native'],
+      keywords: ['React', 'React-Native'],
     },
     {
       name: 'Alfa Systems',
@@ -95,7 +95,7 @@ const resume: ResumeSchema = {
         'Worked with UI design team to streamline customer UX',
         'Built a proof of concept port in React-Native',
       ],
-      keywords: ['HTML', 'CSS', 'Javascript', 'React-Native'],
+      keywords: ['React', 'React-Native'],
     },
     {
       name: 'HT2 Labs - Learning Locker',
@@ -112,7 +112,7 @@ const resume: ResumeSchema = {
         'Won the MongoDB award for open source innovation 2016 (won by Facebook the year before).',
         "The product went on to win the Queen's award for innovation",
       ],
-      keywords: ['HTML', 'CSS', 'Javascript', 'Node.js', 'MongoDB'],
+      keywords: ['React', 'Node.js', 'MongoDB', 'Laravel'],
     },
     {
       name: 'HT2 Labs',
@@ -126,7 +126,7 @@ const resume: ResumeSchema = {
         'Won gold and bronze at the Learning & Performance Institute - Learning Awards.',
         "Added enhancements such as video capture to the company's L&D platform, Curatr",
       ],
-      keywords: ['HTML', 'CSS', 'Javascript'],
+      keywords: ['Javascript', 'Node.js', 'Laravel'],
     },
   ],
   volunteer: [
@@ -172,7 +172,7 @@ const resume: ResumeSchema = {
       name: 'Software Engineering',
       level: 'Master',
       skill: 95,
-      keywords: ['Javascript', 'Git', 'Python'],
+      keywords: ['Javascript', 'Git', 'Python', 'TDD'],
     },
     {
       name: 'Web Front-End',

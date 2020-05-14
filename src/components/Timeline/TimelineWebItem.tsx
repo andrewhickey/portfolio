@@ -84,9 +84,14 @@ function TimelineWebItem({
           }}
         >
           {item.position}
-          {/* {item.keywords?.map((keyword: string) => (
-            <SkillIcon skill={keyword} />
-          ))} */}
+        </h3>
+        <h3
+          className="italic mt-2"
+          css={{
+            color: 'white',
+          }}
+        >
+          {item.keywords.join(', ')}
         </h3>
         {isOpen && (
           <>

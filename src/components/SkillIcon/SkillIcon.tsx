@@ -22,6 +22,7 @@ import {
 } from 'react-icons/di'
 import { AiOutlineCloudServer, AiOutlineCiCircle } from 'react-icons/ai'
 import { FiServer } from 'react-icons/fi'
+import { GrTest } from 'react-icons/gr'
 
 type SkillIconProps = {
   skill: string
@@ -73,6 +74,8 @@ function SkillIcon({
       return <FaMicrosoft {...svgProps} />
     case 'SQL':
       return <DiMysql {...svgProps} />
+    case 'TDD':
+      return <GrTest {...svgProps} />
 
     default:
       return null
