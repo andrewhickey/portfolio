@@ -63,7 +63,7 @@ function Timeline({ resume }: TimelineProps) {
         <div
           className="flex flex-col items-center"
           css={{
-            zIndex: 0,
+            zIndex: -1,
             height: '100%',
             position: 'absolute',
             right: isSmall ? 'calc(100% - 16px)' : 0,

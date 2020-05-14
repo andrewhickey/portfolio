@@ -21,6 +21,11 @@ const resume: ResumeSchema = {
         network: 'LinkedIn',
         url: 'https://www.linkedin.com/in/andrew-hickey-0290a4a8/',
       },
+      {
+        network: 'Github',
+        url: 'https://github.com/andrewhickey',
+        username: 'andrewhickey',
+      },
     ],
   },
   work: [

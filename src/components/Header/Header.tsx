@@ -8,6 +8,7 @@ import { AiFillMail } from 'react-icons/ai'
 import profilePicSrc from './profile.jpg'
 import Skills from '../Skills'
 import Location from '../Location'
+import Github from '../Github'
 
 // const stripeColor = transparentize(0.9, '#fff')
 const stripeColor = transparentize(0.7, color1)
@@ -34,7 +35,7 @@ function Header({ resume }: HeaderProps) {
         <p className="mt-6">{resume.basics?.summary}</p>
       </div>
       <div className="flex-1">
-        <h3 className="text-center mt-6 md:mt-0 md:text-right text-xl whitespace-no-wrap">
+        <h3 className="text-center mt-6 md:mt-0 md:text-right whitespace-no-wrap">
           <Location resume={resume} />
         </h3>
         <h3 className="text-right mt-4">
@@ -42,6 +43,9 @@ function Header({ resume }: HeaderProps) {
             {resume.basics?.email}{' '}
             <AiFillMail className="inline align-bottom" />
           </a>
+        </h3>
+        <h3 className="text-right mt-4">
+          <Github resume={resume} />
         </h3>
         <div className="mt-6">
           <Skills resume={resume} />
