@@ -38,18 +38,18 @@ function Header({ resume }: HeaderProps) {
         <h3 className="text-center mt-6 md:mt-0 md:text-right whitespace-no-wrap">
           <Location resume={resume} />
         </h3>
-        <h3 className="text-right mt-4">
+        <h3 className="text-center mt-4 md:text-right">
           <a href={`mailto:${resume.basics?.email}`}>
             {resume.basics?.email}{' '}
             <AiFillMail className="inline align-bottom" />
           </a>
         </h3>
-        <h3 className="text-right mt-4">
+        <h3 className="text-center mt-4 md:text-right">
           <Github resume={resume} />
         </h3>
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <Skills resume={resume} />
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ import { useSprings, animated } from 'react-spring'
 import { Flipper } from 'react-flip-toolkit'
 import { color2 } from '../../utils/colors'
 
-const sm = 640
+const sm = 768
 
 type Event = {
   startDate: Date
@@ -59,14 +59,19 @@ function Timeline({ resume }: TimelineProps) {
 
   return (
     <Flipper flipKey={openStates.join('')}>
-      <div className="flex flex-col relative pb-6 pt-4">
+      <div
+        className="flex flex-col relative pb-6 pt-4"
+        css={{
+          paddingLeft: isSmall ? '15%' : 0,
+        }}
+      >
         <div
           className="flex flex-col items-center"
           css={{
             zIndex: -1,
             height: '100%',
             position: 'absolute',
-            right: isSmall ? 'calc(100% - 16px)' : 0,
+            right: isSmall ? 'calc(80% - 16px)' : 0,
             left: 0,
             top: 0,
             margin: 'auto',
